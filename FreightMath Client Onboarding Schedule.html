@@ -1,0 +1,2077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreightMath Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --fm-blue: #2563EB;
+    --fm-blue-dark: #1D4ED8;
+    --fm-blue-light: #EFF6FF;
+    --fm-blue-mid: #BFDBFE;
+    --fm-orange: #D97706;
+    --fm-orange-light: #FEF3C7;
+    --fm-slate: #0F172A;
+    --fm-slate-mid: #334155;
+    --fm-slate-muted: #64748B;
+    --fm-border: #E2E8F0;
+    --fm-surface: #F8FAFC;
+    --fm-white: #FFFFFF;
+    --fm-success: #059669;
+    --fm-success-light: #D1FAE5;
+    --fm-accent-teal: #0D9488;
+    --fm-accent-teal-light: #CCFBF1;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --shadow-card: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: #F1F5F9;
+    color: var(--fm-slate);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── HERO ────────────────────────────────────────────────── */
+  .hero {
+    background: var(--fm-slate);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #0F172A 0%, #1E3A5F 50%, #0F172A 100%);
+  }
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(37,99,235,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(37,99,235,0.08) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .hero-inner {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 56px 40px 48px;
+  }
+  .hero-logo-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .hero-logo-bar img {
+    height: 38px;
+    filter: brightness(0) invert(1);
+  }
+  .hero-logo-divider {
+    width: 1px;
+    height: 28px;
+    background: rgba(255,255,255,0.2);
+  }
+  .hero-logo-label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(37,99,235,0.18);
+    border: 1px solid rgba(37,99,235,0.3);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #93C5FD;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #60A5FA;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 300;
+    color: #FFFFFF;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 strong {
+    font-weight: 600;
+    color: #60A5FA;
+  }
+  .hero-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.6);
+    max-width: 520px;
+    line-height: 1.65;
+    margin-bottom: 36px;
+  }
+  .hero-cta-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--fm-blue);
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-primary:hover { background: var(--fm-blue-dark); }
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.8);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.12);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.12); }
+
+  /* ── PROGRESS RAIL ───────────────────────────────────────── */
+  .progress-rail {
+    background: #0F172A;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .progress-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .progress-inner::-webkit-scrollbar { display: none; }
+  .prog-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 20px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: border-color 0.2s, color 0.2s;
+    text-decoration: none;
+    color: rgba(255,255,255,0.4);
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .prog-item:hover { color: rgba(255,255,255,0.7); }
+  .prog-item.active {
+    color: #60A5FA;
+    border-bottom-color: #60A5FA;
+  }
+  .prog-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    font-size: 11px;
+    font-weight: 600;
+    font-family: 'DM Mono', monospace;
+    flex-shrink: 0;
+  }
+  .prog-item.active .prog-num {
+    background: rgba(96,165,250,0.2);
+    color: #60A5FA;
+  }
+
+  /* ── MAIN LAYOUT ─────────────────────────────────────────── */
+  .main {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 40px 80px;
+  }
+
+  /* ── WEEK BLOCK ──────────────────────────────────────────── */
+  .week-block {
+    margin-bottom: 48px;
+  }
+  .week-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .week-badge {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fm-blue);
+    background: var(--fm-blue-light);
+    border: 1px solid var(--fm-blue-mid);
+    padding: 5px 12px;
+    border-radius: 100px;
+  }
+  .week-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--fm-slate);
+    letter-spacing: -0.01em;
+  }
+  .week-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--fm-border);
+  }
+
+  /* ── SESSION CARD ────────────────────────────────────────── */
+  .session-card {
+    background: var(--fm-white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--fm-border);
+    box-shadow: var(--shadow-card);
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .session-card:hover { box-shadow: var(--shadow-hover); }
+
+  .session-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+  }
+  .session-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--fm-blue-light);
+    color: var(--fm-blue);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'DM Mono', monospace;
+    flex-shrink: 0;
+  }
+  .session-meta {
+    flex: 1;
+    min-width: 0;
+  }
+  .session-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--fm-slate);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .session-attrs {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .attr {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: var(--fm-slate-muted);
+  }
+  .attr svg {
+    width: 13px;
+    height: 13px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    flex-shrink: 0;
+  }
+  .chevron {
+    width: 18px;
+    height: 18px;
+    color: var(--fm-slate-muted);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+  }
+  .chevron svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+  }
+  .session-card.open .chevron { transform: rotate(180deg); }
+
+  .session-body {
+    display: none;
+    padding: 0 24px 24px;
+    border-top: 1px solid var(--fm-border);
+    margin-top: 0;
+  }
+  .session-card.open .session-body { display: block; }
+
+  /* ── INNER LAYOUT ────────────────────────────────────────── */
+  .session-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding-top: 20px;
+  }
+  @media (max-width: 640px) {
+    .session-grid { grid-template-columns: 1fr; }
+  }
+  .session-col-full {
+    padding-top: 20px;
+  }
+
+  /* ── INNER PANELS ────────────────────────────────────────── */
+  .inner-panel {
+    background: var(--fm-surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--fm-border);
+    padding: 16px 18px;
+  }
+  .inner-panel-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fm-slate-muted);
+    margin-bottom: 12px;
+  }
+  .inner-panel-title svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  /* ── LIST ITEMS ──────────────────────────────────────────── */
+  .list-items { list-style: none; }
+  .list-items li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 0;
+    font-size: 14px;
+    color: var(--fm-slate-mid);
+    border-bottom: 1px solid var(--fm-border);
+    line-height: 1.45;
+  }
+  .list-items li:last-child { border-bottom: none; }
+  .list-items li::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--fm-blue);
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+  .list-items a {
+    color: var(--fm-blue);
+    text-decoration: none;
+  }
+  .list-items a:hover { text-decoration: underline; }
+
+  /* ── AGENDA ──────────────────────────────────────────────── */
+  .agenda-items { list-style: none; }
+  .agenda-item {
+    display: flex;
+    gap: 12px;
+    padding: 8px 0;
+    font-size: 14px;
+    color: var(--fm-slate-mid);
+    border-bottom: 1px solid var(--fm-border);
+    line-height: 1.4;
+  }
+  .agenda-item:last-child { border-bottom: none; }
+  .agenda-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--fm-blue);
+    font-weight: 500;
+    min-width: 22px;
+    margin-top: 1px;
+  }
+  .agenda-sub {
+    list-style: none;
+    margin-top: 6px;
+    padding-left: 0;
+  }
+  .agenda-sub li {
+    font-size: 13px;
+    color: var(--fm-slate-muted);
+    padding: 2px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.4;
+  }
+  .agenda-sub li::before {
+    content: '–';
+    color: var(--fm-slate-muted);
+    flex-shrink: 0;
+  }
+
+  /* ── PEOPLE CHIPS ────────────────────────────────────────── */
+  .people-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 16px;
+  }
+  .person-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--fm-white);
+    border: 1px solid var(--fm-border);
+    border-radius: 100px;
+    padding: 6px 14px 6px 6px;
+    text-decoration: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .person-chip:hover {
+    border-color: var(--fm-blue);
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
+  }
+  .person-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .av-blue { background: var(--fm-blue-light); color: var(--fm-blue); }
+  .av-teal { background: var(--fm-accent-teal-light); color: var(--fm-accent-teal); }
+  .av-orange { background: var(--fm-orange-light); color: var(--fm-orange); }
+  .av-green { background: var(--fm-success-light); color: var(--fm-success); }
+  .person-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--fm-slate-mid);
+  }
+
+  /* ── HIGHLIGHT PANEL ─────────────────────────────────────── */
+  .highlight-panel {
+    background: var(--fm-blue-light);
+    border: 1px solid var(--fm-blue-mid);
+    border-radius: var(--radius-md);
+    padding: 16px 18px;
+    margin-top: 16px;
+  }
+  .highlight-panel-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--fm-blue-dark);
+    margin-bottom: 10px;
+  }
+  .highlight-panel p {
+    font-size: 14px;
+    color: #1E40AF;
+    line-height: 1.55;
+  }
+
+  /* ── TOOLS STRIP ─────────────────────────────────────────── */
+  .tools-strip {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding-top: 16px;
+  }
+  .tool-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 100px;
+    border: 1px solid;
+    text-decoration: none;
+  }
+  .tool-pill.blue {
+    background: var(--fm-blue-light);
+    border-color: var(--fm-blue-mid);
+    color: var(--fm-blue-dark);
+  }
+  .tool-pill.teal {
+    background: var(--fm-accent-teal-light);
+    border-color: #99F6E4;
+    color: var(--fm-accent-teal);
+  }
+  .tool-pill.orange {
+    background: var(--fm-orange-light);
+    border-color: #FDE68A;
+    color: var(--fm-orange);
+  }
+  .tool-pill.green {
+    background: var(--fm-success-light);
+    border-color: #A7F3D0;
+    color: var(--fm-success);
+  }
+  .tool-pill svg {
+    width: 13px;
+    height: 13px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+  }
+
+  /* ── RESEARCH PROMPTS ────────────────────────────────────── */
+  .prompt-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding-top: 16px;
+  }
+  @media (max-width: 480px) {
+    .prompt-cards { grid-template-columns: 1fr; }
+  }
+  .prompt-card {
+    background: var(--fm-slate);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .prompt-card::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    font-size: 64px;
+    color: rgba(255,255,255,0.04);
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+  .prompt-card p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.45;
+    position: relative;
+  }
+
+  /* ── SECTION DIVIDER ─────────────────────────────────────── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 36px 0 28px;
+  }
+  .divider-line { flex: 1; height: 1px; background: var(--fm-border); }
+  .divider-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fm-slate-muted);
+  }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  .footer {
+    background: var(--fm-slate);
+    padding: 40px;
+    text-align: center;
+  }
+  .footer-logo {
+    filter: brightness(0) invert(1);
+    height: 28px;
+    opacity: 0.6;
+    display: block;
+    margin: 0 auto 16px;
+  }
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px 24px;
+    margin-bottom: 20px;
+  }
+  .footer-links a {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+  }
+  .footer-links a:hover { color: rgba(255,255,255,0.75); }
+  .footer-copy {
+    font-size: 12px;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* ── ADDITIONAL DISC ─────────────────────────────────────── */
+  .disc-panel {
+    background: #FFFBEB;
+    border: 1px solid #FDE68A;
+    border-radius: var(--radius-md);
+    padding: 14px 18px;
+    margin-top: 16px;
+  }
+  .disc-panel-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #92400E;
+    margin-bottom: 8px;
+  }
+  .disc-list {
+    list-style: none;
+  }
+  .disc-list li {
+    font-size: 13px;
+    color: #78350F;
+    padding: 3px 0;
+    display: flex;
+    gap: 8px;
+  }
+  .disc-list li::before {
+    content: '·';
+    color: #D97706;
+    font-size: 18px;
+    line-height: 1;
+    margin-top: -2px;
+  }
+
+  
+  /* ══ GLOSSARY DRAWER (rebuilt) ══════════════════════════════ */
+  .gloss-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,20,40,0.45);
+    z-index: 900;
+    backdrop-filter: blur(2px);
+  }
+  .gloss-backdrop.open { display: block; }
+  .gloss-drawer {
+    position: fixed;
+    top: 0; right: 0;
+    width: min(480px, 96vw);
+    height: 100dvh;
+    background: #FFFFFF;
+    z-index: 901;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: -6px 0 28px rgba(10,36,99,0.16);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .gloss-drawer.open { transform: translateX(0); }
+
+  /* Head */
+  .gloss-drawer-head {
+    background: #0A2463;
+    padding: 16px 18px 14px;
+    flex-shrink: 0;
+    border-bottom: 2px solid #E26E17;
+  }
+  .gloss-drawer-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .gloss-drawer-eyebrow {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #E26E17;
+    margin-bottom: 2px;
+  }
+  .gloss-drawer-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: -0.01em;
+  }
+  .gloss-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px; height: 30px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 5px;
+    cursor: pointer;
+    color: #FFFFFF;
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+  .gloss-close-btn:hover { background: rgba(255,255,255,0.2); }
+  .gloss-search-wrap {
+    position: relative;
+    margin-bottom: 10px;
+  }
+  .gloss-search {
+    width: 100%;
+    padding: 8px 11px 8px 32px;
+    border: 1px solid rgba(150,188,228,0.3);
+    background: rgba(255,255,255,0.08);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    color: #FFFFFF;
+    outline: none;
+    border-radius: 5px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .gloss-search::placeholder { color: rgba(150,188,228,0.55); }
+  .gloss-search:focus {
+    border-color: rgba(150,188,228,0.65);
+    background: rgba(255,255,255,0.12);
+  }
+  .gloss-search-icon {
+    position: absolute;
+    left: 9px; top: 50%;
+    transform: translateY(-50%);
+    color: rgba(150,188,228,0.6);
+    pointer-events: none;
+  }
+  .gloss-ec-row {
+    display: flex;
+    gap: 5px;
+  }
+  .gloss-ec-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #96BCE4;
+    background: rgba(150,188,228,0.1);
+    border: 1px solid rgba(150,188,228,0.2);
+    border-radius: 3px;
+    padding: 3px 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .gloss-ec-btn:hover { background: rgba(150,188,228,0.2); }
+
+  /* Scrollable body */
+  .gloss-drawer-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 0 24px;
+    scrollbar-width: thin;
+    scrollbar-color: #D1D5DB transparent;
+    background: #F8FAFC;
+  }
+  .gloss-drawer-body::-webkit-scrollbar { width: 4px; }
+  .gloss-drawer-body::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 2px; }
+
+  /* Category section */
+  .gd-cat { margin-bottom: 2px; }
+  .gd-cat-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 18px;
+    background: #E8EDF8;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    transition: background 0.15s;
+  }
+  .gd-cat-btn:hover { background: #DCE4F5; }
+  .gd-cat-name {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: #0A2463;
+    flex: 1;
+  }
+  .gd-cat-count {
+    font-size: 9px;
+    font-weight: 600;
+    color: #6E8CC4;
+    background: rgba(10,36,99,0.08);
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-family: 'DM Mono', monospace;
+  }
+  .gd-chevron {
+    color: #6E8CC4;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+  .gd-cat.collapsed .gd-chevron { transform: rotate(-90deg); }
+  .gd-terms { background: #FFFFFF; }
+  .gd-cat.collapsed .gd-terms { display: none; }
+
+  /* Term row — two-column: name left, definition right */
+  .gd-row {
+    border-bottom: 1px solid #F0F2F5;
+  }
+  .gd-row:last-child { border-bottom: none; }
+  .gd-row.hidden { display: none; }
+  .gd-term-btn {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 160px 1fr auto;
+    align-items: start;
+    gap: 12px;
+    padding: 8px 18px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.12s;
+  }
+  .gd-term-btn:hover { background: #F5F8FF; }
+  .gd-term-btn[aria-expanded="true"] { background: #EFF4FF; }
+  .gd-term-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #0A2463;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+    line-height: 1.35;
+  }
+  .gd-alias {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 600;
+    color: #2C78C9;
+    background: #EAF2FB;
+    border: 1px solid #96BCE4;
+    padding: 1px 4px;
+    border-radius: 2px;
+    white-space: nowrap;
+    letter-spacing: 0.04em;
+  }
+  .gd-row-chev {
+    color: #9CA3AF;
+    flex-shrink: 0;
+    margin-top: 2px;
+    transition: transform 0.2s ease, color 0.15s;
+  }
+  .gd-term-btn[aria-expanded="true"] .gd-row-chev {
+    transform: rotate(180deg);
+    color: #2C78C9;
+  }
+
+  /* Expanded definition */
+  .gd-def {
+    padding: 0 18px 10px 18px;
+    background: #EFF4FF;
+    border-top: 1px solid #DCE4F5;
+  }
+  .gd-defn {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #1E2D4A;
+    padding-top: 8px;
+    margin: 0;
+  }
+  .gd-useful {
+    background: #EAF2FB;
+    border-left: 3px solid #2C78C9;
+    padding: 5px 9px;
+    margin-top: 7px;
+    font-size: 11px;
+    color: #0A2463;
+    line-height: 1.5;
+  }
+  .gd-useful-lbl {
+    display: block;
+    font-size: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #2C78C9;
+    margin-bottom: 2px;
+  }
+
+  /* No results */
+  .gd-no-results {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 40px 20px;
+    color: #9CA3AF;
+    font-size: 12px;
+    text-align: center;
+  }
+  .gd-no-results.visible { display: flex; }
+
+
+  /* ══ GLOSSARY DRAWER ════════════════════════════════════════ */
+  .gloss-backdrop {
+    display: none; position: fixed; inset: 0;
+    background: rgba(10,20,40,0.45); z-index: 900;
+    backdrop-filter: blur(2px);
+  }
+  .gloss-backdrop.open { display: block; }
+  .gloss-drawer {
+    position: fixed; top: 0; right: 0;
+    width: min(460px, 96vw); height: 100dvh;
+    background: #FFFFFF; z-index: 901;
+    display: flex; flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.28s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: -6px 0 28px rgba(10,36,99,0.18);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .gloss-drawer.open { transform: translateX(0); }
+  .gloss-drawer-head {
+    background: #0A2463; padding: 16px 18px 13px;
+    flex-shrink: 0; border-bottom: 2px solid #E26E17;
+  }
+  .gloss-drawer-title-row {
+    display: flex; align-items: center;
+    justify-content: space-between; margin-bottom: 11px;
+  }
+  .gloss-drawer-eyebrow {
+    font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: #E26E17; margin-bottom: 2px;
+  }
+  .gloss-drawer-title { font-size: 15px; font-weight: 700; color: #fff; }
+  .gloss-close-btn {
+    display: flex; align-items: center; justify-content: center;
+    width: 28px; height: 28px; background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15); border-radius: 4px;
+    cursor: pointer; color: #fff; flex-shrink: 0;
+  }
+  .gloss-close-btn:hover { background: rgba(255,255,255,0.2); }
+  .gloss-search-wrap { position: relative; margin-bottom: 9px; }
+  .gloss-search {
+    width: 100%; padding: 7px 10px 7px 30px;
+    border: 1px solid rgba(150,188,228,0.3);
+    background: rgba(255,255,255,0.08);
+    font-family: 'DM Sans', sans-serif; font-size: 12px; color: #fff;
+    outline: none; border-radius: 4px;
+  }
+  .gloss-search::placeholder { color: rgba(150,188,228,0.55); }
+  .gloss-search:focus { border-color: rgba(150,188,228,0.65); background: rgba(255,255,255,0.12); }
+  .gloss-search-icon {
+    position: absolute; left: 9px; top: 50%;
+    transform: translateY(-50%); color: rgba(150,188,228,0.6); pointer-events: none;
+  }
+  .gloss-ec-row { display: flex; gap: 5px; }
+  .gloss-ec-btn {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-family: 'DM Sans', sans-serif; font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em; color: #96BCE4;
+    background: rgba(150,188,228,0.1); border: 1px solid rgba(150,188,228,0.2);
+    border-radius: 3px; padding: 3px 8px; cursor: pointer;
+  }
+  .gloss-ec-btn:hover { background: rgba(150,188,228,0.2); }
+  .gloss-drawer-body {
+    flex: 1; overflow-y: auto; padding: 8px 0 24px;
+    background: #F8FAFC;
+    scrollbar-width: thin; scrollbar-color: #D1D5DB transparent;
+  }
+  .gloss-drawer-body::-webkit-scrollbar { width: 4px; }
+  .gloss-drawer-body::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 2px; }
+  /* Category */
+  .gd-cat { margin-bottom: 1px; }
+  .gd-cat-btn {
+    width: 100%; display: flex; align-items: center; gap: 8px;
+    padding: 6px 14px; background: #E2E8F4; border: none;
+    cursor: pointer; text-align: left;
+    position: sticky; top: 0; z-index: 2;
+  }
+  .gd-cat-btn:hover { background: #D5DDEF; }
+  .gd-cat-name {
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.09em;
+    color: #0A2463; flex: 1;
+  }
+  .gd-cat-count {
+    font-size: 9px; font-weight: 600; color: #5A78B8;
+    background: rgba(10,36,99,0.08); padding: 1px 6px;
+    border-radius: 10px; font-family: 'DM Mono', monospace;
+  }
+  .gd-chevron { color: #7A94C8; flex-shrink: 0; transition: transform 0.2s ease; }
+  .gd-cat.collapsed .gd-chevron { transform: rotate(-90deg); }
+  .gd-terms { background: #fff; }
+  .gd-cat.collapsed .gd-terms { display: none; }
+  /* Term rows — two columns: name | definition */
+  .gd-row { border-bottom: 1px solid #F0F2F7; }
+  .gd-row:last-child { border-bottom: none; }
+  .gd-row.hidden { display: none; }
+  .gd-term-btn {
+    width: 100%; display: grid;
+    grid-template-columns: 155px 1fr 14px;
+    align-items: center; gap: 10px;
+    padding: 7px 14px; background: none; border: none;
+    cursor: pointer; text-align: left; transition: background 0.1s;
+  }
+  .gd-term-btn:hover { background: #F5F8FF; }
+  .gd-term-btn[aria-expanded="true"] { background: #EEF3FF; }
+  .gd-term-name {
+    font-size: 11.5px; font-weight: 600; color: #0A2463;
+    display: flex; align-items: center; gap: 5px; flex-wrap: wrap;
+    line-height: 1.3;
+  }
+  .gd-alias {
+    font-family: 'DM Mono', monospace; font-size: 8.5px; font-weight: 600;
+    color: #2C78C9; background: #EAF2FB;
+    border: 1px solid #96BCE4; padding: 1px 4px; border-radius: 2px;
+    white-space: nowrap;
+  }
+  .gd-short {
+    font-size: 11px; color: #4A5568; line-height: 1.4;
+  }
+  .gd-row-chev {
+    color: #CBD5E0; flex-shrink: 0;
+    transition: transform 0.18s ease, color 0.15s;
+    justify-self: end;
+  }
+  .gd-term-btn[aria-expanded="true"] .gd-row-chev { transform: rotate(180deg); color: #2C78C9; }
+  /* Expanded body */
+  .gd-def {
+    padding: 8px 14px 10px 14px;
+    background: #EEF3FF; border-top: 1px solid #D8E3F8;
+  }
+  .gd-defn { font-size: 11.5px; line-height: 1.6; color: #1E2D4A; margin: 0; }
+  .gd-useful {
+    background: #EAF2FB; border-left: 3px solid #2C78C9;
+    padding: 5px 9px; margin-top: 7px;
+    font-size: 11px; color: #0A2463; line-height: 1.5;
+  }
+  .gd-useful-lbl {
+    display: block; font-size: 8px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    color: #2C78C9; margin-bottom: 2px;
+  }
+  .gd-no-results {
+    display: none; flex-direction: column; align-items: center;
+    gap: 8px; padding: 40px 20px; color: #9CA3AF;
+    font-size: 12px; text-align: center;
+  }
+  .gd-no-results.visible { display: flex; }
+
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-logo-bar">
+      <a href="https://freightmath-site.vercel.app/" target="_blank" style="display:inline-flex;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAADOQAAALvCAMAAABIywuSAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAE1UExURQAAACx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4yeJuF+JuF+JuF+JuF+JuF+JuF+JuF+JuF+JuF+JuF+JuF+JuF+JuF+JuF+JuF+JuF9dvIU52p7VwQzd3vsBwOHx0e6pxTnF0hodzcIJzdZhyYLBxSMxvLSx4yaByV5NyZN5uGyx4yVp1nJ9yWSx4yWV1kb5wOyx4ydpuH7twPSx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4ySx4yYKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgix4ySx4ySx4ySx4ya/r5CIAAABndFJOUwDA/0DwMGDgIHCQsFAQQP/wgGDAoDAg4NCQUHCw////////////iIfc/5LI//ZM/+Q9/6Dt+z2s0/alH7izzPfq+6hk/fx+9fLOiHTYV+LxxPP5kDBQcNCwoOBgIPAQgED/wKDQEIDA5W0XAABO5UlEQVR42uzBgQAAAACAoP2pF6kCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABm715228iuKIDeuvUmqyXbHT/bn5FZgCCTABllkF+ox/9/QrqFRtOySYm3WOUipbVmgjQQOOLBPXsfAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYu2mfPZiqMgAAANyyph3it4o+DwAAADcq7+OP6ioAAADcoKaPx9VecwAAgNtTFfGk/RgAAABuSh+fUqsgAACAn6HM89wbwxLGIT6tMOUAAMDKxjaLD2oFYIvMOKYcAADY0jgV8SAz5lxmiNGUAwAAWyrr+NguMF8fz1HYDAQAgLVU8QeDb+CzdfE8WQAAAFbR+Qa+pLGIZ2oDAACwgqaID2ysLbisZmENAAC2k8XjtA/M0sTzTQEAAFhcLjKy9EOOpxwAANjSPp6i43iGMf5BKgcAADYzxj9I5SyljSmGAAAALKzzDXxRQ0zSBAAAYFlTPC2QaozRvhoAAGxqH08Ti0+WxzT7AAAArFAgrUR6wYcxoRwAANhUFqN6teXs4jFWAgEA4C8yObclM+QAAMDG2njSvwLLDDlWAgEA4Ocp42mZguM0TVcbcgAAYGt1PK3QcHyuspqyIsZoyAEAgK218SmZ8oFn5e0ui09S0w0AAD/RWMcnTYFTxnzaD/ERxQMAALC5Lj5tsFF1RNNNWR0vVgcAAGBxfXzGzk7Vt8pqlxVxGVkAAAA2mHJqjznhQd72WUxjGRAAADawi98p4nf2r/0xZ8ynfR0Xp9cBAADW0dXf7aeVQ3ys6MJr1XTz2qGjSA4AAGyoGuKfir4Jv5sKp0Ef4jcxyT9jil0AAADWfLD4XZv/9XP2mk+DjnnbDzFFkU1dGUIWE7zCuREAALbUFq/yNGiTHL+p91M+hvAgj+frAwAA8FON+1fWBlYmx2+Gvs3DI5mHHAAAuGJd8VpOg+bJ8ZtsV5XhR7lEDgAAXLNx9+JPg475lBi/qbOpa84s5D6tfmkfJAAA3Ii8frmnQZsuNX4zHOI3J/3XjRwAALhq4/QST4OWVWr8JjvEb55U/ieeowoAAMBWXthp0LxNjN8Uh/jN85pCIAcAAK7fjNOgY95O0z7LpmnKm3AdxnzaD6nt0F0TEoxDPOaV1dQBAMD1SzsNOnZ9/fiv91UTNtV0U5YYv+mnfAypBrtqAABwI84/DZr38ZisCtsoq11q/GbX5mGWPp6h1jkAAAAJtj4NWg3xlGIaw8+Vt31q/GaqyjDbFA/+F//04ku4AQDgZp1xGjTP4lOKKhysHr+pE+M3F4eHqnhQ/GMq4hF9EwAAgARbngY9/P60rAlra7rUduihb/MxXKyMB0UZQqiy+Fi9M+IAAECiLU+DlnV8XlGtHL+JSbJdlYdllEU8yMOD8fAPDftWFgcAADaUfhq0iufp11lPa/shNX7TlWE5Y60+DQAAblI5HH+bmeK5sjEsqZkVvxnDssbBqU8AALhVR0+D9vF8wxiWUc6K34Q19PGgDwAAwE05chp0iimGcLF8TvymDGvZxYNBRzQAANyctogX6S9rh06M39TZ1DVhTZUZBwAAbty4jxdpZ7ZDp8ZvhkP8ZkVdPCh0qAEAwG3qiniJMrkdOjV+kyXEbxYsjzbjAADAct7ffXn74N3d3QanQdeK5eRtYvymSIjfLGAslEcDAMDi7t5+/Xj/yJtfP3/5sPpp0Pmm8+I3+yGxHTohfrNCefQUAACAi3347ev9CZ8+v1/5NOhsRfNc/CZLjN/0CfGbBe2VRwMAwKLefb1/0se3H1Y9Dbp8w1pZ7VLjN7s2Dxvp48EQAACAy/zy9s39877ehfW0/44zNcfiN31q/GaqyrChVnk0AACsN+Kc9utdWEse55q+j9/UqfGbvAkbqx4v4AEAAJc4jDhn+Pph5XWtdPU38ZsiMX7T5mO4AmXhQA4AACzl7uN9kjdvwyqKOFv3EL+JSbJdlYdr0SiPBgCAxXy+T/bp/arH/tP9PTV+05VhpvXLo9sAAADM9/7T/Qxv3l3Ptlpy/GYMV2dQHg0AAAv58uZ+nr+FpdUxWXL8JlynPh7sAwAAMN9v97N9+iUsaozryXbVNWf5p6g8GgD4P3v3thu3dUYBeHOTcx6JkiXLsp2m6RHtXduHaIFeFAhSNE3sxFZmyPd/hNZIa9rWaTgiNdz0913a8JUNQwub/1pAN87LcjApJ499mGX1euh9zNPYKGQcAAB47IzTePY0dGgaO7Yd5vnNNZOoPBoAAA6acRrPjkJ36tidbLjnN3cO5MR1AAAAuquObu/yaGghpxj4+c011dZADgAAdONJ2YHLATVIz1bDP7+5O+MsAwAAsLfjshPnoStZfJAkzm+u2xjIAQCAbhydlN14Ejqyig8SkrRUHg0AAB05Kzty8nQQn6ttQ4qmsTGTcQAAoIMR0EGc5VR5vZrFh8lCgnLl0QAA0JGLk7I7p2F/83WdFfGdzzDkTIrYkHEAAOAhvig7dHIR9jGZLrPYmTokpyqURwMAQNfNaodpWKvyxWYbO5B0SKi2aWc0AAAYkmdlt47DrubN+U0Hkv7aa6U8GgAAuvKk7NhZ2MGkOb/pXhFSs0m+Gg4AAHaU4EPOvU85eXN+05NVSMzUQA4AAAz1Iued8zvaoW8+v/nMT3KmsVHMAwAAMIxqtcbFTe3Qbc9virivIrG3kElhIAcAADpzUfbg9JN26LbnN9lmkYdpbCXdw/258mgAAOjQy7IHz8L/5IuW5zdFtpxOws9mcU9/DSmptrGxCAAAwMNcln14Gqq8Xm1jG7NVvZ6HD9RxX1lKdy1Zum9QAADQWqJfq5Xln2axje2mzqvwqWoW91Wk8yKySbkVDgAAWkvza7Wy/FXcVbZc5PeXjrW3TeSAv1YeDQAAg+9We+erXc5v6ulk5y+52qtDAqYJl8IBAMAgnZT9+Mt95zf5vGXvWHuzPAzdJCqPBgCATj0te/K7289vFnnV7qFjf8uBv41MithYBwAA4MFelD355Y3nN9O8/Vn+gxSDTg7V1kAOAAB07LTsyS8+Pb9ZT8JeVrGN4u/xE6vhPuZ8lHGWAQAAGHDvQFl+eH5TdZAEdlJMwmSbTJv0xkAOAAB07qzsy5c/n9+EB6uyNhnnvxZFGtOgS+XRAACQTrlaWf5+0uGLxy6apDDP4seKOgzPNDZmMg4AAHSk7M2L0J1F3MWmagJEMfhp0Fx5NAAApBVyTkOHJtuWPWrVKn6irsKe+i+PHv6eDwAAJCORkBNCXez0jNNYz4Y8DVoVyqMBAODzDjmh2sTbZXm4ploOdxq02sZGHQAAgM8w5IRQ1bN4k2IzCTfKZ0OdBl0pjwYAACHnnfVydi3hTKtwq3qY06Cb2NgGAAAgiZDzMvRjvq5XWVbEmGVZPZ2EOw1zGnRqIAcAABIMOcfh8IY5DbpWHg0AAP25HH3IGdw06KSQcQAAoD9nZV8uwqENcxp0rjwaAAD69LzsSziwgU6DVtvYWAQAAKBjp2VPLsOg5EOZBs2URwMAQK+Oy56ch0Ma7DToJjayAAAAdO6o7MnLMDT59vDToAvl0QAAEEKa9WpPw6EMeBp0GhuFjAMAACk1D5yEIZpkB50GnRjIAQCA/r0oe/FFGKZDToNOithYBwAAoB9lL56EgTrcNGi1NZADAACP4YuyD0dhsNYHmgbdKo8GAIB30vxebahfqx1wGnQj4wAAwCM5Kbv3IgzaAaZBl8qjAQDgsZyWnXsWBu7Rp0GnsTGTcQAAoFcXZedOw+A97jRorjwaAAAe0XnZsZMB1w60mAbtqTw6DwAAQGJPOQk85DzqNGg1Ux4NAACN9J5y0njIaTEN2uVATh0AAIDeHZ2Ue0prCPRA06Ar5dEAAPDYXpYdugwp6X8adBMb2wAAADyKy7I7T0NS+p4GnRrIAQCAA3h68rm1DjzWNOhaeTQAANwknQ/W0vpYrfdp0Ekh4wAAwC3SaFg7uQgp6msadF4ojwYAgAM5uiy7cBwS1XYatH159CIAAACP6eKkvNPY2qMfYxo0Ux4NAAB3SKB84HlIWefToJvYyAIAAPChJFLOeUhbx9OgC+XRAABwhwRSTuoZp+Np0GlsFDIOAAB8avgp59djaA/rbhp0YiAHAAAG4OKy3NMvfhvjKH6U72gadFLExjoAAAAHcnRe7uWPX47mo6zr06Cbao/yaAM5AAAwEC9PyvZ+89WYzus7mAbdKo8GAIDBuDhr/6na2H6evz4NOg+3yKf1JsuyVb3IqxvLo1cBAABoYQCPOX/4Kr5Xh3HYbRq0mq7ih7aLeXhnqTwaAACG5eh5ubOz4zDK+5P7p0HzTbwum35cHj2TcQAAYBAuzneOOCFUszG2Jc+z+In6jt9uzBbKowEAYIiOTp+V9zk//n9f8ih3L++aBq3jTvIAAAAMx4vzk/J2ly+Pblz334bRuD4NuqzCO/NtvN0YP94DAIDRePH8srzBs/MnF+FD9Ugrk2+eBp0UcSfLAADAAPzz7V5e3/znQ0uv337gx8AgHL98fnb2/v3m7Pz0+CJcs4mNRRiPm6ZB78w4I017AAAp++lqL29u/vOvQjvfX33gbSAd1TY21mFErk2Dfv23eLtxfrcHAJC2bkPODz+GNv51JeQkqypG2ylWx338YzwNDAAAieso5DS/3sKPPwg5CZuMdx1mksX2vh5X0gMASFh3Iaf9U843V0JOyqaxkYVx+Xga1OdqAABJ6SbkNL4JO3t9JeSkbTnio/t5FlurAwAA90kx5Fy9Drv6t5CTutWYJ2LWRdzJKHdRAQCS1nnI+S7s6O2VkJO6ajvmsf9qE9/TIQ0AkJCuQk77rPKtkJO++Xgr1t7JZ55ygMcwz/N8Xb83zfN8fP+lAryXZMj5Kezk1ZWQMwJ5bGzH9yP+n+MORjqLCvRvni/qVTaLtyiyrK6lHYDDhZz2YeXH74WcURhzxVoISwVrQD/yxSaLO9qu6vU8AHDYkPNt2MGbKyFnHDaxsQwjM4st+TEEuNd8utnG1opVPbrTR4D+vHpzg+8+ahJ4c4O3d4WkV7vsgAo5Y5GNt2JtEqPv1Q5gmg3VMtxumfVvU9eLPK9C75bZoIX7ZK0tw2OppptZ3F+2mAzxrz90K2ttmei/5Ua4z6uf9vA67O4/7N3LchtJdgbgP4tVKADSaGK6Z8Zzi/BTOMJr770asiNawIAACPChCBCQFJQiPKO1t9554Sfwc3STuBWqcqIvSpBsEETW9WTx/za9a0kkUJV/5slz8tQb2vorivVtKX+hvw4dkeOn7BQWCvkRwlL/+exxKOS8xbO+HTDk1MWDFmv1qh1veR77q1Xg0pNKHUz75Rmpy8YJCqQ80fAcz5pCKYLWyMssvHgNCPv1I1+eNeXoZ3nHogDGwreohv1fdohCdQfWeqmqoxyR46esX3mBWUkhxzjHM04HzoccD/STyXsPhq5VvZaCrfpdSyKJZmq61d7oolWvXYW6C9phvJ4hs2i+8C9eg+h5zS6q0PUgzBLWViDaJ+nhsDdwHkOOEWkYSbdOLdaWsDUDUVlm83Xsv2LQccO4NYpXEXKS/JBz+Jun5zVQhRjShOCmJeXEVzior+E8hpydOIQx+wQiKkuyXMchd/XFO3l1vZ4hV8k8Dlt12lSiQug+ytdvQpizENbaXRDtk3RxyAbuY8i5ZzmAsbxEbShYY/MjssTqpdobt0K9RAGi9fyiVhXCVE5FwgtcIPmu/OjIBX6MA74J4T6GnPuuhzCmNWuxRiRfMl+El1zuitS8nK+j4n7xG8WdFTqk3UH+XKvW6flIoQ5rVSr9rluvFp8bhpwHVAAjYaU4Uemi6eYVl7viNC820wRFUpoxhw7RKIBj1TpxupBzBiLbu27KRw0w5DwwSTx8kei61Il7/FyQS5Y65DmqECbizPEDxhyqTHiOcnVCSBMjlVqsVqkIuu9OZ0GGnBxETdQv5cSwFoGoOtGWMUeO8eV2jlIorVisSBYNb4vU05Cm20Iqfg9EdiFgi1pgyHnkdgRjloCIymViDnsQyNCYTxOURW0uarK3RLnzFcqkQtiTWT/nxyDaG190B3v1W/UIPAw5j10NYMzr0WJt7EDxM9Ej0ULxWlz1TkbbBGWaz1sg2sfrojy9BOL49Zn3Q9UJ1BHLPa8mScHhv3pRvCGMaS02kz/BFlcZJICK29zVr9b4Qs9QsmTNdEvVr9XvfEhzGiKlFkfl0M53uCfsYI+Oxs7K4XmyDDm/MFEejFUd3rZbPKXmxZjkutW8FtsMzno9n6MCKq7HGTrlrXmKsnTfIBWh/eXqMNaR8vJ5hXu83jMX0rYuN4RhyDmcchKvBlvJqyEsnYNIgmTBKxqVGb9aJKjGdFSH7SXK3RukVIudvjYAsL8aZRZsseOrZy6keTdwF0POHpEHI6rD9ZSPsNOagEiG+Qcud6txMl+iMjPNmlmyaHibt34L4pz5SC08BdEXH7zDbQt7CXbWTq+CGXL22YxgzC7gPA07/woiKaKYy90qtHWCCiXrVzzDo6fKrl7k0ujErVGqJNj7NXb8CI9EPnaiD3AYQ85eVy0YNej1sxrAyv+/4rAKkmPNkrXSNUcrVGzJMzz6hbCDMpxpiNNrIYM2iHYi3NPs4oHTJnbUP+Ayhpz93g5hrF2+dPWTd7Cz3Lqf7Kg+5nWZy+uMk+0MlYs0J8LSY7qHEgRIQ3JrOf8MRMY/FO6JD1x9+w5OY8jZb3LjwXC/oWk8sK4V4eRxkmPGTf1StXQCAZItt5/pkVCheJ0QaYhuhcDWA/Rkdmn2cU9fY2f1GU5jyHnCSsFIzp3fR/7owZLasIsriRFpppzyXKwhxIqVivRI0kPReh7k6baRSbMHoqfaSD918W3r+puXIcc4cPFqNoXjVgG7uJLLEqacsoxHc9hgpSKVyb9D0ZSPVOS2HfhBDKKdYPtE28JvQuysne46wJBzyKYJQznfYm35b7A248B5OhJTTm2M9QyCzJhy6KE3XRSrl0CgqI6Tf6g6H544vek9yDh/h+MYcp620DDmrt+AHSuksPrgftMFqgmmnFIE8xls8T4WPST6copFGYcg/RAZtbsg2tHrvW0LlY8d11e+DDkHjYYwto6v9vX/4Rj/+e94INIcVkFCJJrNMAoX6AS2eB+LStXqo0jdJgRaIzPHFzGUsw9q3yClrocd9Q6uY8g5YPLeg+F2t7GLGY7h/ff/ngzxwHL+GkQSJF0m7peXcXiGRyWsW8RvXvvILALRPR8VdsLzPVe3NnAeQ84hka7JAutyjmMEKkI0HeGBZOF2vqP6cL8DiHAm48iS8F4O3afPUJy+hkAdH5mFfRDdk/yybWG/iZ3kBs5jyDko9mHMPsFVjSmOoXsRAFw1NB5QHA1KMijOTXmBGYcphx4JXtyiKEYO1iC6590KO756/PHfarhP5vdZjs0AxtLVBVawhfEfeIoX6gl+tNKhh/uStfvzUKkWViyefIEZhz3W6KGwg6J0NATqtfAjzgOlPJ1sseN1H338E9fbRzPkHOFaw1jJrNV9TqCx8z+hh3280WAJY+m38ICKORqUJFixdrIoY09sxnH6IJ0K4PVQEJEZByvkwe+A6J4bD/fEgMbO4iNqgCHnOaPA8dmvD5Yufrzc+kM8FowGVxPcs7pre49Hg7I1C1UvYcVFQcZa9L1kZw/SqQi+QjG+CSGRwo84D5QKbCPd7J6H2KnHNQWGnOdMEg+GgzUTD5YuzQ2AzbQRag+GHp2sTcQxbgcDPDDTHA1K1VP1ePLKM51BNEcP0qkYSQ9F6MnMOKdt5KLVA9GTbaQbCXZW7rePZsg5StR0+v5rMoMxWOBHq6XeNlR7NBr56iTRVxH2mFyrgKNBSZyIBWtFuFAQzsmDdCqIH6EISua1FY2crED0ZBtp7ddnNiRDzvFuQxgzwVXre7XnMIYedlbx7dXV1SaO8KS41+RoUJImqcmzV5bGHOJ5fPqQ0ewif12hL/gQORG/lUFlS7CfV4P20Qw5R1oOYMzduoDfWMEYqgnsTBYcDUriLJlychdsIV/E5gNU7MzOWOZBzlmInLRPQfRkG+mdtcwOHAw5xbgewpi6VBn+egvDez+BLY4GpdREz/6mB8ZuvNCWvI9Fhu4jb6dCX25+3ZvHUYVOttgjqkP7aIacoykPRuJOZXiwwo6KYIujQUmiyKWNBidMhVbpPLZ25+FLcG/18gYi9ZrIjczGClShGw+Gof6BmmDIOcpEeQ42HxjrJNM9TY4GJZmUK19BR1w6U6l/DqKf6Q7y1Rd6zBEjP+EZiJ5qI218h7pgyDlO5MFIhD4JD2ac0QaWOBqUpIpqciVSiGAKV8z45CFDI19LyBQKLX2jevig8NjqM+qCIedImxGM2QVc8GkGY3AFSxwNSnI5Ul3lhrFLb4EpT5Hpi/Ab5KkjdN5sVyNHPkfl0CMfVY3b9bv0eqvW1QDG3IVbKRdLGPoa2dwOmhwNSlZ4K8cRHyM4xIU2cFSSsCf5YCgvG+TJj0F0eNdwXZeuAww5NrwhjLX8RsqtOYzhCFlNFhwNSnJwNzI3JyvkSuvRyFc/C0ejlvaQI+XCDhOVw1fIz7nUO/m+4OI3qoV3S9y3/jvqgyEnVfMBrKSf5jXWMLybCbKLeyOOBiUhZkzYORn7yI0etRuJ1j8MGf7Z8urqTm8v1KgVICcRnzr0RdJFXnpSa2BPQ+RKd0F0KEjXqlCCIccm5cBIhA/fDhIYnlohD5MrjgYlKfqgXKgIuQiaKtFXtyvsMYmv7taNsIU8JB9BlHvtlZJ6Iz+QXf5GdXCTYEe9Q40w5FiIfBiR6IZETZ3A8CLkJJqOPI4GJQney95lcEZzmk/COVkvYhy0Wt5d+C1kt+Izh75oniIfXbFrIV/8/5Dcp7d1TcFiv9gibZowlOAWa+NuAsPfID9XPkeDkgTJe1AO1shOt9eLCEeYbO4aIw9ZsVSRcp/fKfY6/pmPnIWnIHroQ4IvknpNaGDIsbJowZjLrVvUMxiDDfbiaFDKS2KjoVQ40h6y4qcuD68VshoofYujra62foBslkw59IXuIw99sceDJw4UwJH7Pi7wk63ULoMMOaV4O4SxlfqqvZjBaF0jZ8sBR4MWZqBK4aM6qzheXuntSThEJssxChGq8qByETLS6jqGnc3a9zgmyZqvUhvCmtoR/qle1nsl1GtVUwD3nU5tAWs6tZqtyCvUwk+SGrWPFv3VFmpy48EQeoRxOYcxfIvcTTgatDAncSkiVC5aThsDDxm8RyE2cXlQtVaETIK2jmFvM2giC/USnzdRnNo1rLnzqW53kF1f7Fp5hfz5Z3jW53epvYK1d6nV6o58pd7pn9StsQtDjqWVhpGcjyFPYwrDUxPsw9GgVL3Vdaa17t9AGY0jZNLs3aYdu3UyRAZia4uofLrWDceUIyVw5LyapkaGHFuxD2M2hTjB9vmMw9GgJMJk0dBIi50HMlMJMgjUYoK0omkT6S2ZcuiL8BxZdcQOyOy2UYAWhynTS8GQY20zgKHaECbQ2GlG2IujQUmIlR4hpURmtahDxrNsC6UYWSzaHlLrgOhnSQ/Z9MQWq2GJh+reS46IIady1xrGqgFRxl4Cw7/FXhwNSnJc+R7HPTxB8kFOeDdBNrcq4Jgkys5XyEaJPchBiEJsQfQyMOSkMBrC2AYQZKwjGM0N9uJoUJJkozw+vPaRfJDjtZfILOoNYaeuoxwoE6+LLHpyu/X1QxSi3QXRi8B1QgqT9x4M3YQcyQzGYIG9OBqUZIk0dyP3EXyQ46lb5GCihuwiTVVXX93JPRNeO1YGR2SJIUekqAkj6Y4hRXsOY+hhL44GJWliH2lELFlCNT24PRUB1aaciI1OyGj2kV73DaTq+Y6VwRFZYsiR6TaEMfsEIRorGIGaYB+OBiV5Ni2kMQOl14gyZZyqU04fRF949byfEhcXcvj9oZeBISed5QDG8hIivN7C8JIJ9uFoUJLorYcULkDp9SrOOKb2l60HKCvdR1p9wSXWsYOFcESWGHJEuh7CmDYgQLDCjoqwF0eDkkQTj31QS3YyQ0oqyr/2117COUm0s6njGqjbwvPYm/IFS/Q9CQ75Tu98l+0PcutCJD/paakgwhdJEKFq43kCw9+gRBOc+NHj0aBcgJKFTRixXK1U/TlsFPdwuW2vkEYgd0o9lS7sfEQqZ3Jn5GAToDB+5yPIdR9wtM8Z/yBnCd7FEG6SePdS7hgVG+sExmiDvTgalKTSsMeyyPTGc9gosjP9Yog0lnzC0I7uIRXJjXKUo6VwREdjyJErakJQyvk0gzG4wl4cDUpinXtsI1ymG6QzXIhp88Z6NdoJFdLoCG4zdtpGgVoclUMvAUNOercjGLMElbpYwhhe4ykcDUpCTc5hjx+w1DpIxbspar/I3t9AZCQ92OtJXgFpCL3GROQOyV9x8a4GMOaXqFBjDmOo8CSOBiWp/gv2IlA6zRlSaa5QgI7HkxzKyL+DPSX5VnK72HZpCkT1x5CThTeEMX2NyjS2MLybCQ7gaFCS6VuQIfXB37pFESYBUkj4cKF73nRhqye54vXMh40GLLVPQVR7DDlZTJQHYxWgIkECw1MrHMbRoCTRZAhrDVCZt469tyjGMkAKAxBlmeoZST7I8WFj+W4NS4L7yhEx5IhwP+Uk3hiVaOoEhhfhORwNShJp3sooTRAhjWAi6kU0AdFOqw87XcmX+npN2DjBGpbaIKo9hpxsIg9GpFGFcTeBEW5wBI4GpYKxIbRoAdIIlihK1wPASwWUiVenk+AYVhQULPlnIKo7hpyMNk0YswtUYDqDMViicpOFCvDA6gPXr/Ssa1BZ3iKNLQozaTAXU1b6DDb6ouu1trCxuMHnNWfBEzHk5G3RgjFvoXQXCkbrGkfjaFCiFypdbzUdozgRwDtZlFFQn9VPtw0bOs35bLMHopoT/TV3w9shjPUJSnY5hzF8CwsljwbleoRICCXvZREN+fqirMIOjtcRfZBzYp/3Y9iKQVRzfEtkNrnxYKgApWpMYXhqAhvljgbdcjQo0TGEPvZ1jCJ9hL0tiO7zenVpLhbZVqsBNwtYCkFUcyzKzG4VwEiGpSaNYCsz4wC4aq7V49GgSxBR5dZIwYtRpC3sRWM2WKP7/ATH+kb0Cv80hA2dLrbp7g2Iao0nOTmIfBizKcoTaOw0I9gpfzToiNP7iCp3ksBeEKNQUQB7MxDdl/RwnJ7ojIMgze20Blt3EDHkFNxiTV2gLOPzBIZ/C2tljwadcTQoUeUukIJGwc61vRaI7vMjHEfJrmLxravVUtWrRSCqN4acXCw0jNKu2I/1DEZzgwrYjwYNuXVEbJVVrQnseeco2JW2dwuiB5pdHKObQLKODxva/NdSeAqiWmPIycdoCGMboBTJDMZggSrYjwaNOBqU9vsbqBwK9s55+4Wc0MAxYtkHOXG6f3MDtlhBTjXHkJOPyXsPhm6iBO05jKHY3+O+0aCvQfQLXEWXJEAK70DkAt3H805l9/rstdJUqwE3C7aeImLIKUKkYSTdMQrXWMEIlOAF4i9Hgy44GpRyuQN7DbLnw17AiRrkCA/PewPRVrCi09+c8zsgqjOGnLzEPozZJxTtZAvDSwRnHI4GpaMEsovka+QtwC5MVFu6g+f0Zc/IgYKVBF80OA+UiCGnGJsBjGUbxQoUdpT0Fim5jAb93Zs//+ZnX735PahmfMgwUAVqQwAFe2sQOULjOcIntnXbsLH+DKSuV2v1QFRjDDn5uR7CWDVQpLFOYPjSMw6AK1/j8WhQHO1Xf/rj17/eqNvkZ7Fa//rr3/wJVCMdQMQu5EwVaAkBZrDmcb+XnBF+g8M6bYi2TL8DoWFrBaIaY8jJkQpgbIOyMs5oAwekHw36+z//wbtbbPHINrn79V+++hWoHpqc61iSAPZkD04keiDs4SDhxWoIYUVlasSvQFRjDDk5miQeDD1GYT7NYAyu4IZ0o0H/9Jf17RJP+D72fiv8BikVeJAzBNlTADgzkGrMVzjkXHhmPwutq9Uy1Ku1uyCqL4acPEVNGElxKediCWPoToOpyV07sBwN+tW/3H2PgyL1NWNODTTnYHO1cvT5nqCaS7p4Wk96ixMfVtaHT6lcv6BExJAjx20IY5agGI05jKFTZ823veNGg5qIE6/wrC1jTg10kAI7kafxEdYC1u2TS/wYT1PCZ8P0/CxHsw3WohIx5BRmOYAxv0QRGlsY3o3o5tGZRoP+7ut4haNs1W95N8dtwZwDKsvyrbud70qgcuXUHlSdNE/xlK70RU/sW1erZapXC89AP1oOc8Ui36Mw5Djmeghj2ih4nIinnNthjddHjgb9zWaLo0UnbLXmsvE59nP7/rBMM1iTXt/DkEOPvHF3MEyYrbu75h5GWm2dK/5cj8GQ4xzlwUgC5K2pExiei1sFR40G/f0fEtjQd3/hYY67khnA6/DlGMOeEw0ciXZ0H/v1m5Ctq7M1EmnAls9ROVRfDDl5m9xLOYk3Rr7G3QRG6ObaI5qGz40GfbNZwtL3r34H971XOy9nT7kx50FOaWZsY0cvwNLVJc8G1tVqGevVfPGHW0QMOXJEHoxII1/TGYyBs11Rls+MBv1KaVhbRjXoPxC9xJDT2CKVFqgUgVs3/4iAdgf79MVvjfiwsj5+88fdCj4ihhxBNiMYswvk6ULB0A430F1p/8Bo0D/GSEOrr0DuaWz58CrRBavV6J/s3U1vI9l5BeBzb1WRRUrjRWAnQBZBNkGAIPkD2SSAETgwYMRAuhcZyeomRepHkRTZkqVGbM/C+XC8ixEki6yzzi4exzPTM+Oo1WSRVayb6e7pchdFSqxikbwf59n1tiGyeOq+9z3GuUFhqpK/5Qg79qh0E2j5ebUGq3LIWvydsAW9FjKjBqpzNkKm3YHJZqurQb85RklzphzzNJPya8KoMK7qJgN9IFBU/QnuOqqjkHEdO6ZQSPIRFl2N+RqDSOeQ43me4U9V2UZmeoiq1AbISGH4CMnKatBvxgBTjiuCToSS2oZ/AqrB0RRyQYrC0hMsOlHaj8Q2UUgCANyvRmRIyDlsCimVUuey0zyEsfpXEpkoQDWCxKKMs7Ia9HdibGBuwb0ch3TP5kOU9Ry0m8UDBg/GkiWeTVCU/wqLRB2FiGfYscd+qZCzaR/oIxDZSUIf3bP6OBJ4axiN/abuyx5XigQqX7EWKCAT2rA9d1k16B/PsRFpw441R4RnowHKm4KIHOGjsG8cI+8k1X6My0MhyU9w15Xgpkoi/ULO2WgQ431pNDszdW4t9pGJB9X0JabI+Lewwp1q0N8bYzPKY1+OEbq1g9kgRXmSc1elnO5owk3sRgBywtXN5n+4r3wUEl1hx04aKCSp6P1PE0R2ktBE0BmkuGNwaeozbBYiI06xsa4aItOy557gQjWod4MNTeogvXW9WrNznkywkSegXfXkaBxyUpAbDhIUFT7F+46/gUKSALs2RxUhx0NR/mMQWUlCD4dqiGXieQ1mGjeQGdUq7YRv2TQjn6sG/ZMvsLH490G7JYs5V0k0xKZ+BHrNnYcEOe1Sbvqnm6AYeYldSyqYVgMuJyjKA5GVJLRQG6dYITE15XzYRibxsJnmCJm2ZT86smpQ/Nn/oAJjDqw5ILBkYtMAnAskHVxMUZR6CmSeNlDIVGHXjpsoJKkssjROQGQjCR0cJgBsSzm5FWsiwCZqETKBBYvVVlSD3qAKigNrDuC0GpFbxGY9thLFiEvs2gQVhRy+yiDSKOQEEe6TGHqSGilk0iddlOclyMjUtoyTVYP+4ReoRMw90va7BBG55FqgqPoR3nmsUMj4GjtXLz6tVtW8WgIiG0lo4EmKe/mG7lib+8gMn6O0QAAZZcPy6KXVoH8QoyKmbqugtTUiEJFTUhSmTvC1QPseUDytVxVMPBTVPAaRhST272yI+8XXMNOshcykiZK6MkXGt/VU+fbk4AYVSXiUYztmHL4AINeUaAStC7x1pH0PKDBFdSGHqweINAk53SEeEpnaCnqukIlqKKWrYmQ69iyPXvT3H/OXHK2pbWvW37oUgP6vtIkqagRNT/DaidS+BxTwi0+rVTevZuWICJHE3okUDzqCoTptZJLvNc6+4qGY50NkWj1YK1CoTPItkM14I2eHOMdCBWjWCOrHeE1o3wMKHPnVxRIPRdWfgsg+PvbuAg+76Bp6274fyBTv/AwDAPDbqo+1nY6QaQ9gr2CO6iiQxYIpiMg5B4mPgsLjK+AklVig37ajOYrxKg054Jcq2Uhi34IYD0svYKg4xKJ0UKActPZ+xhGw17ciVChhV47NuAnI4G98op02giYAYh+FyCvs3HGjwpBzOTHxjTeRhY+8GtbxA5jqto470uS0RIOQvDD0OGsP37CKt3Ispngjp7QYhdn8tUOGKdEI2niK4xCFJAq7N0Mxk8tq9wj4xt4KINI55PwV1vHfInNwllfz8kLoZdLCXaMzPCz0vv1tZKSw+mZgiko1QdbiK0ciRwkUJlFDMekldk+UO8hhHyiR1iHnn7GOfxeZySAvUXkzmdcReWd5ja1npPM27hp4uF/3rD5Tv/gnZKTVGedbESr1EmSrltWfBCKqtBFU/a1CIdNr7N6jZvGQU+28WuMERLaReIhhb/DvGoq8Qd70gYxUF3nNszwvL8Bd4m+Kv40OLgcx3le3d3n0azVUjFU5tpK8VkLkrHT7D4Ma9kBVOq0GeGwfI9Ig5GjfgBOLvGiQp/LmMs8XQnz2D7grfjt2d+jldfFGoGLktCawWoR7sdqM3gl5R4TIWSUaQaF/DyhQRzFe9U9AmzcbkaskqsUGqgWpEOIfscxk8NpY5Z3LN+Yp8obrXUjqwlBz6/6yaTsat6B78X0B2czHlt1gDx6XCDlVz6s1H4HIMhKlsJt+19a8kHQu80TRC0l78rtK+9REWpAfgnb7jZuCSB9XN9iq6CPsgV/xtBrgsV+OCBIPMW1Mid4nNruQ1Cl4IUmjPwPFphwrKQ6rbcayu308sXXPQYJi9O8BxUlY+fmqh8LqILIMHxF0j+FmF5LqIu/0LLNwIemP8ADOF9NrHZ7QLeXsvJrt8860eSOo/j2gwLzEh7L6ebX6YxDZRaJaPCCl1UsbRoO8sXrnBpU7BFmn0QMRua1YI6gBPaBAvfJpNcBjBRmRxL41sBYZdr7WUnk8jLJAispZvo7OSW1eyNlYF4Wdgqg8o47p00vswbHawhPTQ2Ehq3LIMhL7NsVa0vmz3lvnKi9J88SCTl6o8rj5QAcJiB4iBS/k7MMViIrSpRHUgB5QwNtGsdzlhAt7yHkS+zYPsJY4qdewjvmCXt5Y5U3TPE/k1Tt5Kq8NIgLAjGOEH1p1KMrvXzelxrRSb+dq2fgKAFcPEBkQcvAEKB9zqhfP8ya9PJU3SPNqSzLSX2OZ76qv8EYS0Xqk4CXzCsysWjxwDnLRs4lNPaB4VN/KVWYvQVHqGEQ2kdg7JVEo5ugtWpKR/iXEEj9Xr6V5p0KIFhb8ZafDC0nkOGacvUmN7RgmW/kW9YACwXYOnC4T51fMk/Mk9q7fxvripKPxa8VVjiTuEgHu6s/nGCHP/9der8cLSeQ0Zpw9tuQOoasGyElXN/b0gAJ+tdNqmYT71ch1EvvXa6OAoRLGxZy+wF3pky6WCMTiv2fI7PpCUocXkmgtzDg203e9GodrXHWQ2NIDCjz2UYx8up4DFFZ/BCKL+NDAhUxRgFBCGrYDJK6l6ZK4hru6lzEy3/3F0fNb7FCMvB7uNUBeGCOn9gPkXI/Z10lltLlzoDJKoCh9//N/CHLT5RNUTl5gLzwUFGJ7ON5BVvGhgbiW4h5//p+p8TFnFrSHWCTa51jQVTEynR7M6j6MkDfprXt78saoKgXasQYzTnWaExTlabvinTcInHXxYR3VSgT24sRDIQ78JiSyaVwNmPlYrfUfrY7E3ZgTwiTxwA+waFTDgudDZFpmJZwyWL1Da+i86mNnWp0tCrB/Rygs1fbtLjevuEvY0QMKRNCJ/xhE9pAoYC8pp36Ofm9ZzJmdmhVzZtOa3+l06n/aRiYJkHM6Qabt0nbUOSpn1l8HrSRFDzv0rLdFM+zfc5ve7vKmlruuhRU9oIDAFlm1MZ7I1JCDmRdgGSkmAF7HnBCLRqbFnGjW6/Um/3UhkVEh3lMbIdN2atyqjsp9CrJBo2XWZKr2psa/a+b9AXottaIHFMdNaKVxAiJrSGgiPungrlb2A6c/rrXMjzlvxAqZ9LiLzGGCjLxw6hbCZ5wspmVk/ZVTH4QdiFGc0LQph1dyXPZMWNADCkxQgjvjc0R2hBz0e7VQ4n2yVTvvIxOdL485mj5+7zH3kRk+xztB5PDGXB+w47UcVanhT0AVa6O4C2yCNTmkfca9wQoGjjFYNT5HZEfIAaJx0my18VbQ8lvnETKrY87ozLiYM2shM2nirVClyEjHMg5SflHTokC84kvF6il75sIUyGFXkfk9oHhah2aabJ8ie0ho5fZ8kNaEEF46PZ/18VY+5jSwIB2YF3PO28hENbzWPU6RqTs3hjFHxV6CzCbrU97G0WXzwETPr9gZqtapFmibgsT0HlBgipIcGqDbkSit1BS0FqdCzmvRfD6PsUr0SigLYo4IkEm/531lMESm5d6XzI1ApT5gyDGb7Dj4KdiNGayZV2ujar1KsQVguy4lKiKvsB8nPopzbYBuR+oXlTLwwriNDKwZmCsLYk4/lXgn/Zn6ikBGubQ8ekuXcsYgg8lOq8eFAzqdmp5AQwH/RhynpqhEorAncx1DzlMQWcLAkLMq5lwaddU8DrFK28kZhxr7MwCozm85PDijGHF0u8kyDFCGUW9GyDiXwuwe0PKD2q6N0BE5FHKWx5w4qZsUc27rK8/Nnfx996uQ02pAt/dbDg/OiCFoe7q2HOUcgRx3PTa6BxTHDWjIZ1UO2cLQkAPMlR+YHXMmLSwjhaMLpexYB0p3WdTLYofnKGHUhXZcnOulvIbZhQN6rhjyufKFbGFsyAFmU8NjjmxjidDQQauNJQKVCRlyzJY+B23N39mylJ0/xeiZMLgHVNuJS36yyBYGh5xVMafjwQx98X3c4d/CUS+F8zdyKDMx52WFefoKJQy7KCIt5lSisDaIZthYin15pOkiswarcsgSRoec5TFnqIQpMeenbLfbylFO+AVohzortFFeyv2bml3KSQW26CJFYTzuoyoaQaNnuJeLbbZ6jtERuRZygNm0I7FAGBJzhrirBWe9FOwyM1NvhSuJ0tiktkUjlDzK2Z4TF59epEUjqIe9aUJTAkRWsOAx0WuZGnNOOQubk4SohM8bOXqIApQnzkBbEkuUkF5ja7whinN2tJeqbARNr7AvjzW9kgM0H4HIBhaEHPRXxBwj511c3p370kMVTMi3jpg0UN4gAG3JE5QRhdiW1KZRH1pG10bQROE+Lq4d4KeL7GFDyFkVc2anRsYch/3qA1Tg4FOQJj6UKO8J90hvy4806wgMBYrj1ztV0Ag6vcS+nGj8J6ztIB2RgyHnTcwJsWikecx5hrvc/l33fyE25n8M0kU/RHnDa9B23KIU0cB2eCghAdGmjaDTH+Neri5q9h+DyAK2hBygP661DIs5amnwcdnLFJsSXAujk9sQ5UUcPNSsQjEOsQ3eBMUFXBRPX2uYWTegdUzXeJSOyMWQA0Tny2OOtocjT7+PRX/xBE77zMOGgpcgjRwFKE9o+9k1XazVzrvUsJ1YVIaWjaDiJ9ibY61HwsITEJnPppCzKuaMzjT9qZT+FIv+LYXbvgiwEe8zkE76KcpL2YSyJTOp0cBaTZj2Cp40MzOvB1T7mK7zMB2RmyHnTcxpYEE60DPmnI5w18j1pvcXATbgsQZUN3EH5U1c/zhotl8NmAaoWjcFp9VoI1eRcT2g2sd0rYfpiBwNOUD0SigjYk5thGUSzV/vaJ1ymHE01GujvFTjO3VGe4aSVBcVu+a0Gm0qSIw7THlUh9aaxyAynn0hB5grE2LOYYLlhOv1IC8CZhyrXEmUlk5B2zAPUE5adcrxIhtfg9NuXUrDekAB7R/0fI9AFrAx5KyKOZc16COIsELqfD3Ii4AZxyZRgPLEGUirr/7hc1SpK1BGmyGH3qemZvWAGrC+jB8xsoCdIWd5zImTeg2a6KoUme8opb6DzND529YvPBQnFDOOpiYNlDfQ/oWnmY5R1uQUFRqkKIMdSpRzKYzqAQWOtA859UcgMp2tIQeYKz/QNubkMk7950qpn7eQmWi9WXIXvqiFKKhRuwFp6kOJ8pw/2dyOfgtljU5RmaZAKbwvQHnXY5N6QI1YXsb3S2Q+e0MOMJtqG3MGQ2RaE7x2rpCJnN8p9dn4AxQif/0pSFf9EOUN+dJ+Ky6hQcqpRSil1QdRTsOocayTBrSn/VkTkdMhZ1XMER727FQgo87xVqeNTOL8K5SXv1Qh1ubXvgRp7DZEeREvwG5DrDZJOV1UoZaUTmhEec+EOT2gQAT9+UcgMpzdIWd5zBFqzzGnMUKm3cHX+hcSGcXNuTdjKbCW0PucFaCaOwpQnuDA2jYcoLyR6u4z4yjeiaY7Zub0gAICBjBgpI7I7ZADzE46Uq+YU5siI6/6eCcOkUmP+bvu5ZdzKdaJOJ9w44D2+inKS51fxbEVtwHKG46CCjIOLwtQda4iY3pA8ciIi7eNExCZzf6Qg36vpVXMCVJkpIiAzG0dmWEK+irmHIa4V4MRxwxxB+VNnL+kthUKG0jnjf1lnBmI7ggSY1pgFIxgwlAdkeMhZ2XMOQixB4FKkQljvG/SQmbEfhAALz/+RAUCK4TN+q8ZcQzRa6O8lOObWzALsInpQRcbOE1s/4VIO3YpDekBBeowghFDdUSuh5wVMWcyOw2xa90nKTL+LfLO28gM+Pb6jZsXv6lJX2BB+MFh/ZP/5Uo1c1xJlJZOQdq9Tp6Maigr7IzAgxyqlpqa0QOKx4aEnCZXtZPhHAk5b2JOC4tGu485aohMa4ZFIkAm5eD51z778vPf1JWUgf9GIA9V+skvP2bCMUoUoDzBg039jnKQJiJAKYfJ0PpRH9q5S2FED6hBy5knIDKaMyEH6J/X9h9zTofINM5xRz+VeCdVXD6AzKc3X3754vM3Xnz58c1LkGkmCuUNGPl1bPsT8zJfoKEYp+BBDlXuemxCDyhOjAk5hpw4ETHkAIiWx5xmF7tyNkKm/SGWiCWYcshOHYnynnSxE0rulId9ulUoq/x7ou7ZTDhwZ5v2oWFADygwNyfkPAaRyZwKOStiTjQ662InagNkAtHHMrMOV6yRnfohyhtegzQbm8lijlck4owGAHiQQ9vwTOjfA2rU+YgxcYyIIefrmKOwIB3sJuZ4CTIy7WO5XguZUQNE1rhtobzIA1UtbqECI9VphFiHd3o+SLGRBEQr3ejfA4pjgw4jfVblkNGcCzlApMR+Yk4g1qvslm1kpocgsoYMUJ7g9Gb1pEQVhtNZpxHgfkGzrkbYkGILO93jo0j3HlBghsJEFcYozufnjYzmYMgB5itiDraqK9P1vjn6QiIT8b412aOfoLz0Oahq/QAVGU7n9dOGh+WCxqk/j2KnJn1oH7xE8x5QwEdR02EVAn7gyDlOhpxVMadew/Z0VYxMOAPWSzmp5Otrsse8g/ImrI7Sa+fdong0VbJzcNbwvABvhZ5XOzsQcj4dpahAhx3sdK8rqXkPKB7VUdQUVbgaozjFqhwymaMh503MaWNBnGwx5qRDZFpj3CuWyMQGje8SPaTXRnlpCNL9ZvFwMpgqNZdvzZRKBhOBigQ9EN1LJVr3gAIBChN7/Kxz0QeZzNmQA8wHfrC7mHM6QqYt8YBZiMzwFETWuJAoLZ2CqhZ3YA5uHaCHXKZa94CWmlb7CJXwuF+NXONwyAFm053FnNr7GUf08ZBxA5kRh3TIHnGA8sQZaAuHa6YIeQuaHnSt7vVj7Ndjf2/VUJcTFFd/BCJjOR1yVsUc4aFihwky8qKPh33YRibh7lyyx0ShvAEXcVTvypTHQHAEogc9uxf2zNvjAabH9l1yjClPt53GHKEqjjlBBGREjDX0ryQygr/syB4difKecBFH5SJTHgNpH0RmO2mgqOQnew05TRAZy5Sn2xbNTjpyuzGnq1Jk/BhriQQyKX/ZkT36IcobXoOqNmvBBJ0YRIabo7AE2Oe8mv8YRKZiyAH6vVbRmFM+43RmWFPsIzMcgMgWty2UF3F4s3rShGs5ipvVyHwJCku2Oyunfa8QEUPOVmLOQYgqDIbItHrlXq8Krlgje8gA5Qkea1auf6H/k0CatAWOaLnjZolptT2HnMYJiAyl/6Mts/uYM5mdhtjYqUBGnaOAc8UVa2SjfoLy0uegqsX6NxAJXsgh801QWALsd14NXGpIxmLIeS/mtLBotHnMaYyQaXdQSKeNTMLlA2SNeQflTRj4q3er+zmJzws5ZIH6fkMOPNZTkVMYcpDpn9eqjzm1KTLyqr/BEInS/10r0S66WVJ+FKrX03v5QIu962SBp3UU1th7yGkeg8hMDDnvi5bHnGYXZQUpMlJEKChWyKTHvItA1riQKC2dgip3rvPygf9n725yGzfSOIz/q0hKlLvvM4fIZhbtTdrwRB/WoUxZho30bDKL2eUMuY9blEiJFQToMECnOzJLpESWn98JBAOS9VBvvTV5EDB8OzWWP6tFzzmrB/CWEDmvyJzt4/JOXlJXqWZLNXaIVVtzFgHBKBP5M0uhdaa/lTP7UUAA4osHRiQPzIpiqIicb2SO01eqlV/m3N1UqsXFqTdY5FzKhWDkTv5WnFBrX9bbypmxdABB+DjQyBn/JGCQiJy/2zrTUua4tWrT4vQhki0nrhGMhZU/rsd9Q4ukLY2DMBz8ptUuP6/GhDAGqp//1C7t8J3MUTPzdRsz5SZRreIBNkKRpfK3/iS0rjRWjdE4wOvcTHpwHCaSh1jAIBE5TTJnPFIDy8dWZsqzyupPleMBNkLxMpW/LUdh30jlWMOBAISh0GAj56OAISJy/iFzZvpKuW+QOaNVS88iy1RUDgJkE/kzvBM6UJqZGqFxgNcyamzzrD9wHyhA5LTssIoT/8xJ9q3NW7yMVVtXAsKQ7eWvYtngW6ic2ZTGQSA+XKkxp9ZF8jDhqhwMEpHzT4qdd+YkTqq5UifJp6o9sj0XoTgs5C9nDUf4O9bYq4ZwODU36knkiNt4MUhEjk/mmEhH3NlKtfigE9mZaiu+2yEU9zP5q1Khfdlqqr6Y0DgIx5Ua2/ws9WNezQgYICLnFZlj9RXjvpU5SbRcLkfRnaQ7V6qWFjpVZiwr1hCgJytvFWtNu/GwUD9MP9M4CMZ1rMacOhDJw9UHAcND5BxXTBfHM+f9PD641Wq1dw+LSVqtVZtupFYrp7IcuUYgykT+DKOb3biPrXogfhAQjFjNjXoTOXIChofIeYXs/ljmjMabx0pfrHfFo2ozqzaUVrWSTxuEInfyt+JHzW4UZqZLsxGnABCQ29RvWq0v82pjAcND5JySOe9S/SE1+7Lzg7PFQrX1XEAYFlb+/sOPmt0ozUSX5VirhqAc1NxenYjkYXwtYHCInFMyJy/mqRTtjb7HPmVqyf1UtceJgCBkqfytPwmdyD6PrS5o4TiOg6CM1ZzpUeQoFjA4RE6DzImn+tpjMf/BVfouU6o1dqba7r2AILxM5W8bCd3IzUyXkkT3AkJy49TY7n9Sf+bV0lsBQ0PkNLB9GH0jc37V98Wl2pP9bFXbchoBgbCJ/BkG1rpSrha6jPSWUTUEJlJzuz69GOkgYGiIHP/MOW5RqE1bo1rFaQQEItvLX/VfoSv3kdP5JWbDqBpCU/bpbppIrB7A20DkdJg5/35Wu8pYtfVKQBAOC/nLuRy3O6UbW53ZYscDYwTnw9hvWq1P82ruRsDAEDkemRM5vcr/I7WsSFUzrFhDIO5n8lelQmfy6VTn5EacxkGAkj5Nq0mRfHACEoND5HgonXF6jTxVyzYT1R55hI1APFl5q3ZCd7KHyOlcEuO2AsITqznbt8jhqBwGh8jxcnhl5nxU236cqbbnuQrCUCbyZ5ZCh0pnZjqHJGZSDWG6jtXY/hfVenIf6AcBw0LkdJo5T2pb9mRVMwzqIAy5k78Vqwa7dVjFyTkSpxAQpEjN7fv2giQ+aTE0RM4pmZPoiCpR20qnWnXDijWEYWHlj1WDXSt2V47EAfzcTsKIHO4DxdAQOSc47P51gRWQh1i1NftzEYYslb/1J6FjL85M1BVH4iBkW/lNq/VtXi2+FjAoRM5JftMRP6l9xVS1/EpACF6m8rfleFr3Dp9HqVUHppEjcRAyo+b26tSB/Wp4C4icL4b0hn9wqm1ZsYYw2ET+DANrZ7Dd7OOJ2jWL5w8sbULQbq76Fzm/7OVhcitgSIicIVokqu05CoggZHv5qxjcPI/i82g8U1uSdLQqMgFBy+Vhom7t5YMV7xgWImeIf72ssqo5VqwhCIeF/OX8pHkm23w1GrtWCifabfjOhPCN1Vz+3MvIMQKGhMj5YlhXY5UpK9YQnPuZ/FXE/tlsczePp4lOMBmPdhvG1PAWXI/9huH7OK92dSMAb0Vsj/hBHZnYv8wFAGeWjuZj21xslhxfBgCg397ZY+apujG3f+HGdwCXcPd++a5B6ZirEYcIAQDov4m1F8ucxe/s3Ut228gZhuEfBfBOCbpYsmQ7ObmMM0xm2UI6WQMJ7H8Jabe6zW6LkkmwCILS86xAI53zElVfpQ33EYCTKcftoqjSK9ZFOyudKASAMzFN6WSZ00zSN5VfR4ETa8py2f5sVfxq3v6sLP17AoBzs0o7aZvIb1SlbyrjAwAAQA7TtJvqGJkzThvrAAAAyODf6YSZ05pYAwAA8hr9lNIJM2eVNmYBAABwoKZK+6hmkVezThvLAAAAyNEY263KIj0zGeeuLBNrAABAL2+BziOinBw9c0ZpY2JiDQAAONJ+9KSMX4y3Zo6JNQAAIKv8efG/LRMDr2TOMvKZm1gDAAByN041Hc3X6Um1GDexsT1zivI4h+bGAQAA0Mno+ZX/8qtpPDerOmROt/mDMgAAADqYVvt8P2naY2bO1MQaAACQ8+vJLCJOmjmjtLE2sQYAAOyveHbbv1vmrKbZ7wcVAQAAcMB49CJ21bTpWJmzShvzAAAA2Evb9XjYdHWszClMrAEAAFnGo5uIyJA5WS8JGR8AAAD2MErPxswOzZyqbbJOWk8DAACgQ02kZUQMJHNKE2sAAMCh58LG0U1ZHCFzZmljEQAAAHs3zjwi8maOiTUAAKBfq2cP5GTNnHEcYm1iDQAA2M/82cWXzJkzGUd3zSR9U5lYAwAA9hqPnjRxsOVkW+ZkmlgzPgAAAPxAmbJ/KRnnzZyliTUAAKDbePQoNvJnTpljYm0VAAAAL2uqDvf6u2ZOUWZYRmgDAAB4z+4u73cdj24jq1mVIXO2/JnLAAAA3qG7m8fbh/o3D7fXN3fx3OKYB8GaNlvmNJWJNQAAeMfuP3+5qp+7+nBz8fIxsHVE9JM5owOvDk2MDwAAwHtycfNQv+zLTWyMO8yW5cic1fSwoet1AAAA78X941X9uo/XF1u6oZrGkTRtypI5rYk1AAB4f+4/1Du4esqcUV/3XKarLJmzSBuzAAAA3oHrq3o3VzcR0+/Ho4eeOSbWAADgnbn8WO/u9l/rDh9G8mZO1Taxj6mJNQAAeE8e6738829/vOJyDpkzShtrE2sAAPCm3T/U+/r7X9KTIvpRFodmzjhtFAEAALxdd1f1/v76599/EzmLzJmbWAMAgHfhpu7kT18rp2pi4zSZM+42sTaOl02X7bwoqvRkXSzaWemAGwAAnIubuu5aOV1u8OfPnMm408RaGVuVbVGlbSar8TQAAIDB2zROh8pZRu+WkwMyZ1S9+oJpM15U6TWTuV02AAAYuE/1Af5xFycwPiBzylcm1paLtINJ63sOAAAM2N1VfYiri+gof+aUe0+sLWKjmU3SrhZlAAAAw3TxsT7MQ3SVP3OKMnawShvz+FXTVmkfhcwBAIBhuq0P9RgnMqs6tkeRNsa/TxyZAwAAZ+9zfbhPcSJN2y1zmknaGD1NGXSxMioNAABDc1c/OcdrOS9nzmi/ibVpkTqqZgEAAOzhHA6rZTiwlj9zVtN43TJt/Oen1F1haA0AAPYw5Bdy/uAuTqhp0/6ZM0uZVMsAAAAG42Odx22c1HS1f+asUi7zAAAABuK6zuUyXjbQzFmnXBb2BwAAYCfn8yEnz6ec/JlTtc2rE2u5rFUOAADs4Hxu5Hx1GSc3XeyXOaMq5TIZBQAAcHoPdT4fYgDKYq/M+W/KplI5AACwg3N4I+ebi8ig18yZp6RyAADgLXmsc7qJXPJnzmQcz41TVhP3cgAA4AfOaHbgqy/RXf+Zs2kc6wMAAPBW3NX7G/55tV+MJz/MnFGVclsEAABwSp/rvD5FZ/1nTlOl/NoAAABO6LbO6zEyy5856zJ+VaRjKAMAADidq7qLIb8HukPmFGV81aajqFzLAQCA07mvc4vBaavtmTNKT1zLAQCAN+Syzu0+BqfZnjnrdCzLAAAATuS6zu0ycsufORsOrAEAwBuTP3I+x77eYObMAwAA2OrsxtXq+joGqpmn/kwDAAB4RuRkNl2lvhQBAAB870wj50MMWE+Z47EcAADY5kwj5zYGrZfM8SkHAAC2ETnHMV2ko3MrBwAAtjjTyBn0cbUnZZGObxUAAMAfnWnkDHh4YGOVjs9bOQAA8D2RczSTdHyzAAAA+vf4LiNnmXqwDgAAoH/XdW6XMXwr0wMAAPBWfapzu4vhq1JyXg0AAN6muzq3GL4yHZ2ncgAA4FTqzB5i+Np0fPbVAABgu7ObV3uM4StSP5YBAAB85/yWB25i+FJP5gEAAPTuss7rIgavTH1wKQcAAE7kqt7bmV/JmaW+BAAA0L8PdU6fY/hWqRdeygEAgK3O7LzafQxfkfpSBgAA0L+PdT5f4gxUqS9tAAAA/ftc5/MpzkD6mcgBAIC36+KqzuVjnIFR6od5NQAAeNm5PJVzDo/kPC1IixwAAHjDLq7e04cckQMAAG/f/9m7G+S0dTAKoLIMNgWCnUCSkr7dgdn/Et70Z9pOJ8mQgGXLnLOLO9J3731zHZuQAyEHAACm77m5hm3IQhkTsQYKAABvyWMrp81hI0fIAQCA27BvLvct5EHIAQCAG3D3tXnXVHZAE4ecYwAAAAby2DaXeb4LmVA8AAAAN+GluUj7GHIh5AAAwG14aC7xErIh5AAAwI3YNZ/3EDISk1kGAADgdSNPOVllnBCTOQUAAGBI9zeRcUIRU1kHAADgbWO9y2k3IS+rmMo8AAAAw9q0zUd9zadX7ZdTTMIWKAAAjMHdtvmYXTb7OInr1WyBAgDASHxrm/O1GVVH/9bFRA4BAAAYgaf/mnPt83vG+e4Y06gCAAAwCpttc47tU8jTMqaxCAAAwAUSx5xdbqVqf6xjjE5yAADgxjzu2uZtz/e5vuIkPMpZBgAAYFReds+vJ5x9dq3R6ZdyrOQAAMAoPT3st23zR7vdv+T8hvNLFROoAwAAMFKPm58mEG9+6mZ+qwEAAFNy0K0GAABMyTz2rggAAADJFLFvZQAAAEimjH1ROwAAAAyhjv2qAgAAQEJrDzkAAMCkFC5yAACAKSljH1SrAQAAr8p8K8dGDgAAkFw3i305BQAAgH9k3D1wDAAAAANYxX7MAwAAwAC6OvbhSwAAABjEPPZgFQAAAAZSxas7dgEAAGAoy3hlMwc5AADAu/Jay5FxAACAgRXxmqoAAAAwqO4o4wAAAFPSrWQcAABgUg7ucQAAgElZxiuoZRwAAGAsqpl9HAAAYErmx3iZZQAAABiR7hAvMCsDAADAuKzr+FkrX9UAAIDx6ZbxU2rPOAAAwDgtivhhs1MAAAAYq7L4aMTxUw0AABi1chXPVos4AADA+C2WdTxHUQUAAIAsrA+z+L7jl0UAAADIx/xUxDfUh0rCAQAAMjSvTsUx/mVWHE6lOxwAACBvi/IH6QYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAID/24MDEgAAAABB/1+3I1ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAmAoNAinZshpjtwAAAABJRU5ErkJggg==" alt="FreightMath" onerror="this.style.display='none'"></a>
+      <div class="hero-logo-divider"></div>
+      <span class="hero-logo-label">Client Onboarding</span>
+    </div>
+
+    <div class="hero-eyebrow">4-Week Implementation Journey</div>
+    <h1>Welcome to <strong>FreightMath.</strong><br>Let's build your edge.</h1>
+    <p class="hero-sub">Your precision Activity-Based Costing platform is live. This structured onboarding will transform how your team sees profitability — load by load, lane by lane.</p>
+
+    <div class="hero-cta-row">
+
+      <a href="FreightMath Guide Page Home.html" class="btn-ghost" target="_blank">
+        <svg width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.2" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        FreightMath Guide
+      </a>
+      <a href="FreightMath Dashboard Pages.html#glossary" class="btn-ghost">
+        <svg width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M8 8h8M8 16h5"/></svg>
+        Glossary
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROGRESS NAV ═══════════════════════════════════════════ -->
+<nav class="progress-rail" aria-label="Session navigation">
+  <div class="progress-inner">
+    <a href="#week1" class="prog-item active">
+      <span class="prog-num">W1</span> Foundation
+    </a>
+    <a href="#week2" class="prog-item">
+      <span class="prog-num">W2</span> Pricing & Strategy
+    </a>
+    <a href="#week3" class="prog-item">
+      <span class="prog-num">W3</span> Optimization
+    </a>
+    <a href="#week4" class="prog-item">
+      <span class="prog-num">W4</span> Go-Forward
+    </a>
+  </div>
+</nav>
+
+<!-- ══ MAIN CONTENT ══════════════════════════════════════════ -->
+<main class="main">
+
+  <!-- ── EXPAND / COLLAPSE ALL ─────────────────────────────── -->
+  <div style="display:flex; justify-content:flex-end; gap:8px; margin-bottom:24px;">
+    <button onclick="expandAll()" style="display:inline-flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--fm-slate-mid);background:var(--fm-white);border:1px solid var(--fm-border);border-radius:var(--radius-md);padding:8px 16px;cursor:pointer;" onmouseover="this.style.borderColor='#94A3B8'" onmouseout="this.style.borderColor='var(--fm-border)'">
+      <svg width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="7 13 12 18 17 13"/><polyline points="7 6 12 11 17 6"/></svg>
+      Expand all
+    </button>
+    <button onclick="collapseAll()" style="display:inline-flex;align-items:center;gap:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--fm-slate-mid);background:var(--fm-white);border:1px solid var(--fm-border);border-radius:var(--radius-md);padding:8px 16px;cursor:pointer;" onmouseover="this.style.borderColor='#94A3B8'" onmouseout="this.style.borderColor='var(--fm-border)'">
+      <svg width="13" height="13" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="7 11 12 6 17 11"/><polyline points="7 18 12 13 17 18"/></svg>
+      Collapse all
+    </button>
+  </div>
+
+  <!-- ████ WEEK 1 ████████████████████████████████████████████ -->
+  <section class="week-block" id="week1">
+    <div class="week-label">
+      <span class="week-badge">Week 1</span>
+      <h2 class="week-title">Foundation</h2>
+      <div class="week-rule"></div>
+    </div>
+
+    <!-- SESSION 1 -->
+    <div class="session-card open" data-session="1">
+      <div class="session-header" onclick="toggleSession(this)">
+        <div class="session-num">S1</div>
+        <div class="session-meta">
+          <div class="session-title">FreightMath Primer &amp; Core Concepts</div>
+          <div class="session-attrs">
+            <span class="attr">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              90 min
+            </span>
+            <span class="attr">
+              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              SME: Chris Henry
+            </span>
+          </div>
+        </div>
+        <div class="chevron">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="session-body">
+        <div class="people-row">
+          <a href="https://www.ksmcpa.com/people/david-dunst/" class="person-chip" target="_blank">
+            <div class="person-avatar av-blue">DD</div>
+            <span class="person-name">David Dunst</span>
+          </a>
+          <a href="https://www.ksmcpa.com/people/jordan-nelson/" class="person-chip" target="_blank">
+            <div class="person-avatar av-teal">JN</div>
+            <span class="person-name">Jordan Nelson</span>
+          </a>
+          <a href="https://www.ksmcpa.com/people/adam-smith/" class="person-chip" target="_blank">
+            <div class="person-avatar av-orange">AS</div>
+            <span class="person-name">Adam Smith</span>
+          </a>
+          <a href="https://www.ksmcpa.com/people/david-roush/" class="person-chip" target="_blank">
+            <div class="person-avatar av-green">DR</div>
+            <span class="person-name">David Roush</span>
+          </a>
+          <a href="https://www.ksmcpa.com/people/pete-richards/" class="person-chip" target="_blank">
+            <div class="person-avatar av-blue" style="background:#F1F5F9;color:#64748B;">PR</div>
+            <span class="person-name">Pete Richards</span>
+          </a>
+          <a href="https://www.ksmcpa.com/people/brad-heisterkamp/" class="person-chip" target="_blank">
+            <div class="person-avatar av-teal" style="background:#E0F2FE;color:#0369A1;">BH</div>
+            <span class="person-name">Brad Heisterkamp</span>
+          </a>
+        </div>
+
+        <div class="session-grid">
+          <div class="inner-panel">
+            <div class="inner-panel-title">
+              <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              Pre-Session Homework
+            </div>
+            <ul class="list-items">
+              <li>Read "Welcome to FreightMath" onboarding email</li>
+              <li>Review FM Primer (PDF attachment)</li>
+              <li>Authenticate and explore your <strong>FreightMath SharePoint</strong> site</li>
+              <li><a href="FreightMath Dashboard Pages.html#glossary">Review the FreightMath Glossary →</a></li>
+            </ul>
+          </div>
+
+          <div class="inner-panel">
+            <div class="inner-panel-title">
+              <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Session Goals
+            </div>
+            <ul class="list-items">
+              <li>Team introductions: FreightMath advisors</li>
+              <li>Grasp core FreightMath concepts and OR framework</li>
+              <li>Navigate the FreightMath portal</li>
+              <li>Review initial network configuration</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="inner-panel" style="margin-top:16px;">
+          <div class="inner-panel-title">
+            <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            Agenda
+          </div>
+          <ol class="agenda-items">
+            <li class="agenda-item">
+              <span class="agenda-num">01</span>
+              <div>
+                <strong>FreightMath Primer Slide Deck</strong>
+                <ul class="agenda-sub">
+                  <li>Loads / Orders and Segments (David Dunst)</li>
+                  <li>OR Concepts and FM Costing (Chris Henry)</li>
+                  <li>DH Prior to Order; Trailer "Detach" Time</li>
+                  <li>Data Guardrails: Loading/Unloading, Empty/Loaded Segments</li>
+                </ul>
+              </div>
+            </li>
+            <li class="agenda-item">
+              <span class="agenda-num">02</span>
+              <div>Portal Access, Navigation &amp; Key Features</div>
+            </li>
+            <li class="agenda-item">
+              <span class="agenda-num">03</span>
+              <div>
+                <strong>Bill To by Lane Dashboard</strong>
+                <ul class="agenda-sub">
+                  <li>FreightMath Costing and Scoring</li>
+                  <li>In / Out of Network; Shipper / Broker</li>
+                </ul>
+              </div>
+            </li>
+            <li class="agenda-item">
+              <span class="agenda-num">04</span>
+              <div>
+                <strong>Freight Networks</strong>
+                <ul class="agenda-sub">
+                  <li>What is an "Operation"? OTR, Dedicated, Logistics</li>
+                  <li>OTR vs. Non-OTR within each operation</li>
+                </ul>
+              </div>
+            </li>
+            <li class="agenda-item">
+              <span class="agenda-num">05</span>
+              <div>
+                <strong>Network Configuration</strong>
+                <ul class="agenda-sub">
+                  <li>Broker / Shipper Classification; Strategic Footprint</li>
+                  <li>Trailer Pools; Upcharges; Manage Users; BTF Customers</li>
+                </ul>
+              </div>
+            </li>
+            <li class="agenda-item">
+              <span class="agenda-num">06</span>
+              <div>Review homework for next session</div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="disc-panel">
+          <div class="disc-panel-title">Additional Discussion</div>
+          <ul class="disc-list">
+            <li>Local / Dedicated Costing — mileage threshold for "Local" classification</li>
+            <li>Hourly charge for local P&amp;D operations</li>
+            <li>Identify your FreightMath Champion(s)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- SESSION 2 -->
+    <div class="session-card" data-session="2">
+      <div class="session-header" onclick="toggleSession(this)">
+        <div class="session-num">S2</div>
+        <div class="session-meta">
+          <div class="session-title">In-Depth Dashboard Review</div>
+          <div class="session-attrs">
+            <span class="attr">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              90 min
+            </span>
+            <span class="attr">
+              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              SME: Jordan Nelson
+            </span>
+          </div>
+        </div>
+        <div class="chevron">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="session-body">
+        <div class="session-grid">
+          <div class="inner-panel">
+            <div class="inner-panel-title">
+              <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              Pre-Session Homework
+            </div>
+            <ul class="list-items">
+              <li><a href="FreightMath Dashboard Pages.html#glossary">Review the FreightMath Glossary →</a></li>
+            </ul>
+          </div>
+
+          <div class="inner-panel">
+            <div class="inner-panel-title">
+              <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Session Goals
+            </div>
+            <ul class="list-items">
+              <li>Q&amp;A from Session 1, including data anomalies</li>
+              <li>Master the purpose and function of each dashboard page</li>
+              <li>Use data outside the dashboard (Excel export)</li>
+              <li>Preview the Pricing Deep Dive agenda</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="inner-panel" style="margin-top:16px;">
+          <div class="inner-panel-title">
+            <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            Agenda
+          </div>
+          <ol class="agenda-items">
+            <li class="agenda-item">
+              <span class="agenda-num">01</span>
+              <div>
+                <strong>Q&amp;A — Review from Session 1</strong>
+                <ul class="agenda-sub">
+                  <li>Core OR vs FM OR calculations and usage</li>
+                  <li>Data Anomalies and Adjustments</li>
+                </ul>
+              </div>
+            </li>
+            <li class="agenda-item">
+              <span class="agenda-num">02</span>
+              <div>
+                <strong>FreightMath Dashboard Pages</strong>
+                <ul class="agenda-sub">
+                  <li>Home Page; Bill To by Lane; Lane by Bill To</li>
+                  <li>Field Selection Table; Areas of Profit; Area Analysis</li>
+                  <li>Revenue / Volume Change; Profitability Matrix</li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="highlight-panel">
+          <div class="highlight-panel-title">
+            <svg width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Homework for Session 3
+          </div>
+          <p>Upload two bid files from recent RFPs. Navigate each dashboard page independently. Read <a href="https://www.ksmcpa.com/insights/the-six-stages-of-network-dilution/" target="_blank" style="color:var(--fm-blue-dark); font-weight:500;">"The Six Stages of Network Dilution" →</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ████ WEEK 2 ████████████████████████████████████████████ -->
+  <section class="week-block" id="week2">
+    <div class="week-label">
+      <span class="week-badge">Week 2</span>
+      <h2 class="week-title">Pricing &amp; Network Strategy</h2>
+      <div class="week-rule"></div>
+    </div>
+
+    <!-- SESSION 3 -->
+    <div class="session-card" data-session="3">
+      <div class="session-header" onclick="toggleSession(this)">
+        <div class="session-num">S3</div>
+        <div class="session-meta">
+          <div class="session-title">Pricing Deep Dive</div>
+          <div class="session-attrs">
+            <span class="attr">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              90 min
+            </span>
+            <span class="attr">
+              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              SME: Jordan Nelson
+            </span>
+          </div>
+        </div>
+        <div class="chevron">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="session-body">
+        <div class="session-grid">
+          <div class="inner-panel">
+            <div class="inner-panel-title">
+              <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              Pre-Session Homework
+            </div>
+            <ul class="list-items">
+              <li>Upload two bid files from recent RFPs</li>
+              <li>Complete independent navigation of each dashboard page</li>
+              <li><a href="https://www.ksmcpa.com/insights/the-six-stages-of-network-dilution/" target="_blank">Read "The Six Stages of Network Dilution" →</a></li>
+            </ul>
+          </div>
+
+          <div class="inner-panel">
+            <div class="inner-panel-title">
+              <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Session Goals
+            </div>
+            <ul class="list-items">
+              <li>Master BidRight — FreightMath's RFP pricing tool</li>
+              <li>Deep dive into the Spot Check App</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tools-strip">
+          <a href="https://bidright.com/ksm-advisors/" class="tool-pill blue" target="_blank">
+            <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            BidRight
+          </a>
+          <a href="https://chenryksmta.github.io/SpotCheck/public/spot-check.html" class="tool-pill teal" target="_blank">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Spot Check App
+          </a>
+
+        </div>
+
+        <div class="inner-panel" style="margin-top:16px;">
+          <div class="inner-panel-title">
+            <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            Agenda
+          </div>
+          <ol class="agenda-items">
+            <li class="agenda-item">
+              <span class="agenda-num">01</span>
+              <div>
+                <strong>RFP Upload Review</strong>
+                <ul class="agenda-sub">
+                  <li>Working with unique bid files</li>
+                  <li>Mapping data to prescribed template</li>
+                </ul>
+              </div>
+            </li>
+            <li class="agenda-item">
+              <span class="agenda-num">02</span>
+              <div>
+                <strong>BidRight — RFP Pricing Tool</strong>
+                <ul class="agenda-sub">
+                  <li>Setup parameters and workflow (Bid section)</li>
+                  <li>Detailed review of pricing assumptions and overrides</li>
+                  <li>How Target rates are calculated; Price Benchmarks</li>
+                  <li>Getting data back into the Bid file</li>
+                </ul>
+              </div>
+            </li>
+            <li class="agenda-item">
+              <span class="agenda-num">03</span>
+              <div>
+                <strong>Spot Check App</strong>
+                <ul class="agenda-sub">
+                  <li>Objective: Negotiate and secure more margin from Brokers</li>
+                  <li>Reinforce preferred destinations in your networks</li>
+                  <li>Elevate pricing and negotiation sophistication on the front line</li>
+                  <li>Track, Review and Educate</li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="highlight-panel">
+          <div class="highlight-panel-title">
+            <svg width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Homework for Session 4
+          </div>
+          <p>
+            Read
+            <a href="https://www.ksmcpa.com/insights/wheres-my-freight/" target="_blank" style="color:var(--fm-blue-dark);font-weight:500;">"Where's My Freight?"</a>,
+            <a href="https://www.ksmcpa.com/insights/when-will-the-great-freight-recession-end-strategies-for-carriers-to-survive-the-storm/" target="_blank" style="color:var(--fm-blue-dark);font-weight:500;">"When Will the Great Freight Recession End?"</a>,
+            <a href="https://www.ksmcpa.com/insights/freightmath-why-repeatable-freight-is-the-bedrock-of-truckload-profitability/" target="_blank" style="color:var(--fm-blue-dark);font-weight:500;">"Why Repeatable Freight Is the Bedrock of Truckload Profitability"</a>, and
+            <a href="https://www.ksmcpa.com/insights/are-you-dense-understanding-the-importance-of-freight-network-density/" target="_blank" style="color:var(--fm-blue-dark);font-weight:500;">"Are You Dense? Understanding Freight Network Density"</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SESSION 4 -->
+    <div class="session-card" data-session="4">
+      <div class="session-header" onclick="toggleSession(this)">
+        <div class="session-num">S4</div>
+        <div class="session-meta">
+          <div class="session-title">Shipper vs. Broker · Inbound / Outbound · Density</div>
+          <div class="session-attrs">
+            <span class="attr">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              60 min
+            </span>
+            <span class="attr">
+              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              SME: David Roush
+            </span>
+          </div>
+        </div>
+        <div class="chevron">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="session-body">
+        <div class="session-grid">
+          <div class="inner-panel">
+            <div class="inner-panel-title">
+              <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Session Goals
+            </div>
+            <ul class="list-items">
+              <li>Reinforce core FreightMath profitability concepts</li>
+              <li>Differentiate Shippers vs Brokers; In- vs Out-of-Network</li>
+              <li>Understand Oversold vs Undersold dynamics</li>
+            </ul>
+          </div>
+          <div class="inner-panel">
+            <div class="inner-panel-title">
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              Dashboard Focus Pages
+            </div>
+            <ul class="list-items">
+              <li>Profitability Matrix</li>
+              <li>Areas of Profit</li>
+              <li>Lanes of Profit</li>
+              <li>Area Analysis</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="inner-panel" style="margin-top:16px;">
+          <div class="inner-panel-title">
+            <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            Agenda
+          </div>
+          <ol class="agenda-items">
+            <li class="agenda-item">
+              <span class="agenda-num">01</span>
+              <div>
+                <strong>Discussion</strong>
+                <ul class="agenda-sub">
+                  <li>FreightMath concepts; Assigned articles</li>
+                  <li>Review use of Spot Check Tool</li>
+                </ul>
+              </div>
+            </li>
+            <li class="agenda-item">
+              <span class="agenda-num">02</span>
+              <div>
+                <strong>Shippers / Brokers &amp; In / Out of Network</strong>
+                <ul class="agenda-sub"><li>Differences in key metrics and OR impact</li></ul>
+              </div>
+            </li>
+            <li class="agenda-item">
+              <span class="agenda-num">03</span>
+              <div>
+                <strong>Dashboard Deep Dive</strong>
+                <ul class="agenda-sub">
+                  <li>Navigation and use cases; Core vs FM OR</li>
+                  <li>Profitability Matrix; Areas of Profit; Lanes of Profit; Area Analysis</li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <div class="highlight-panel">
+          <div class="highlight-panel-title">
+            <svg width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Homework for Session 5
+          </div>
+          <p>Prepare a short list of priority FreightFit scenarios (e.g., no constraints, Asset &amp; Logistics Overlay, New Award, removing Areas/Lanes). Review your latest cost profile for key operations — note significant variances by category.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ████ WEEK 3 ████████████████████████████████████████████ -->
+  <section class="week-block" id="week3">
+    <div class="week-label">
+      <span class="week-badge">Week 3</span>
+      <h2 class="week-title">Optimization &amp; Period Review</h2>
+      <div class="week-rule"></div>
+    </div>
+
+    <!-- SESSION 5 -->
+    <div class="session-card" data-session="5">
+      <div class="session-header" onclick="toggleSession(this)">
+        <div class="session-num">S5</div>
+        <div class="session-meta">
+          <div class="session-title">FreightFit &amp; FreightMarks Deep Dive</div>
+          <div class="session-attrs">
+            <span class="attr">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              90 min
+            </span>
+            <span class="attr">
+              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Adam Smith · Chris Henry
+            </span>
+          </div>
+        </div>
+        <div class="chevron">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="session-body">
+        <div class="session-grid">
+          <div class="inner-panel">
+            <div class="inner-panel-title">
+              <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Session Goals
+            </div>
+            <ul class="list-items">
+              <li>Understand FreightFit — KSMTA's linear optimization application</li>
+              <li>Understand FreightMarks — KSMTA's peer benchmarking service</li>
+              <li>Apply both insights directly within FreightMath dashboards</li>
+            </ul>
+          </div>
+
+          <div class="inner-panel">
+            <div class="inner-panel-title">
+              <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              Tools Covered
+            </div>
+            <div class="tools-strip" style="padding-top:8px; flex-direction:column; gap:6px; align-items:flex-start;">
+              <div class="tool-pill blue">
+                <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                FreightFit (Linear Optimization)
+              </div>
+              <div class="tool-pill green">
+                <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                FreightMarks (Benchmarking)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="inner-panel" style="margin-top:16px;">
+          <div class="inner-panel-title">
+            <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            Agenda
+          </div>
+          <ol class="agenda-items">
+            <li class="agenda-item">
+              <span class="agenda-num">01</span>
+              <div>
+                <strong>FreightFit Deep Dive</strong>
+                <ul class="agenda-sub">
+                  <li>Linear optimization across lanes, assets, and constraints to maximize profit</li>
+                  <li>The "Traveling Salesman Problem" applied to trucking networks</li>
+                  <li>Use cases: RFP guidance, lane selection, network rebalancing, trailer pool planning</li>
+                  <li>Outputs: Accepted / Rejected Loads and Lanes, Overhead Cost Adjustments, Scenario Profitability</li>
+                  <li>Review initial FreightFit scenario results</li>
+                </ul>
+              </div>
+            </li>
+            <li class="agenda-item">
+              <span class="agenda-num">02</span>
+              <div>
+                <strong>FreightMarks Deep Dive</strong>
+                <ul class="agenda-sub">
+                  <li>Quantify performance gaps vs. peer and best-in-class carriers</li>
+                  <li>Key metrics: RPM, OR, Deadhead %, Velocity, all GL-based benchmarks</li>
+                  <li>Understand "Total Cost to Serve" per mile vs. peers</li>
+                  <li>Analyze how overhead variances affect total network profitability</li>
+                </ul>
+              </div>
+            </li>
+            <li class="agenda-item">
+              <span class="agenda-num">03</span>
+              <div>
+                <strong>Action Planning</strong>
+                <ul class="agenda-sub">
+                  <li>Review and interpret initial FreightFit results</li>
+                  <li>Select 5 FreightMarks benchmarks to track monthly</li>
+                  <li>Define improvement goals for each benchmark</li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <!-- DEDICATED PRICING SECTION -->
+        <div style="margin-top:16px; background:#EFF6FF; border:1px solid #BFDBFE; border-radius:var(--radius-md); padding:16px 18px;">
+          <div style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#1D4ED8;margin-bottom:12px;">
+            <svg width="14" height="14" stroke="#1D4ED8" fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            Dedicated Pricing — Introduction
+          </div>
+          <p style="font-size:14px;color:#1E40AF;line-height:1.6;margin-bottom:10px;">
+            FreightMath includes a powerful <strong>Dedicated Pricing Calculator</strong> — a purpose-built tool for modeling the economics of Dedicated Contract Carriage. Whether you're quoting a new dedicated program or reviewing the profitability of an existing one, this tool gives you a structured weekly and monthly P&L proforma that is grounded in your actual cost structure.
+          </p>
+          <p style="font-size:14px;color:#1E40AF;line-height:1.6;margin-bottom:10px;">
+            The Dedicated Pricing Calculator handles per-load, per-mile, per-hour, and per-week rate structures — with configurable driver pay models, fleet sizing, fuel, overhead allocation, and custom upcharges. It generates client-facing proposals and carrier-use-only P&L proformas automatically.
+          </p>
+          <p style="font-size:14px;color:#1E40AF;line-height:1.6;margin-bottom:12px;">
+            For carriers actively pricing complex <strong>Dedicated Contract Carriage (DCC)</strong> opportunities, FreightMath offers an <strong>Expert Dedicated Pricing</strong> engagement — a hands-on advisory service where KSMTA works directly with your team to model route economics, structure a competitive rate proposal, and stress-test assumptions across volume and cost scenarios. This service is ideal for competitive bids or multi-route programs where precision pricing is a differentiator.
+          </p>
+          <a href="https://chenryksmta.github.io/SpotCheck/public/index.html" class="tool-pill blue" target="_blank" style="display:inline-flex; margin-top:4px;">
+            <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" fill="none" stroke-width="2"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            Launch Dedicated Pricing Calculator →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SESSION 6 -->
+    <div class="session-card" data-session="6">
+      <div class="session-header" onclick="toggleSession(this)">
+        <div class="session-num">S6</div>
+        <div class="session-meta">
+          <div class="session-title">KSM-Led Period Review — Recommendations to Improve Profit</div>
+          <div class="session-attrs">
+            <span class="attr">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              60 min
+            </span>
+            <span class="attr">
+              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              SME: Adam Smith
+            </span>
+          </div>
+        </div>
+        <div class="chevron">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="session-body">
+        <div class="session-grid">
+          <div class="inner-panel">
+            <div class="inner-panel-title">
+              <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Session Goals
+            </div>
+            <ul class="list-items">
+              <li>Provide recommendations specific to your OTR network(s)</li>
+              <li>Reinforce FreightMath concepts and dashboard navigation</li>
+            </ul>
+          </div>
+
+          <div class="inner-panel">
+            <div class="inner-panel-title">
+              <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Agenda
+            </div>
+            <ul class="list-items">
+              <li>Discussion: Concepts + Spot Check Tool review</li>
+              <li>Period Review: Observations, recommendations, action items</li>
+              <li>Slide deck and recommendations email sent post-session</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="highlight-panel">
+          <div class="highlight-panel-title">
+            <svg width="14" height="14" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Homework for Final Session
+          </div>
+          <p>Review the recommendations from this session. Come prepared with a concrete plan to act on each item — including who owns it and a target date.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ████ WEEK 4 ████████████████████████████████████████████ -->
+  <section class="week-block" id="week4">
+    <div class="week-label">
+      <span class="week-badge">Week 4</span>
+      <h2 class="week-title">Go-Forward Plan</h2>
+      <div class="week-rule"></div>
+    </div>
+
+    <!-- SESSION 7 -->
+    <div class="session-card" data-session="7">
+      <div class="session-header" onclick="toggleSession(this)">
+        <div class="session-num">S7</div>
+        <div class="session-meta">
+          <div class="session-title">Final Session &amp; Client Implementation Plan</div>
+          <div class="session-attrs">
+            <span class="attr">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              60 min
+            </span>
+            <span class="attr">
+              <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              Client Lead
+            </span>
+          </div>
+        </div>
+        <div class="chevron">
+          <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+      <div class="session-body">
+        <div class="session-grid">
+          <div class="inner-panel">
+            <div class="inner-panel-title">
+              <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Session Goals
+            </div>
+            <ul class="list-items">
+              <li>FreightMath Q&amp;A including remaining costing logic</li>
+              <li>Review previous week's results</li>
+              <li>Finalize Client Implementation Plan</li>
+            </ul>
+          </div>
+
+          <div class="inner-panel">
+            <div class="inner-panel-title">
+              <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Agenda
+            </div>
+            <ul class="list-items">
+              <li>FreightMath Concepts + Spot Check Tool usage</li>
+              <li>Remaining questions on FreightMath logic</li>
+              <li>Facilitated review of previous week</li>
+              <li>Client Implementation Plan finalization</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="inner-panel" style="margin-top:16px;">
+          <div class="inner-panel-title">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            Client Research Prompts — Come Prepared
+          </div>
+          <div class="prompt-cards">
+            <div class="prompt-card">
+              <p>Find an oversold/undersold area with DH issues.</p>
+            </div>
+            <div class="prompt-card">
+              <p>Identify an area with high broker reliance.</p>
+            </div>
+            <div class="prompt-card">
+              <p>Find BT &amp; Lane examples with OR decline over the past 4 weeks.</p>
+            </div>
+            <div class="prompt-card">
+              <p>Identify a backhaul lane with better-than-average IB &amp; OB OR.</p>
+            </div>
+            <div class="prompt-card">
+              <p>Use the RVC to find a new customer/lane that emerged recently.</p>
+            </div>
+            <div class="prompt-card">
+              <p>Find a customer/lane that has gone away — diagnose why.</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px; background:#F0FDF4; border:1px solid #A7F3D0; border-radius:var(--radius-md); padding:16px 18px;">
+          <div style="display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#065F46;margin-bottom:10px;">
+            <svg width="14" height="14" stroke="#059669" fill="none" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Onboarding Complete — What's Next
+          </div>
+          <p style="font-size:14px;color:#064E3B;line-height:1.6;margin-bottom:8px;">
+            You now have the foundation to run FreightMath independently. Bookmark <a href="https://freightmath-site.vercel.app/" target="_blank" style="color:#059669;font-weight:500;">freightmath.com</a> — your hub for platform access, resources, and product updates.
+          </p>
+          <p style="font-size:14px;color:#064E3B;line-height:1.6;">
+            Your KSMTA advisor team is available for ongoing period reviews, advanced analytics, and expansion into FreightFit, FreightMarks, BidRight, and Expert Dedicated Pricing. Reach out anytime.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══ FOOTER ═════════════════════════════════════════════════ -->
+<footer class="footer">
+  <a href="https://freightmath-site.vercel.app/" target="_blank" style="display:inline-flex;"><img src="data:image/png;base64,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" alt="FreightMath" class="footer-logo" onerror="this.style.display='none'"></a>
+  <div class="footer-links">
+    <a href="https://freightmath-site.vercel.app/" target="_blank">freightmath.com</a>
+    <a href="FreightMath Dashboard Pages.html#glossary">Glossary</a>
+    <a href="https://www.ksmcpa.com/insights/" target="_blank">Insights</a>
+    <a href="https://www.ksmcpa.com/terms-of-service/" target="_blank">Terms</a>
+    <a href="https://www.ksmcpa.com/privacy-policy/" target="_blank">Privacy</a>
+  </div>
+  <p class="footer-copy">© 2025 KSM Transport Advisors. All rights reserved.</p>
+</footer>
+
+<script>
+function expandAll() {
+  document.querySelectorAll('.session-card').forEach(c => c.classList.add('open'));
+}
+function collapseAll() {
+  document.querySelectorAll('.session-card').forEach(c => c.classList.remove('open'));
+}
+function toggleSession(header) {
+  const card = header.closest('.session-card');
+  card.classList.toggle('open');
+}
+
+const navItems = document.querySelectorAll('.prog-item');
+const sections = document.querySelectorAll('.week-block');
+
+function updateNav() {
+  let current = '';
+  sections.forEach(s => {
+    const rect = s.getBoundingClientRect();
+    if (rect.top <= 100) current = '#' + s.id;
+  });
+  navItems.forEach(item => {
+    item.classList.remove('active');
+    if (item.getAttribute('href') === current) item.classList.add('active');
+  });
+}
+
+navItems.forEach(item => {
+  item.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(item.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+window.addEventListener('scroll', updateNav, { passive: true });
+updateNav();
+
+  
+  // ── Glossary Drawer ──────────────────────────────────────────
+  function openGlossaryDrawer() {
+    document.getElementById('glossDrawer').classList.add('open');
+    document.getElementById('glossBackdrop').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function(){ document.getElementById('gdSearch').focus(); }, 300);
+  }
+  function closeGlossaryDrawer() {
+    document.getElementById('glossDrawer').classList.remove('open');
+    document.getElementById('glossBackdrop').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeGlossaryDrawer(); });
+  document.querySelectorAll('a[href="FreightMath Dashboard Pages.html#glossary"]').forEach(function(link){
+    link.addEventListener('click', function(e){ e.preventDefault(); openGlossaryDrawer(); });
+  });
+  function toggleGdCat(i) {
+    var cat = document.getElementById('gdc-' + i);
+    cat.classList.toggle('collapsed');
+  }
+  function toggleGdTerm(id) {
+    var btn = document.querySelector('[aria-controls="' + id + '-body"]');
+    var body = document.getElementById(id + '-body');
+    var opening = body.hidden;
+    body.hidden = !opening;
+    btn.setAttribute('aria-expanded', opening ? 'true' : 'false');
+  }
+  function gdExpandAll() {
+    document.querySelectorAll('.gd-cat').forEach(function(c){ c.classList.remove('collapsed'); });
+    document.querySelectorAll('.gd-def').forEach(function(d){ d.hidden = false; });
+    document.querySelectorAll('.gd-term-btn').forEach(function(b){ b.setAttribute('aria-expanded','true'); });
+  }
+  function gdCollapseAll() {
+    document.querySelectorAll('.gd-cat').forEach(function(c){ c.classList.add('collapsed'); });
+    document.querySelectorAll('.gd-def').forEach(function(d){ d.hidden = true; });
+    document.querySelectorAll('.gd-term-btn').forEach(function(b){ b.setAttribute('aria-expanded','false'); });
+  }
+  function gdSearch(q) {
+    q = q.toLowerCase().trim();
+    var anyVisible = false;
+    document.querySelectorAll('.gd-cat').forEach(function(cat){
+      var catHas = false;
+      cat.querySelectorAll('.gd-row').forEach(function(row){
+        var hay = row.dataset.search || '';
+        var match = !q || hay.includes(q);
+        row.classList.toggle('hidden', !match);
+        if(match) catHas = true;
+      });
+      cat.style.display = catHas ? '' : 'none';
+      if(q && catHas) cat.classList.remove('collapsed');
+      anyVisible = anyVisible || catHas;
+    });
+    var nr = document.getElementById('gdNoResults');
+    if(nr) nr.classList.toggle('visible', !anyVisible);
+  }
+</script>
+
+<!-- ══ GLOSSARY DRAWER ═══════════════════════════════════════ -->
+<div class="gloss-backdrop" id="glossBackdrop" onclick="closeGlossaryDrawer()"></div>
+<aside class="gloss-drawer" id="glossDrawer" role="dialog" aria-modal="true" aria-label="FreightMath Glossary">
+  <div class="gloss-drawer-head">
+    <div class="gloss-drawer-title-row">
+      <div>
+        <div class="gloss-drawer-eyebrow">Platform Reference</div>
+        <div class="gloss-drawer-title">FreightMath Glossary</div>
+      </div>
+      <button class="gloss-close-btn" onclick="closeGlossaryDrawer()" aria-label="Close">
+        <svg width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="gloss-search-wrap">
+      <input type="text" id="gdSearch" class="gloss-search" placeholder="Search terms or aliases…" autocomplete="off" oninput="gdSearch(this.value)">
+      <svg class="gloss-search-icon" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    </div>
+    <div class="gloss-ec-row">
+      <button class="gloss-ec-btn" onclick="gdExpandAll()"><svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg> Expand all</button>
+      <button class="gloss-ec-btn" onclick="gdCollapseAll()"><svg width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg> Collapse all</button>
+    </div>
+  </div>
+  <div class="gloss-drawer-body"><div class="gd-cat" id="gdc-0"><button class="gd-cat-btn" onclick="toggleGdCat(0)"><span class="gd-cat-name">Operating Ratios</span><span class="gd-cat-count">6</span><svg class="gd-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-terms" id="gdt-0"><div class="gd-row" data-search="operating ratio or operating expenses divided by operating revenue, indicating how many cents are spent to earn each dollar of revenue. the trucking industry's default measure of profitability that shows how much a company spends to earn each dollar of revenue. it's calculated by dividing estimated "><button class="gd-term-btn" onclick="toggleGdTerm('gd-0-0')" aria-expanded="false" aria-controls="gd-0-0-body"><span class="gd-term-name">Operating Ratio<span class="gd-alias">OR</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-0-0-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="core or cor one-way profitability for a load or group of loads. a measure of one-way profitability for a load or group of loads. it includes all mileage-based costs from both loaded and empty segments, as well as time-based costs incurred while the load is under power. these total costs are divided "><button class="gd-term-btn" onclick="toggleGdTerm('gd-0-1')" aria-expanded="false" aria-controls="gd-0-1-body"><span class="gd-term-name">Core OR<span class="gd-alias">COR</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-0-1-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="inbound or ibor avg profitability for loads delivering into specific and nearby market areas. measures the average profitability for all loads that deliver into a specific market area, as well as loads that deliver to nearby areas and are connected to the target area via a deadhead. ib or captures t"><button class="gd-term-btn" onclick="toggleGdTerm('gd-0-2')" aria-expanded="false" aria-controls="gd-0-2-body"><span class="gd-term-name">Inbound OR<span class="gd-alias">IBOR</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-0-2-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="outbound or obor avg profitability for loads picking up in specific and nearby market areas. measures the average profitability for all loads that pick up in a specific market area, as well as loads that originate in nearby areas and are connected to the target area via a deadhead. ob or captures th"><button class="gd-term-btn" onclick="toggleGdTerm('gd-0-3')" aria-expanded="false" aria-controls="gd-0-3-body"><span class="gd-term-name">Outbound OR<span class="gd-alias">OBOR</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-0-3-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="freightmath or fmor network profitability for a load or group of loads. a composite operating ratio that combines core or, inbound or, and outbound or to reflect the true profitability of a load within your freight network. fm or accounts for the direct cost and revenue of the load itself (core or),"><button class="gd-term-btn" onclick="toggleGdTerm('gd-0-4')" aria-expanded="false" aria-controls="gd-0-4-body"><span class="gd-term-name">FreightMath OR<span class="gd-alias">FMOR</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-0-4-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="freightmath or2 fmor2 forward focused fm or (ignores ib or). a streamlined version of fm or that combines core or and outbound or (excluding inbound or). used exclusively within the freightmath spot check tool, fm or2 is used when evaluating loads when the tractor is already positioned in or near th"><button class="gd-term-btn" onclick="toggleGdTerm('gd-0-5')" aria-expanded="false" aria-controls="gd-0-5-body"><span class="gd-term-name">FreightMath OR2<span class="gd-alias">FMOR2</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-0-5-body" hidden><p class="gd-defn"></p></div></div></div></div><div class="gd-cat" id="gdc-1"><button class="gd-cat-btn" onclick="toggleGdCat(1)"><span class="gd-cat-name">Filters & Lane Tiers</span><span class="gd-cat-count">6</span><svg class="gd-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-terms" id="gdt-1"><div class="gd-row" data-search="strategic footprint strategic footprint designated fm market areas that define where freight should flow within your network. designated freightmath market areas that define where freight should flow within your network. your strategic footprint is user-defined through freightmath network configurat"><button class="gd-term-btn" onclick="toggleGdTerm('gd-1-0')" aria-expanded="false" aria-controls="gd-1-0-body"><span class="gd-term-name">Strategic Footprint</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-1-0-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="analyzed freight analyzed freight filter between fm analyzed loads and non-analyzed loads. set to "><button class="gd-term-btn" onclick="toggleGdTerm('gd-1-1')" aria-expanded="false" aria-controls="gd-1-1-body"><span class="gd-term-name">Analyzed Freight</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-1-1-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="bill to type bt type whether a bill to is a shipper or broker. the classification of a bill to entity as either a shipper (typically contract freight) or a broker (typically spot freight). ksmta uses ai to automatically categorize bill tos, but users can make manual adjustments through ksmta's netwo"><button class="gd-term-btn" onclick="toggleGdTerm('gd-1-2')" aria-expanded="false" aria-controls="gd-1-2-body"><span class="gd-term-name">Bill To Type<span class="gd-alias">BT Type</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-1-2-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="power lane power lane highest-density lanes that together represent the first ~25% of total freight volume. power lanes are the highest-density lanes in the network, selected mathematically by ranking all lanes from most to least dense based on volume. freightmath accumulates lane volume from the to"><button class="gd-term-btn" onclick="toggleGdTerm('gd-1-3')" aria-expanded="false" aria-controls="gd-1-3-body"><span class="gd-term-name">Power Lane</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-1-3-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="repeat lane repeat lane mid-density lanes between the top and bottom ~25% freight blocks. repeat lanes are mid-density lanes that sit between the power lane block (top ~25% of freight) and the spider lane block (bottom ~25%). together, they make up the middle of the density spectrum—neither the stra"><button class="gd-term-btn" onclick="toggleGdTerm('gd-1-4')" aria-expanded="false" aria-controls="gd-1-4-body"><span class="gd-term-name">Repeat Lane</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-1-4-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="spider lane spider lane lowest-density, long-tail lanes that together account for the last ~25% of freight volume. spider lanes are the lowest-density lanes in the network—the long tail of freight. freightmath starts at the bottom of the density-ranked lane list and accumulates lane volume upward un"><button class="gd-term-btn" onclick="toggleGdTerm('gd-1-5')" aria-expanded="false" aria-controls="gd-1-5-body"><span class="gd-term-name">Spider Lane</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-1-5-body" hidden><p class="gd-defn"></p></div></div></div></div><div class="gd-cat" id="gdc-2"><button class="gd-cat-btn" onclick="toggleGdCat(2)"><span class="gd-cat-name">Timeframe Views</span><span class="gd-cat-count">4</span><svg class="gd-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-terms" id="gdt-2"><div class="gd-row" data-search="period (4wk) period (4wk) each column or graph data point represents a distinct four weeks' worth of loads. displays performance in distinct, non-overlapping four-week time blocks. each period begins the day after the previous one ends. one of four default views on your ksmta power bi dashboard page"><button class="gd-term-btn" onclick="toggleGdTerm('gd-2-0')" aria-expanded="false" aria-controls="gd-2-0-body"><span class="gd-term-name">Period (4wk)</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-2-0-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="rolling (4wk) rolling (4wk) each column or graph data point represents a rolling four weeks' worth of loads. displays performance in a continuous, rolling view of four-week performance. each new week adds the most recent week's data and drops the oldest, maintaining a four-week window at all times. "><button class="gd-term-btn" onclick="toggleGdTerm('gd-2-1')" aria-expanded="false" aria-controls="gd-2-1-body"><span class="gd-term-name">Rolling (4wk)</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-2-1-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="weekly (1wk) weekly (1wk) each column or graph data point represents one week of loads. displays performance in distinct, non-overlapping seven-day (weekly) increments. each column represents one week of load activity. one of four default views on your ksmta power bi dashboard pages."><button class="gd-term-btn" onclick="toggleGdTerm('gd-2-2')" aria-expanded="false" aria-controls="gd-2-2-body"><span class="gd-term-name">Weekly (1wk)</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-2-2-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="period (12wk) period (12wk) each column or graph data point represents twelve weeks of loads. displays performance in distinct, non-overlapping twelve-week time blocks. like the 4-week period view, each new period begins the day after the previous one ends. one of four default views on your ksmta po"><button class="gd-term-btn" onclick="toggleGdTerm('gd-2-3')" aria-expanded="false" aria-controls="gd-2-3-body"><span class="gd-term-name">Period (12wk)</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-2-3-body" hidden><p class="gd-defn"></p></div></div></div></div><div class="gd-cat" id="gdc-3"><button class="gd-cat-btn" onclick="toggleGdCat(3)"><span class="gd-cat-name">Operational Metrics</span><span class="gd-cat-count">1</span><svg class="gd-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-terms" id="gdt-3"><div class="gd-row" data-search="load count load count the total number of loads delivered within the network during the specified time range. the total number of loads delivered within the network during the specified time range."><button class="gd-term-btn" onclick="toggleGdTerm('gd-3-0')" aria-expanded="false" aria-controls="gd-3-0-body"><span class="gd-term-name">Load Count</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-3-0-body" hidden><p class="gd-defn"></p></div></div></div></div><div class="gd-cat" id="gdc-4"><button class="gd-cat-btn" onclick="toggleGdCat(4)"><span class="gd-cat-name">Revenue Metrics</span><span class="gd-cat-count">5</span><svg class="gd-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-terms" id="gdt-4"><div class="gd-row" data-search="linehaul revenue lh rev, lh the sum of all linehaul revenue generated from all analyzed loads delivered within the network during the specified time range. the sum of all linehaul revenue generated from all analyzed loads delivered within the network during the specified time range."><button class="gd-term-btn" onclick="toggleGdTerm('gd-4-0')" aria-expanded="false" aria-controls="gd-4-0-body"><span class="gd-term-name">Linehaul Revenue<span class="gd-alias">LH Rev, LH</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-4-0-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="fuel surcharge revenue fsc rev, fsc the sum of all fuel surcharge revenue generated from all analyzed loads delivered within the network during the specified time range. the sum of all fuel surcharge revenue generated from all analyzed loads delivered within the network during the specified time ran"><button class="gd-term-btn" onclick="toggleGdTerm('gd-4-1')" aria-expanded="false" aria-controls="gd-4-1-body"><span class="gd-term-name">Fuel Surcharge Revenue<span class="gd-alias">FSC Rev, FSC</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-4-1-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="linehaul + fuel surcharge revenue lh+f, lh+f rev, lh+f/ld the sum of all linehaul and fuel surcharge revenue generated from all analyzed loads delivered within the network during the specified time range. the sum of all linehaul and fuel surcharge revenue generated from all analyzed loads delivered "><button class="gd-term-btn" onclick="toggleGdTerm('gd-4-2')" aria-expanded="false" aria-controls="gd-4-2-body"><span class="gd-term-name">Linehaul + Fuel Surcharge Revenue<span class="gd-alias">LH+F, LH+F Rev, LH+F/Ld</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-4-2-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="accessorial revenue acc rev, ar the sum of all load-specific accessorial revenue generated from all loads delivered within the network during the specified time range. the sum of all load-specific accessorial revenue generated from all loads delivered within the network during the specified time ran"><button class="gd-term-btn" onclick="toggleGdTerm('gd-4-3')" aria-expanded="false" aria-controls="gd-4-3-body"><span class="gd-term-name">Accessorial Revenue<span class="gd-alias">Acc Rev, AR</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-4-3-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="total revenue tot rev, tr the total revenue generated from all loads delivered within the network during the specified time range. total revenue is comprised of linehaul, fuel surcharge, and all load-specific accessorial revenues. the total revenue generated from all loads delivered within the netwo"><button class="gd-term-btn" onclick="toggleGdTerm('gd-4-4')" aria-expanded="false" aria-controls="gd-4-4-body"><span class="gd-term-name">Total Revenue<span class="gd-alias">Tot Rev, TR</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-4-4-body" hidden><p class="gd-defn"></p></div></div></div></div><div class="gd-cat" id="gdc-5"><button class="gd-cat-btn" onclick="toggleGdCat(5)"><span class="gd-cat-name">Cost Metrics</span><span class="gd-cat-count">10</span><svg class="gd-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-terms" id="gdt-5"><div class="gd-row" data-search="variable cost var cst, vc monthly variable cost per mile multiplied by all miles. all monthly variable and direct expenses associated with moving a load, allocated to each load based on the total miles attributed with that load or group of loads. these costs include both general expenses that scale "><button class="gd-term-btn" onclick="toggleGdTerm('gd-5-0')" aria-expanded="false" aria-controls="gd-5-0-body"><span class="gd-term-name">Variable Cost<span class="gd-alias">Var Cst, VC</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-5-0-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="net variable cost net var cst general variable costs excluding load specific costs. all monthly variable and direct expenses associated with moving a load, excluding load-specific costs such as tolls, customer upcharges, and reefer fuel. these costs are entirely allocated to each load based on the t"><button class="gd-term-btn" onclick="toggleGdTerm('gd-5-1')" aria-expanded="false" aria-controls="gd-5-1-body"><span class="gd-term-name">Net Variable Cost<span class="gd-alias">Net Var Cst</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-5-1-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="overhead cost oh cst, oc monthly overhead cost per hour multiplied by all hours the load was under power. all monthly overhead and indirect expenses for the running the operation, allocated to each load or group of loads based on the total hours utilized (empty and loaded). these costs include both "><button class="gd-term-btn" onclick="toggleGdTerm('gd-5-2')" aria-expanded="false" aria-controls="gd-5-2-body"><span class="gd-term-name">Overhead Cost<span class="gd-alias">OH Cst, OC</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-5-2-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="net overhead cost net oh cst general overhead costs excluding load specific costs. all monthly overhead and indirect expenses for running the operation, excluding load-specific costs such as location-specific trailer pool charges. these costs are entirely allocated to each load or group of loads bas"><button class="gd-term-btn" onclick="toggleGdTerm('gd-5-3')" aria-expanded="false" aria-controls="gd-5-3-body"><span class="gd-term-name">Net Overhead Cost<span class="gd-alias">Net OH Cst</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-5-3-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="total cost tot cst, tc all costs; first component of or formula. the total cost incurred from all loads delivered within the network during the specified time range. costing is based on freightmath standard practical miles and limits for operational hours."><button class="gd-term-btn" onclick="toggleGdTerm('gd-5-4')" aria-expanded="false" aria-controls="gd-5-4-body"><span class="gd-term-name">Total Cost<span class="gd-alias">Tot Cst, TC</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-5-4-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="orig trailer pool cost orig trailer pool cost calculated cost of drop trailers at origin locations. increasing volume out of trailer pool locations reduces cost per load. calculated cost of drop trailers at an origin location, allocated to each load on a per loaded hour basis. this cost is derived f"><button class="gd-term-btn" onclick="toggleGdTerm('gd-5-5')" aria-expanded="false" aria-controls="gd-5-5-body"><span class="gd-term-name">Orig Trailer Pool Cost</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-5-5-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="empty tolls em tolls tolls on empty miles. calculated tolls incurred on empty miles driven prior to picking up a load, based on lane-specific freightmath standard practical routing."><button class="gd-term-btn" onclick="toggleGdTerm('gd-5-6')" aria-expanded="false" aria-controls="gd-5-6-body"><span class="gd-term-name">Empty Tolls<span class="gd-alias">Em Tolls</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-5-6-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="loaded tolls ld tolls tolls on loaded miles. calculated tolls incurred on empty miles driven prior to picking up a load, based on lane-specific freightmath standard practical routing."><button class="gd-term-btn" onclick="toggleGdTerm('gd-5-7')" aria-expanded="false" aria-controls="gd-5-7-body"><span class="gd-term-name">Loaded Tolls<span class="gd-alias">Ld Tolls</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-5-7-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="orig trailer pool cost orig trailer pool cost  calculated the sum of the assigned per-load trailer cost. this cost is derived based on the number of trailers allocated to a specific location, the velocity of loads into and out of those locations, and the average trailer cost of ownership."><button class="gd-term-btn" onclick="toggleGdTerm('gd-5-8')" aria-expanded="false" aria-controls="gd-5-8-body"><span class="gd-term-name">Orig Trailer Pool Cost</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-5-8-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="dest trailer cost dest trailer cost  calculated cost of drop trailers at an destination location, allocated to each load on a per loaded hour basis. this cost is derived from the number of trailers assigned to a specific location or group of locations, the weekly volume of inbound loads, and the ave"><button class="gd-term-btn" onclick="toggleGdTerm('gd-5-9')" aria-expanded="false" aria-controls="gd-5-9-body"><span class="gd-term-name">Dest Trailer Cost</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-5-9-body" hidden><p class="gd-defn"></p></div></div></div></div><div class="gd-cat" id="gdc-6"><button class="gd-cat-btn" onclick="toggleGdCat(6)"><span class="gd-cat-name">Profit Metrics</span><span class="gd-cat-count">3</span><svg class="gd-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-terms" id="gdt-6"><div class="gd-row" data-search="operating profit op profit total revenue minus all variable and overhead costs. calculated profit generated from all loads delivered within the network during the specified time range. includes all variable costs, overhead costs, and load-specific costs. costing is based on freightmath standard prac"><button class="gd-term-btn" onclick="toggleGdTerm('gd-6-0')" aria-expanded="false" aria-controls="gd-6-0-body"><span class="gd-term-name">Operating Profit<span class="gd-alias">Op Profit</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-6-0-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="gross profit gross profit $ total revenue minus all variable costs. calculated profit (excluding overhead costs) generated from all loads delivered within the network during the specified time range. includes all general and load-specific variable costs. costing is based on freightmath standard prac"><button class="gd-term-btn" onclick="toggleGdTerm('gd-6-1')" aria-expanded="false" aria-controls="gd-6-1-body"><span class="gd-term-name">Gross Profit<span class="gd-alias">Gross Profit $</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-6-1-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="gross profit percentage gross profit % gross profit as a percentage of total revenue. expressed as a percentage of total revenue, using the calculated profit (excluding overhead costs) generated from all loads delivered within the network during the specified time range. includes all general and loa"><button class="gd-term-btn" onclick="toggleGdTerm('gd-6-2')" aria-expanded="false" aria-controls="gd-6-2-body"><span class="gd-term-name">Gross Profit Percentage<span class="gd-alias">Gross Profit %</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-6-2-body" hidden><p class="gd-defn"></p></div></div></div></div><div class="gd-cat" id="gdc-7"><button class="gd-cat-btn" onclick="toggleGdCat(7)"><span class="gd-cat-name">Miles & Distance</span><span class="gd-cat-count">8</span><svg class="gd-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-terms" id="gdt-7"><div class="gd-row" data-search="total miles total miles total loaded and empty miles based on fm practical mileage. the total number of miles across all loaded and empty segments for loads delivered within the network during the specified time range. based on freightmath standard practical mileage for all segments."><button class="gd-term-btn" onclick="toggleGdTerm('gd-7-0')" aria-expanded="false" aria-controls="gd-7-0-body"><span class="gd-term-name">Total Miles</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-7-0-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="loaded miles op loaded miles, lm loaded miles including non-billable stops, based on fm practical mileage. the number of miles driven with a loaded trailer, based on freightmath standard practical mileage for each segment. includes additional (non-billable) stops between origin and destination."><button class="gd-term-btn" onclick="toggleGdTerm('gd-7-1')" aria-expanded="false" aria-controls="gd-7-1-body"><span class="gd-term-name">Loaded Miles<span class="gd-alias">Op Loaded Miles, LM</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-7-1-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="standard loaded miles standard loaded miles direct origin to destination loaded fm practical miles. the expected number of loaded miles based on freightmath standard practical mileage for each order. does not include additional (non-billable) stops or relays between origin and destination."><button class="gd-term-btn" onclick="toggleGdTerm('gd-7-2')" aria-expanded="false" aria-controls="gd-7-2-body"><span class="gd-term-name">Standard Loaded Miles</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-7-2-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="billable miles bm billed miles directly from tms. the billed miles attached to an order or group of orders, as reported in the client's transportation management system (tms)."><button class="gd-term-btn" onclick="toggleGdTerm('gd-7-3')" aria-expanded="false" aria-controls="gd-7-3-body"><span class="gd-term-name">Billable Miles<span class="gd-alias">BM</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-7-3-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="length of haul loh avg loaded fm practical miles. the average loaded miles per order, based on freightmath practical mileage, including non-billable stops between origin and destination."><button class="gd-term-btn" onclick="toggleGdTerm('gd-7-4')" aria-expanded="false" aria-controls="gd-7-4-body"><span class="gd-term-name">Length Of Haul<span class="gd-alias">LOH</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-7-4-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="deadhead miles avg deadhead/load, dh miles, dh avg empty fm practical miles, prior to pick-up. the average empty miles driven prior to picking up a load, based on freightmath standard practical mileage. this includes all empty segments between the destination of a power unit's last loaded segment an"><button class="gd-term-btn" onclick="toggleGdTerm('gd-7-5')" aria-expanded="false" aria-controls="gd-7-5-body"><span class="gd-term-name">Deadhead Miles Avg<span class="gd-alias">Deadhead/Load, DH Miles, DH</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-7-5-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="empty relay miles avg empty relay miles avg empty miles by add 'l power units to relay a load. the average empty miles driven by additional power units associated with relays, based on freightmath practical mileage, including non-billable stops."><button class="gd-term-btn" onclick="toggleGdTerm('gd-7-6')" aria-expanded="false" aria-controls="gd-7-6-body"><span class="gd-term-name">Empty Relay Miles Avg</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-7-6-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="empty % em% percentage of all miles that are empty. the percentage of total miles that are empty miles (prior to pick-up and relay)."><button class="gd-term-btn" onclick="toggleGdTerm('gd-7-7')" aria-expanded="false" aria-controls="gd-7-7-body"><span class="gd-term-name">Empty %<span class="gd-alias">EM%</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-7-7-body" hidden><p class="gd-defn"></p></div></div></div></div><div class="gd-cat" id="gdc-8"><button class="gd-cat-btn" onclick="toggleGdCat(8)"><span class="gd-cat-name">Key Performance Indicators</span><span class="gd-cat-count">7</span><svg class="gd-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-terms" id="gdt-8"><div class="gd-row" data-search="network density index network density index loads per area score (0-100) showing network activity and concentration. a measure of network density based on the volume of loads moving into and out of defined ksmta market areas during the specified time range. this is an indexed score ranging from 0 to"><button class="gd-term-btn" onclick="toggleGdTerm('gd-8-0')" aria-expanded="false" aria-controls="gd-8-0-body"><span class="gd-term-name">Network Density Index</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-8-0-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="velocity network miles per hour mph for loads delivered, based on all mile sand all time (excluding detached time). measures how efficiently freight moves through your operation, expressed as the average miles per hour (mph) for loads delivered within the network during the specified time range. bas"><button class="gd-term-btn" onclick="toggleGdTerm('gd-8-1')" aria-expanded="false" aria-controls="gd-8-1-body"><span class="gd-term-name">Velocity<span class="gd-alias">Network Miles Per Hour</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-8-1-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="broker load % broker load %  the percentage of total analyzed loads delivered within the network, within the specified time range, which were procured through brokers."><button class="gd-term-btn" onclick="toggleGdTerm('gd-8-2')" aria-expanded="false" aria-controls="gd-8-2-body"><span class="gd-term-name">Broker Load %</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-8-2-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="broker ld mi % broker miles %  the percentage of total analyzed miles delivered within the network, within the specified time range, associated with loads which were procured through brokers."><button class="gd-term-btn" onclick="toggleGdTerm('gd-8-3')" aria-expanded="false" aria-controls="gd-8-3-body"><span class="gd-term-name">Broker Ld Mi %<span class="gd-alias">Broker Miles %</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-8-3-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="price impact % - total price impact % - total  the pricing (margin) opportunity, expressed as a percentage of revenue based on a comparison of analyzed loads, for a specified time range, compared to either the dat 30 day contact rate or the average of all other loads hauled on the same lane."><button class="gd-term-btn" onclick="toggleGdTerm('gd-8-4')" aria-expanded="false" aria-controls="gd-8-4-body"><span class="gd-term-name">Price Impact % - Total</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-8-4-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="price impact % - dat price impact % - dat  the pricing (margin) opportunity, expressed as a percentage of revenue based on a comparison of analyzed loads, for a specified time range, compared to the dat 30 day contact rate."><button class="gd-term-btn" onclick="toggleGdTerm('gd-8-5')" aria-expanded="false" aria-controls="gd-8-5-body"><span class="gd-term-name">Price Impact % - DAT</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-8-5-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="price impact % - lane price impact % - lane  the pricing (margin) opportunity, expressed as a percentage of revenue based on a comparison of analyzed loads, for a specified time range, compared to the average of all other loads hauled on the same lane."><button class="gd-term-btn" onclick="toggleGdTerm('gd-8-6')" aria-expanded="false" aria-controls="gd-8-6-body"><span class="gd-term-name">Price Impact % - Lane</span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-8-6-body" hidden><p class="gd-defn"></p></div></div></div></div><div class="gd-cat" id="gdc-9"><button class="gd-cat-btn" onclick="toggleGdCat(9)"><span class="gd-cat-name">Geography & Market Areas</span><span class="gd-cat-count">4</span><svg class="gd-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-terms" id="gdt-9"><div class="gd-row" data-search="previous load destination area pld, pld area area the pick-up driver deadheaded from. the ksmta market area where the pick-up driver for the current order last delivered. ksmta market areas are defined by groups of 3-digit postal codes and may extend beyond the named metro area."><button class="gd-term-btn" onclick="toggleGdTerm('gd-9-0')" aria-expanded="false" aria-controls="gd-9-0-body"><span class="gd-term-name">Previous Load Destination Area<span class="gd-alias">PLD, PLD Area</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-9-0-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="origin area orig, orig area order's pick-up area. the ksmta market area where the load was originally picked up. ksmta market areas are defined by groups of 3-digit postal codes and may extend beyond the named metro area."><button class="gd-term-btn" onclick="toggleGdTerm('gd-9-1')" aria-expanded="false" aria-controls="gd-9-1-body"><span class="gd-term-name">Origin Area<span class="gd-alias">ORIG, ORIG Area</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-9-1-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="destination area dest, dest area order's delivery area. the ksmta market area where the load was delivered. ksmta market areas are defined by groups of 3-digit postal codes and may extend beyond the named metro area."><button class="gd-term-btn" onclick="toggleGdTerm('gd-9-2')" aria-expanded="false" aria-controls="gd-9-2-body"><span class="gd-term-name">Destination Area<span class="gd-alias">DEST, DEST Area</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-9-2-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="next load origin area nlo, nlo area area the delivery driver deadheaded to. the next ksmta market area where the delivery driver for the current order picked up their subsequent load. ksmta market areas are defined by groups of 3-digit postal codes and may extend beyond the named metro area."><button class="gd-term-btn" onclick="toggleGdTerm('gd-9-3')" aria-expanded="false" aria-controls="gd-9-3-body"><span class="gd-term-name">Next Load Origin Area<span class="gd-alias">NLO, NLO Area</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-9-3-body" hidden><p class="gd-defn"></p></div></div></div></div><div class="gd-cat" id="gdc-10"><button class="gd-cat-btn" onclick="toggleGdCat(10)"><span class="gd-cat-name">Time & Dwell Metrics</span><span class="gd-cat-count">8</span><svg class="gd-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-terms" id="gdt-10"><div class="gd-row" data-search="empty time empty hours empty driving hours prior to picking up a load. the actual number of hours spent driving empty prior to picking up a load. includes all empty segments between a power unit's last loaded segment and the start of the current order (e.g., driver goes home, trailer repositioning)."><button class="gd-term-btn" onclick="toggleGdTerm('gd-10-0')" aria-expanded="false" aria-controls="gd-10-0-body"><span class="gd-term-name">Empty Time<span class="gd-alias">Empty Hours</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-10-0-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="standard loaded time freightmath standard practical transit time direct origin to destination fm standard practical transit time. the expected loaded driving time between origin and destination, based on lane-specific freightmath standard practical transit time and proportionate hos breaks. excludes"><button class="gd-term-btn" onclick="toggleGdTerm('gd-10-1')" aria-expanded="false" aria-controls="gd-10-1-body"><span class="gd-term-name">Standard Loaded Time<span class="gd-alias">FreightMath standard practical transit time</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-10-1-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="loaded time loaded hours loaded driving hours. includes non-billable stops; excludes detached time. the actual number of hours spent driving with a loaded trailer, including non-billable stops. detached hours (when the load is not under power) are removed from this measure. capped based on an allowa"><button class="gd-term-btn" onclick="toggleGdTerm('gd-10-2')" aria-expanded="false" aria-controls="gd-10-2-body"><span class="gd-term-name">Loaded Time<span class="gd-alias">Loaded Hours</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-10-2-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="loaded delay avg ld delay, delay hours loaded hours over/under standard loaded time. positive and negative values are valid. the number of loaded hours over or under the expected standard loaded time; based on lane-specific freightmath standard transit time and proportionate hos breaks. positive val"><button class="gd-term-btn" onclick="toggleGdTerm('gd-10-3')" aria-expanded="false" aria-controls="gd-10-3-body"><span class="gd-term-name">Loaded Delay Avg<span class="gd-alias">Ld Delay, Delay Hours</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-10-3-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="loaded delay % delay % percentage of loaded time above/below standard loaded time. the percentage of loaded hours over or under the expected standard loaded time; based on lane-specific freightmath standard transit time and proportionate hos breaks. positive values indicate delay; negative values in"><button class="gd-term-btn" onclick="toggleGdTerm('gd-10-4')" aria-expanded="false" aria-controls="gd-10-4-body"><span class="gd-term-name">Loaded Delay %<span class="gd-alias">Delay %</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-10-4-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="detached time drop trailer hours total hours a loaded trailer is not under power. the amount of time between initial pick-up and final delivery during which a loaded trailer is not under power. detached time is excluded from loaded time and not subject to overhead costs to avoid penalizing loads at "><button class="gd-term-btn" onclick="toggleGdTerm('gd-10-5')" aria-expanded="false" aria-controls="gd-10-5-body"><span class="gd-term-name">Detached Time<span class="gd-alias">Drop Trailer Hours</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-10-5-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="time at origin time at orig, origin hours, orig hrs, loading time time spent loading at the origin. the amount of time spent picking up the load at the initial shipping location. to eliminate outliers, this value is capped at a maximum of 8 hours and a minimum of 30 minutes."><button class="gd-term-btn" onclick="toggleGdTerm('gd-10-6')" aria-expanded="false" aria-controls="gd-10-6-body"><span class="gd-term-name">Time at Origin<span class="gd-alias">Time at Orig, Origin Hours, Orig Hrs, Loading Time</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-10-6-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="time at destination time at dest, destination hours, dest hrs, unoading time time spent unloading at the final destination. the amount of time spent delivering the load at the final consignee location. to eliminate outliers, this value is capped at a maximum of 8 hours and a minimum of 30 minutes."><button class="gd-term-btn" onclick="toggleGdTerm('gd-10-7')" aria-expanded="false" aria-controls="gd-10-7-body"><span class="gd-term-name">Time at Destination<span class="gd-alias">Time at Dest, Destination Hours, Dest Hrs, Unoading Time</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-10-7-body" hidden><p class="gd-defn"></p></div></div></div></div><div class="gd-cat" id="gdc-11"><button class="gd-cat-btn" onclick="toggleGdCat(11)"><span class="gd-cat-name">Rate Metrics</span><span class="gd-cat-count">5</span><svg class="gd-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-terms" id="gdt-11"><div class="gd-row" data-search="linehaul and fuel revenue per loaded mile lh+f/lm total revenue (linehaul + fsc) per loaded mile for network loads in the given time period. linehaul and fuel surcharge revenue per loaded mile divides the combination of linehaul and fuel surcharge revenue generated for analyzed loads delivered withi"><button class="gd-term-btn" onclick="toggleGdTerm('gd-11-0')" aria-expanded="false" aria-controls="gd-11-0-body"><span class="gd-term-name">Linehaul and Fuel Revenue per Loaded Mile<span class="gd-alias">LH+F/LM</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-11-0-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="linehaul and fuel revenue per total mile lh+f/tm total revenue (linehaul + fsc) per total mile for network loads in the given time period. linehaul and fuel surcharge revenue per total mile divides the combination of linehaul and fuel surcharge revenue generated for analyzed loads delivered within t"><button class="gd-term-btn" onclick="toggleGdTerm('gd-11-1')" aria-expanded="false" aria-controls="gd-11-1-body"><span class="gd-term-name">Linehaul and Fuel Revenue per Total Mile<span class="gd-alias">LH+F/TM</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-11-1-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="linehaul revenue per loaded mile lh/lm linehaul revenue per loaded mile for network loads during the given time period. linehaul revenue per loaded mile divides the linehaul revenue generated for analyzed loads delivered within the network during the specific time range by the loaded miles for the s"><button class="gd-term-btn" onclick="toggleGdTerm('gd-11-2')" aria-expanded="false" aria-controls="gd-11-2-body"><span class="gd-term-name">Linehaul Revenue per Loaded Mile<span class="gd-alias">LH/LM</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-11-2-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="linehaul revenue per total mile lh/tm linehaul revenue per total mile for network loads during the given time period. linehaul revenue per total mile divides the linehaul revenue generated for analyzed loads delivered within the network during the specified time range by the total miles (loaded and "><button class="gd-term-btn" onclick="toggleGdTerm('gd-11-3')" aria-expanded="false" aria-controls="gd-11-3-body"><span class="gd-term-name">Linehaul Revenue per Total Mile<span class="gd-alias">LH/TM</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-11-3-body" hidden><p class="gd-defn"></p></div></div><div class="gd-row" data-search="fuel surcharge per loaded mile fsc/lm fuel surcharge revenue per loaded mile for network loads in the given time period. fuel surcharge revenue per loaded mile divides the fuel surcharge revenue generated for analyzed loads delivered within the network during the specified time range by the loaded m"><button class="gd-term-btn" onclick="toggleGdTerm('gd-11-4')" aria-expanded="false" aria-controls="gd-11-4-body"><span class="gd-term-name">Fuel Surcharge per Loaded Mile<span class="gd-alias">FSC/LM</span></span><svg class="gd-row-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button><div class="gd-def" id="gd-11-4-body" hidden><p class="gd-defn"></p></div></div></div></div><div class="gd-no-results" id="gdNoResults"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>No terms match your search.</div></div>
+</aside>
+
+</body>
+</html>

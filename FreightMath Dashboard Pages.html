@@ -1,0 +1,2577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detailed User Guide — FreightMath | KSM Transport Advisors</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fm-navy:         #0A2463;
+    --fm-blue:         #2C78C9;
+    --fm-orange:       #E26E17;
+    --fm-black:        #000000;
+    --fm-gray:         #6E6E6E;
+    --fm-light-blue:   #96BCE4;
+    --fm-mid-blue:     #8592B1;
+    --fm-light-gray:   #F5F5F5;
+    --fm-warm-gray:    #DCDAD8;
+    --fm-light-orange: #F1B78B;
+    --fm-white:        #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Public Sans', sans-serif;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--fm-black);
+    background: var(--fm-white);
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--fm-navy);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(10,36,99,0.4);
+  }
+  .site-header img { height: 34px; filter: brightness(0) invert(1); }
+  .header-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--fm-light-blue);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--fm-navy);
+    padding: 4rem 2.5rem 3.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    right: -60px; top: -40px;
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, rgba(44,120,201,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 860px; position: relative; }
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--fm-orange);
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    color: var(--fm-white);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .hero h1 strong { font-weight: 700; color: var(--fm-light-blue); }
+  .hero-desc {
+    color: var(--fm-mid-blue);
+    font-size: 1rem;
+    max-width: 640px;
+    line-height: 1.7;
+  }
+
+  /* ── MAIN ── */
+  .page-body {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem 5rem;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-heading {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--fm-navy);
+    margin-bottom: 0.5rem;
+  }
+  .section-intro {
+    color: var(--fm-gray);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    max-width: 680px;
+    margin-bottom: 0.75rem;
+  }
+  .section-intro code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8em;
+    background: #EAF2FB;
+    border: 1px solid var(--fm-light-blue);
+    color: var(--fm-blue);
+    padding: 0.1em 0.4em;
+  }
+
+  /* ── SLC BADGE ── */
+  .slc-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2em 0.6em;
+    background: var(--fm-orange);
+    color: var(--fm-white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-left: 0.4em;
+    vertical-align: middle;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── ACCORDION LIST ── */
+  .accordion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1.75rem;
+  }
+
+  /* ── ACCORDION ITEM ── */
+  .accordion-item {
+    border: 1px solid var(--fm-warm-gray);
+    background: var(--fm-white);
+    transition: box-shadow 0.2s;
+  }
+  .accordion-item:hover { box-shadow: 0 2px 12px rgba(10,36,99,0.08); }
+  .accordion-item.open  { box-shadow: 0 4px 20px rgba(10,36,99,0.12); border-color: var(--fm-light-blue); }
+
+  .accordion-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 1.1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    text-align: left;
+  }
+  .accordion-trigger-left {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    flex: 1;
+    min-width: 0;
+  }
+  .acc-emoji {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .acc-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--fm-navy);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    line-height: 1.3;
+  }
+  .acc-chevron {
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    color: var(--fm-gray);
+    transition: transform 0.25s ease, color 0.2s;
+  }
+  .accordion-item.open .acc-chevron {
+    transform: rotate(180deg);
+    color: var(--fm-blue);
+  }
+
+  /* ── ACCORDION BODY ── */
+  .accordion-body {
+    display: none;
+    padding: 0 1.25rem 1.5rem;
+    animation: fadeIn 0.2s ease;
+  }
+  .accordion-item.open .accordion-body { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .acc-divider {
+    height: 1px;
+    background: var(--fm-warm-gray);
+    margin-bottom: 1.25rem;
+  }
+
+  /* ── SCREENSHOT ── */
+  .acc-screenshot {
+    width: 100%;
+    border: 1px solid var(--fm-warm-gray);
+    display: block;
+    margin-bottom: 1.25rem;
+    background: var(--fm-light-gray);
+  }
+  .acc-screenshot-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .acc-screenshot-row figure {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .acc-screenshot-row figcaption {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fm-gray);
+  }
+
+  /* ── CONTENT ── */
+  .acc-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--fm-navy);
+    margin-bottom: 0.5rem;
+  }
+  .acc-body p {
+    font-size: 0.875rem;
+    color: var(--fm-black);
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+  }
+  .acc-body p:last-child { margin-bottom: 0; }
+
+  .bullet-list {
+    list-style: none;
+    margin: 0.5rem 0 0.875rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .bullet-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--fm-black);
+  }
+  .bullet-list li::before {
+    content: '';
+    flex-shrink: 0;
+    margin-top: 7px;
+    width: 6px; height: 6px;
+    background: var(--fm-blue);
+    border-radius: 50%;
+  }
+
+  .use-box {
+    background: var(--fm-light-gray);
+    border-left: 3px solid var(--fm-navy);
+    padding: 0.75rem 1rem;
+    margin-top: 0.875rem;
+    font-size: 0.8125rem;
+    color: var(--fm-black);
+    line-height: 1.6;
+  }
+  .use-box strong {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    color: var(--fm-navy);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin-top: 1rem;
+  }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    padding: 0.2em 0.55em;
+    background: var(--fm-light-gray);
+    color: var(--fm-navy);
+    border: 1px solid var(--fm-warm-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .tag.blue  { background: #EAF2FB; border-color: var(--fm-light-blue); color: var(--fm-blue); }
+  .tag.orange{ background: #FEF0E6; border-color: var(--fm-light-orange); color: var(--fm-orange); }
+
+  /* ── EXPAND / COLLAPSE ALL BUTTONS ── */
+  .expand-collapse-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  .ec-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.3em 0.85em;
+    border: 1px solid var(--fm-warm-gray);
+    background: var(--fm-white);
+    color: var(--fm-gray);
+    cursor: pointer;
+    transition: all 0.15s;
+    border-radius: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .ec-btn:hover {
+    border-color: var(--fm-blue);
+    color: var(--fm-blue);
+    background: #EAF2FB;
+  }
+  .ec-btn svg { flex-shrink: 0; }
+
+  /* ── ROLE BADGE ── */
+  .role-badge {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    padding: 0.18em 0.55em;
+    font-family: 'DM Sans', sans-serif; font-size: 0.6rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.09em;
+    border-radius: 2px; flex-shrink: 0; vertical-align: middle;
+  }
+  .role-badge.exec    { background: #0A2463; color: #fff; }
+  .role-badge.analyst { background: #2C78C9; color: #fff; }
+  .role-badge.ops     { background: #4a7c59; color: #fff; }
+  .role-badge.pricing { background: #E26E17; color: #fff; }
+
+  /* ── TRIGGER META ROW ── */
+  .acc-trigger-meta { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.2rem; flex-wrap: wrap; }
+  .acc-freq {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--fm-gray); background: var(--fm-light-gray);
+    border: 1px solid var(--fm-warm-gray); padding: 0.15em 0.45em;
+  }
+
+  /* ── FLOW STRIP (inside accordion) ── */
+  .flow-strip {
+    background: #f0f4fb; border: 1px solid #c8d9ef;
+    padding: 0.75rem 1rem; margin-bottom: 1.25rem;
+    display: flex; align-items: center; gap: 0; flex-wrap: wrap;
+  }
+  .flow-strip-label {
+    font-family: 'DM Sans', sans-serif; font-size: 0.6rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em; color: var(--fm-blue);
+    margin-right: 0.75rem; white-space: nowrap; flex-shrink: 0;
+  }
+  .flow-nodes { display: flex; align-items: center; flex-wrap: wrap; gap: 0; }
+  .flow-node {
+    font-family: 'DM Sans', sans-serif; font-size: 0.7rem; font-weight: 700;
+    color: var(--fm-navy); padding: 0.22em 0.6em;
+    border: 1px solid #c8d9ef; background: var(--fm-white);
+    white-space: nowrap; text-decoration: none; transition: background 0.15s;
+  }
+  .flow-node.current { background: var(--fm-navy); color: var(--fm-white); border-color: var(--fm-navy); }
+  .flow-node:hover:not(.current) { background: #e0ecf8; }
+  .flow-arrow { font-size: 0.65rem; color: var(--fm-light-blue); padding: 0 0.2rem; flex-shrink: 0; }
+
+  /* ── KEY QUESTIONS PANEL ── */
+  .questions-panel { border: 1px solid #c8d9ef; margin-bottom: 1.1rem; overflow: hidden; }
+  .questions-panel-header {
+    background: var(--fm-navy); padding: 0.5rem 0.875rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .questions-panel-header span {
+    font-family: 'DM Sans', sans-serif; font-size: 0.6rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.12em; color: var(--fm-light-blue);
+  }
+  .questions-list {
+    list-style: none; margin: 0; padding: 0.625rem 0.875rem 0.75rem;
+    background: #EAF2FB; display: flex; flex-direction: column; gap: 0.35rem;
+  }
+  .questions-list li {
+    display: flex; align-items: flex-start; gap: 0.55rem;
+    font-size: 0.8125rem; line-height: 1.55; color: var(--fm-navy);
+  }
+  .questions-list li::before {
+    content: '?'; flex-shrink: 0;
+    font-family: 'DM Sans', sans-serif; font-size: 0.6rem; font-weight: 900;
+    color: var(--fm-blue); background: rgba(44,120,201,0.12);
+    width: 15px; height: 15px; display: flex; align-items: center; justify-content: center;
+    margin-top: 2px; border-radius: 50%;
+  }
+
+  /* ── WATCH BOX ── */
+  .watch-box {
+    background: #FEF0E6; border-left: 3px solid var(--fm-orange);
+    padding: 0.75rem 1rem; margin-top: 0.875rem; margin-bottom: 0.875rem;
+    font-size: 0.8125rem; color: var(--fm-black); line-height: 1.6;
+  }
+  .watch-box .wbox-label {
+    font-family: 'DM Sans', sans-serif; font-weight: 700; color: var(--fm-orange);
+    font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 0.35rem; margin-bottom: 0.35rem;
+  }
+  .watch-box ul { list-style: none; margin: 0.25rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 0.3rem; }
+  .watch-box ul li { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8rem; line-height: 1.55; }
+  .watch-box ul li::before { content: '⚠'; flex-shrink: 0; font-size: 0.65rem; margin-top: 2px; color: var(--fm-orange); }
+
+  /* ── SCENARIO BOX ── */
+  .scenario-box {
+    background: var(--fm-white); border: 1px solid var(--fm-warm-gray);
+    border-top: 3px solid var(--fm-blue); padding: 0.875rem 1rem;
+    margin-top: 0.875rem; margin-bottom: 0.875rem;
+  }
+  .scenario-box-label {
+    font-family: 'DM Sans', sans-serif; font-size: 0.6rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.12em; color: var(--fm-blue);
+    display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.45rem;
+  }
+  .scenario-box p { font-size: 0.8125rem !important; color: var(--fm-black) !important; line-height: 1.65 !important; margin-bottom: 0 !important; font-style: italic; }
+
+  /* ── RELATED PAGES STRIP ── */
+  .related-strip {
+    display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+    margin-top: 1rem; padding-top: 0.875rem; border-top: 1px solid var(--fm-warm-gray);
+  }
+  .related-strip-label {
+    font-family: 'DM Sans', sans-serif; font-size: 0.6rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em; color: var(--fm-gray);
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .related-link {
+    font-family: 'DM Sans', sans-serif; font-size: 0.7rem; font-weight: 600;
+    color: var(--fm-blue); background: #EAF2FB; border: 1px solid #c8d9ef;
+    padding: 0.2em 0.65em; text-decoration: none; white-space: nowrap; transition: background 0.15s;
+  }
+  .related-link:hover { background: #d4e8f7; }
+
+  /* ── TIME NOTE ── */
+  .time-note {
+    display: flex; align-items: flex-start; gap: 0.6rem;
+    background: var(--fm-light-gray); border: 1px solid var(--fm-warm-gray);
+    padding: 0.625rem 0.875rem; margin-top: 0.875rem;
+    font-size: 0.8rem; color: var(--fm-black); line-height: 1.55;
+  }
+  .time-note svg { flex-shrink: 0; color: var(--fm-blue); margin-top: 1px; }
+  .time-note strong { font-family: 'DM Sans', sans-serif; font-weight: 700; color: var(--fm-navy); }
+
+  /* ── WORKFLOW SEQUENCE (above accordion) ── */
+  .workflow-sequence {
+    background: var(--fm-navy); padding: 1.5rem; margin-bottom: 2rem;
+  }
+  .workflow-sequence-title {
+    font-family: 'DM Sans', sans-serif; font-size: 0.6875rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.14em; color: var(--fm-orange); margin-bottom: 1rem;
+  }
+  .workflow-sequence-nodes {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0;
+    justify-content: center;
+  }
+  .wsn-step { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .wsn-dot {
+    width: 48px; height: 48px; background: rgba(150,188,228,0.12);
+    border: 1px solid rgba(150,188,228,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 0.5rem; flex-shrink: 0;
+  }
+  .wsn-label {
+    font-family: 'DM Sans', sans-serif; font-size: 0.575rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em; color: var(--fm-light-blue);
+    max-width: 70px; line-height: 1.3;
+  }
+  .wsn-arrow {
+    font-size: 0.8rem; color: rgba(150,188,228,0.35);
+    padding: 0 0.35rem;
+    margin-top: 14px;
+    flex-shrink: 0;
+  }
+  .workflow-sequence-note {
+    margin-top: 1rem; font-size: 0.75rem; color: var(--fm-mid-blue); line-height: 1.6;
+    border-top: 1px solid rgba(150,188,228,0.15); padding-top: 0.75rem;
+  }
+
+  /* ── FILTER BAR ── */
+  .filter-bar { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+  .filter-bar-label {
+    font-family: 'DM Sans', sans-serif; font-size: 0.6875rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.1em; color: var(--fm-gray);
+    flex-shrink: 0; margin-right: 0.25rem;
+  }
+  .filter-btn {
+    font-family: 'DM Sans', sans-serif; font-size: 0.7rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.07em;
+    padding: 0.3em 0.85em; border: 1px solid var(--fm-warm-gray);
+    background: var(--fm-white); color: var(--fm-gray); cursor: pointer;
+    transition: all 0.15s; border-radius: 0;
+  }
+  .filter-btn:hover { border-color: var(--fm-blue); color: var(--fm-blue); background: #EAF2FB; }
+  .filter-btn.active { background: var(--fm-navy); color: var(--fm-white); border-color: var(--fm-navy); }
+  .accordion-item[data-roles].hidden-by-filter { display: none; }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    background: var(--fm-navy);
+    padding: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .site-footer img { height: 28px; filter: brightness(0) invert(1); opacity: 0.85; }
+  .footer-right {
+    font-size: 0.75rem;
+    color: var(--fm-mid-blue);
+    text-align: right;
+    line-height: 1.6;
+  }
+  .footer-right a { color: var(--fm-light-blue); text-decoration: none; }
+  .footer-right a:hover { text-decoration: underline; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .site-header, .hero, .page-body, .site-footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .acc-screenshot-row { grid-template-columns: 1fr; }
+    .footer-right { text-align: left; }
+  }
+
+  .section-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--fm-orange);
+    margin-bottom: 0.4rem;
+  }
+
+
+
+
+
+
+
+  /* ── CATEGORY BLOCK ── */
+  .gcat {
+    margin-bottom: 0.75rem;
+    border: 1px solid var(--fm-warm-gray);
+    background: var(--fm-white);
+    transition: box-shadow 0.2s;
+  }
+  .gcat:hover { box-shadow: 0 2px 10px rgba(10,36,99,0.07); }
+  .gcat-trigger {
+    width: 100%;
+    background: var(--fm-navy);
+    border: none;
+    cursor: pointer;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    text-align: left;
+    transition: background 0.2s;
+  }
+  .gcat-trigger:hover { background: #0d2d7a; }
+  .gcat-trigger-left {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    flex: 1;
+    min-width: 0;
+  }
+  .gcat-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    line-height: 1;
+    width: 28px;
+    text-align: center;
+  }
+  .gcat-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--fm-white);
+    line-height: 1.2;
+  }
+  .gcat-desc {
+    font-size: 0.75rem;
+    color: var(--fm-light-blue);
+    margin-top: 0.1rem;
+  }
+  .gcat-right {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    flex-shrink: 0;
+  }
+  .gcat-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--fm-light-blue);
+    background: rgba(150,188,228,0.15);
+    padding: 0.2em 0.6em;
+    border: 1px solid rgba(150,188,228,0.25);
+  }
+  .gcat-chevron {
+    width: 18px; height: 18px;
+    color: var(--fm-light-blue);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+  }
+  .gcat.collapsed .gcat-chevron { transform: rotate(-90deg); }
+  .gcat-terms {
+    border-top: 1px solid var(--fm-warm-gray);
+  }
+  .gcat.collapsed .gcat-terms { display: none; }
+
+  /* ── TERM ROW ── */
+  .gterm {
+    border-bottom: 1px solid var(--fm-warm-gray);
+    transition: background 0.15s;
+  }
+  .gterm:last-child { border-bottom: none; }
+  .gterm.hidden { display: none; }
+  .gterm-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.875rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    text-align: left;
+    transition: background 0.15s;
+  }
+  .gterm-trigger:hover { background: #f0f4fb; }
+  .gterm-trigger-left { flex: 1; min-width: 0; }
+  .gterm-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--fm-navy);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    line-height: 1.3;
+    margin-bottom: 0.15rem;
+  }
+  .gterm-alias {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--fm-blue);
+    background: #EAF2FB;
+    border: 1px solid var(--fm-light-blue);
+    padding: 0.1em 0.45em;
+    font-style: normal;
+  }
+  .gterm-short {
+    font-size: 0.8rem;
+    color: var(--fm-gray);
+    line-height: 1.45;
+  }
+  .gterm-chevron {
+    width: 18px; height: 18px;
+    color: var(--fm-gray);
+    flex-shrink: 0;
+    transition: transform 0.22s ease, color 0.2s;
+  }
+  .gterm.open .gterm-chevron { transform: rotate(180deg); color: var(--fm-blue); }
+  .gterm-body {
+    display: none;
+    padding: 0 1.25rem 1.125rem;
+    animation: gfadeIn 0.18s ease;
+  }
+  .gterm.open .gterm-body { display: block; }
+  @keyframes gfadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .gterm-divider { height: 1px; background: var(--fm-warm-gray); margin-bottom: 0.875rem; }
+  .gterm-defn {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--fm-black);
+    margin-bottom: 0;
+  }
+  .gterm-useful {
+    background: #EAF2FB;
+    border-left: 3px solid var(--fm-blue);
+    padding: 0.6rem 0.875rem;
+    margin-top: 0.75rem;
+    font-size: 0.8125rem;
+    color: var(--fm-navy);
+    line-height: 1.6;
+  }
+  .gterm-useful-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fm-blue);
+    display: block;
+    margin-bottom: 0.2rem;
+  }
+
+  @media (max-width: 640px) {
+
+  }
+
+
+  /* ── SHARED PLATFORM NAV ── */
+  .platform-nav {
+    background: #061840;
+    border-bottom: 1px solid rgba(150,188,228,0.12);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    position: sticky;
+    top: 68px;
+    z-index: 99;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .platform-nav::-webkit-scrollbar { display: none; }
+  .platform-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    height: 100%;
+  }
+  .platform-nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0 1rem;
+    height: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--fm-mid-blue);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.18s, border-color 0.18s, background 0.18s;
+  }
+  .platform-nav a:hover {
+    color: var(--fm-light-blue);
+    background: rgba(44,120,201,0.08);
+  }
+  .platform-nav a.active {
+    color: var(--fm-white);
+    border-bottom-color: var(--fm-orange);
+  }
+  .platform-nav-dot {
+    width: 5px; height: 5px;
+    background: var(--fm-orange);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: none;
+  }
+  .platform-nav a.active .platform-nav-dot { display: block; }
+  .platform-nav-glossary {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25em 0.75em;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fm-light-blue);
+    text-decoration: none;
+    background: rgba(44,120,201,0.08);
+    white-space: nowrap;
+    transition: color 0.18s, background 0.18s;
+    flex-shrink: 0;
+    height: 100%;
+    border-bottom: 2px solid transparent;
+  }
+  .platform-nav-glossary:hover {
+    color: var(--fm-light-blue);
+    background: rgba(44,120,201,0.15);
+  }
+  @media (max-width: 640px) {
+    .platform-nav { padding: 0 1.25rem; top: 68px; }
+  }
+
+  /* ── LIGHTBOX ── */
+  .acc-screenshot { cursor: zoom-in; }
+  .lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(6,24,64,0.92);
+    z-index: 9000;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    animation: lbFade 0.2s ease;
+  }
+  .lightbox-overlay.open { display: flex; }
+  @keyframes lbFade { from { opacity: 0; } to { opacity: 1; } }
+  .lightbox-img-wrap {
+    position: relative;
+    max-width: 1100px;
+    width: 100%;
+  }
+  .lightbox-img-wrap img {
+    width: 100%;
+    display: block;
+    border: 2px solid rgba(150,188,228,0.25);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  }
+  .lightbox-caption {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    color: var(--fm-light-blue);
+    text-align: center;
+    margin-top: 0.875rem;
+    letter-spacing: 0.04em;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: -0.75rem;
+    right: -0.75rem;
+    width: 32px; height: 32px;
+    background: var(--fm-orange);
+    border: none;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--fm-white);
+    font-size: 1.1rem;
+    line-height: 1;
+    z-index: 1;
+    transition: background 0.15s;
+  }
+  .lightbox-close:hover { background: #c85c10; }
+  .lightbox-hint {
+    position: absolute;
+    bottom: -1.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    color: rgba(150,188,228,0.6);
+    white-space: nowrap;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="https://freightmath-site.vercel.app/" target="_blank" style="display:inline-flex;"><img src="https://info.ksmcpa.com/hubfs/FreightMath/Images/KSM_FM_Logo_RGB_Color.png" alt="FreightMath"></a>
+  <span class="header-label">Dashboard Pages</span>
+</header>
+
+
+<!-- PLATFORM NAV -->
+<nav class="platform-nav" aria-label="Platform navigation">
+  <div class="platform-nav-links">
+    <a href="FreightMath Guide Page Home.html">Home</a>
+    <a href="FreightMath Quick Start Guide.html">Quick Start</a>
+    <a href="FreightMath Role Paths.html">Role Paths</a>
+    <a href="FreightMath Dashboard Pages.html" class="active"><span class="platform-nav-dot"></span>User Guide</a>
+    
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+    <a href="FreightMath Client Onboarding Schedule.html" class="platform-nav-glossary">
+      <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M8 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"/><path d="M17 2H11a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg>
+      Onboarding
+    </a>
+    <a href="https://info.ksmcpa.com/hubfs/FreightMath_Glossary.html" class="platform-nav-glossary">
+      <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+      Glossary
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">KSM Transport Advisors</p>
+    <h1>FreightMath<br><strong>Dashboard Pages</strong></h1>
+    <p class="hero-desc">A reference for every page in the FreightMath Dashboard — what it shows, how to use it, and how segment-level costing powers the underlying analytics.</p>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="page-body">
+
+  <h2 class="section-heading">Dashboard Pages</h2>
+  <p class="section-intro">
+    Every page in the FreightMath platform — what it shows, the business questions it answers, how to read it correctly, and where it fits in your analytical workflow. Pages marked <span class="slc-badge">SLC</span> draw directly from the segment-level cost allocation engine, meaning profitability figures are load-level and allocation-aware — not simple averages.
+  </p>
+
+  <!-- RECOMMENDED WORKFLOW SEQUENCE -->
+  <div class="workflow-sequence">
+    <div class="workflow-sequence-title">Recommended Analytical Sequence — Weekly Executive Review</div>
+    <div class="workflow-sequence-nodes">
+      <div class="wsn-step"><div class="wsn-dot">🏠</div><div class="wsn-label">Home</div></div>
+      <div class="wsn-arrow">›</div>
+      <div class="wsn-step"><div class="wsn-dot">📊</div><div class="wsn-label">Rev / Vol Change</div></div>
+      <div class="wsn-arrow">›</div>
+      <div class="wsn-step"><div class="wsn-dot">📈</div><div class="wsn-label">Historical Trends</div></div>
+      <div class="wsn-arrow">›</div>
+      <div class="wsn-step"><div class="wsn-dot">⬡</div><div class="wsn-label">Profitability Matrix</div></div>
+      <div class="wsn-arrow">›</div>
+      <div class="wsn-step"><div class="wsn-dot">🌐</div><div class="wsn-label">Areas of Profit</div></div>
+      <div class="wsn-arrow">›</div>
+      <div class="wsn-step"><div class="wsn-dot">🗺️</div><div class="wsn-label">Area Analysis</div></div>
+      <div class="wsn-arrow">›</div>
+      <div class="wsn-step"><div class="wsn-dot">🏷️</div><div class="wsn-label">Bill To by Lane</div></div>
+      <div class="wsn-arrow">›</div>
+      <div class="wsn-step"><div class="wsn-dot">💰</div><div class="wsn-label">Price Impact</div></div>
+    </div>
+    <div class="workflow-sequence-note">Start high-level, move to diagnosis, then action. Users who follow structured workflows consistently extract more value than those who navigate dashboards independently. The sequence above mirrors how experienced FreightMath users approach a weekly performance review.</div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:0.75rem;">
+    <div class="filter-bar" style="margin-bottom:0;">
+      <span class="filter-bar-label">Filter by role:</span>
+      <button class="filter-btn active" data-filter="all">All Pages</button>
+      <button class="filter-btn" data-filter="exec">Executive</button>
+      <button class="filter-btn" data-filter="analyst">Analyst</button>
+      <button class="filter-btn" data-filter="ops">Operations</button>
+      <button class="filter-btn" data-filter="pricing">Pricing</button>
+    </div>
+    <div style="display:flex; align-items:center; gap:0.625rem; flex-shrink:0;">
+      <div class="expand-collapse-bar">
+        <button class="ec-btn" id="dashExpandAll">
+          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+          Expand All
+        </button>
+        <button class="ec-btn" id="dashCollapseAll">
+          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+          Collapse All
+        </button>
+      </div>
+      <a href="#glossary" style="display:inline-flex; align-items:center; gap:0.5rem; background:var(--fm-navy); color:var(--fm-white); font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; padding:0.55em 1.1em; text-decoration:none; transition:background 0.2s; flex-shrink:0;">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+        Jump to Glossary
+      </a>
+    </div>
+  </div>
+
+  <div class="accordion-list">
+
+    <!-- ══════════════════════════════════════
+         HOME
+    ══════════════════════════════════════ -->
+    <div class="accordion-item" data-acc data-roles="exec analyst ops pricing">
+      <button class="accordion-trigger" aria-expanded="false">
+        <div class="accordion-trigger-left">
+          <span class="acc-emoji">🏠</span>
+          <div>
+            <div class="acc-title">Home</div>
+            <div class="acc-trigger-meta">
+              <span class="role-badge exec">Executive</span>
+              <span class="role-badge analyst">Analyst</span>
+              <span class="acc-freq">Weekly</span>
+            </div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="acc-divider"></div>
+        <img class="acc-screenshot" src="https://freightmathmodel.netlify.app/images/home-page.png" alt="Home screenshot">
+        <div class="acc-body">
+          <p class="acc-subtitle">Overview &amp; Health Metrics</p>
+          <p>The Home tab is the landing page and the same snapshot delivered in weekly notification emails. It gives leadership a single-screen health check before any deeper investigation begins — OR, revenue, margin, volume, and the three network efficiency drivers that predict future profitability.</p>
+
+          <div class="flow-strip">
+            <span class="flow-strip-label">You are here →</span>
+            <div class="flow-nodes">
+              <span class="flow-node current">Home</span>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#" onclick="openAccordion('rev-vol')">Rev / Vol Change</a>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#" onclick="openAccordion('hist-trends')">Historical Trends</a>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#" onclick="openAccordion('prof-matrix')">Profitability Matrix</a>
+            </div>
+          </div>
+
+          <div class="questions-panel">
+            <div class="questions-panel-header">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+              <span>Key Questions This Page Answers</span>
+            </div>
+            <ul class="questions-list">
+              <li>What is our current FM OR, and is it better or worse than last period?</li>
+              <li>Are revenue and load volume trending up or down?</li>
+              <li>Is deadhead improving or worsening over recent weeks?</li>
+              <li>What is driving any OR shift — revenue, cost, or volume?</li>
+              <li>Are network density and velocity moving in the right direction?</li>
+            </ul>
+          </div>
+
+          <ul class="bullet-list">
+            <li><strong>OR, Load Volume, Revenue, and Margin</strong> — the primary KPI strip; check these first every week</li>
+            <li><strong>Rate trends</strong> — revenue per mile and total allocated cost per mile plotted over time</li>
+            <li><strong>Deadhead, Density, and Velocity</strong> — the three bottom-row efficiency metrics are <em>leading indicators</em>; they predict where OR is heading before the financial lines move</li>
+            <li><strong>Scrollable bottom table</strong> — contains cost detail, revenue detail, and mileage detail across multiple sections; most users miss these hidden columns</li>
+          </ul>
+
+          <div class="watch-box">
+            <div class="wbox-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Watch For
+            </div>
+            <ul>
+              <li>Always scroll the bottom table — it contains multiple sections of hidden detail that most users never reach</li>
+              <li>Check loads and revenue alongside OR — low volume periods can distort the ratio even when costs are controlled</li>
+              <li>Switch between Weekly and Rolling 4-Week views before drawing conclusions; one bad week is noise, three consecutive weeks is a signal</li>
+              <li>This page also powers the weekly email snapshot — confirm filters are cleared before reading the summary numbers</li>
+            </ul>
+          </div>
+
+          <div class="scenario-box">
+            <div class="scenario-box-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Example Scenario
+            </div>
+            <p>A CFO preparing for a board meeting sees FM OR worsening to 131.1 from 127.4 the prior period. The scrollable table shows variable and overhead costs holding flat, but revenue and load count are both declining. This confirms the OR degradation is volume-driven — not a cost problem — which changes the nature of the conversation entirely.</p>
+          </div>
+
+          <div class="time-note">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span><strong>Best time periods:</strong> Weekly for operational review; Rolling 4-Week to confirm trends are real vs. week-to-week noise; Period 12-Week for board reporting and strategic context.</span>
+          </div>
+
+          <div class="related-strip">
+            <span class="related-strip-label">Use next →</span>
+            <a class="related-link" href="#">Revenue / Volume Change</a>
+            <a class="related-link" href="#">Historical Trends</a>
+            <a class="related-link" href="#">Profitability Matrix</a>
+          </div>
+
+          <div class="tag-row">
+            <span class="tag blue">FM OR</span>
+            <span class="tag blue">Revenue</span>
+            <span class="tag">Deadhead</span>
+            <span class="tag">Density</span>
+            <span class="tag">Velocity</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         HISTORICAL TRENDS
+    ══════════════════════════════════════ -->
+    <div class="accordion-item" data-acc id="acc-hist-trends" data-roles="analyst exec">
+      <button class="accordion-trigger" aria-expanded="false">
+        <div class="accordion-trigger-left">
+          <span class="acc-emoji">📈</span>
+          <div>
+            <div class="acc-title">Historical Trends</div>
+            <div class="acc-trigger-meta">
+              <span class="role-badge analyst">Analyst</span>
+              <span class="role-badge exec">Executive</span>
+              <span class="acc-freq">Weekly</span>
+            </div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="acc-divider"></div>
+        <img class="acc-screenshot" src="https://freightmathmodel.netlify.app/images/historical-charts.png" alt="Historical Trends screenshot">
+        <div class="acc-body">
+          <p class="acc-subtitle">Trend Investigation &amp; Correlation Analysis</p>
+          <p>The most flexible exploratory tool in FreightMath. An interactive dual Y-axis chart that can plot any two metrics against each other — the real power is not the trend line, it's the correlation pairing. Used to validate whether what you saw on Home is a real trend or week-to-week variance.</p>
+
+          <div class="flow-strip">
+            <span class="flow-strip-label">Workflow position →</span>
+            <div class="flow-nodes">
+              <a class="flow-node" href="#">Home</a>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#">Rev / Vol Change</a>
+              <span class="flow-arrow">›</span>
+              <span class="flow-node current">Historical Trends</span>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#">Bill To by Lane</a>
+            </div>
+          </div>
+
+          <div class="questions-panel">
+            <div class="questions-panel-header">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+              <span>Key Questions This Page Answers</span>
+            </div>
+            <ul class="questions-list">
+              <li>How has FM OR changed over the last 12 months — and is the current trend structural or seasonal?</li>
+              <li>What factors move with OR? (loads, revenue per mile, deadhead, length of haul)</li>
+              <li>Which customers are improving and which are deteriorating over time?</li>
+              <li>How does broker freight performance compare to shipper freight on the same lane set?</li>
+              <li>Are rate declines causing OR issues, or is volume the driver?</li>
+            </ul>
+          </div>
+
+          <ul class="bullet-list">
+            <li><strong>Dual Y-axis chart</strong> — select a Primary Metric and a Secondary Metric; the correlation between them is the insight, not either line alone</li>
+            <li><strong>Most valuable metric pairings:</strong> FM OR vs. Core OR (reveals network cost vs. load cost gap); Loads vs. OR (volume sensitivity); Revenue per Mile vs. Length of Haul (rate-mix relationship)</li>
+            <li><strong>Customer and lane tables</strong> act as <em>interactive filters</em> — clicking a customer or lane filters the chart to that subset; many users miss this entirely and treat the page as a static trend chart</li>
+            <li><strong>Bill To Type toggle</strong> — compare shipper vs. broker performance on the same set of metrics over the same period</li>
+            <li><strong>Table view toggle</strong> — switches from chart to a full snapshot of every FreightMath measure across all periods in a grid format</li>
+          </ul>
+
+          <div class="watch-box">
+            <div class="wbox-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Watch For
+            </div>
+            <ul>
+              <li>Always add a secondary metric — a single line on this chart tells you nothing; the value is in comparing two measures simultaneously</li>
+              <li>Correlation does not imply causation — use this page to generate hypotheses, then validate on Bill To by Lane or Area Analysis</li>
+              <li>The customer and lane tables are filters, not just labels — click into them to isolate specific subsets before concluding anything</li>
+              <li>Rolling 4-Week view smooths volatility and reveals structural trends that are invisible in Weekly view</li>
+            </ul>
+          </div>
+
+          <div class="scenario-box">
+            <div class="scenario-box-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Example Scenario
+            </div>
+            <p>An analyst pairs FM OR (primary) with Loads (secondary) and discovers that every OR spike over the last 8 months coincides precisely with dips in load count — even though rates held flat. This pattern suggests the operation has high fixed-cost sensitivity to volume, not a pricing problem. The right response is a load volume conversation, not a re-pricing exercise.</p>
+          </div>
+
+          <div class="time-note">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span><strong>Best time periods:</strong> Rolling 4-Week for trend analysis; Period 12-Week for seasonality review; Weekly only when investigating a specific recent event.</span>
+          </div>
+
+          <div class="related-strip">
+            <span class="related-strip-label">Related pages →</span>
+            <a class="related-link" href="#">Home</a>
+            <a class="related-link" href="#">Revenue / Volume Change</a>
+            <a class="related-link" href="#">Bill To by Lane</a>
+          </div>
+
+          <div class="tag-row">
+            <span class="tag blue">Trends</span>
+            <span class="tag blue">Correlation Analysis</span>
+            <span class="tag">YoY</span>
+            <span class="tag">Dual Y-Axis</span>
+            <span class="tag">Broker vs. Shipper</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         AREA ANALYSIS
+    ══════════════════════════════════════ -->
+    <div class="accordion-item" data-acc data-roles="ops exec analyst">
+      <button class="accordion-trigger" aria-expanded="false">
+        <div class="accordion-trigger-left">
+          <span class="acc-emoji">🗺️</span>
+          <div>
+            <div class="acc-title">Area Analysis <span class="slc-badge">SLC</span></div>
+            <div class="acc-trigger-meta">
+              <span class="role-badge ops">Operations</span>
+              <span class="role-badge exec">Executive</span>
+              <span class="acc-freq">Weekly</span>
+            </div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="acc-divider"></div>
+        <img class="acc-screenshot" src="https://freightmathmodel.netlify.app/images/area-analysis.png" alt="Area Analysis screenshot">
+        <div class="acc-body">
+          <p class="acc-subtitle">Network Area Performance &amp; Load Balance</p>
+          <p>Area Analysis is the diagnostic layer beneath Areas of Profit. Where Areas of Profit identifies <em>which</em> markets are underperforming, Area Analysis explains <em>why</em> — through load balance, empty move ratios, broker dependency, and day-of-week operational patterns. Profitability problems are often network problems, not pricing problems; this page is where that distinction gets made.</p>
+
+          <div class="flow-strip">
+            <span class="flow-strip-label">Workflow position →</span>
+            <div class="flow-nodes">
+              <a class="flow-node" href="#">Areas of Profit</a>
+              <span class="flow-arrow">›</span>
+              <span class="flow-node current">Area Analysis</span>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#">Bill To by Lane</a>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#">Lanes of Profit</a>
+            </div>
+          </div>
+
+          <div class="questions-panel">
+            <div class="questions-panel-header">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+              <span>Key Questions This Page Answers</span>
+            </div>
+            <ul class="questions-list">
+              <li>Which areas have the worst OR, and why — is it a pricing issue or a network balance issue?</li>
+              <li>What is the load balance in a given area? Are we moving more freight in or out?</li>
+              <li>How much broker freight are we using to fill imbalanced areas, and what is it costing us?</li>
+              <li>Are deadhead miles concentrated in specific markets, and can we reduce them through better matching?</li>
+              <li>Which day of the week do empty moves spike in an underperforming area?</li>
+            </ul>
+          </div>
+
+          <ul class="bullet-list">
+            <li><strong>Area Balance</strong> — the most influential metric on this page; teaches Area Balance before Area OR because imbalance is often the root cause of poor profitability, not rates</li>
+            <li><strong>Main tables</strong> — break results down by move type (loaded/empty), customer, and lane within the selected area</li>
+            <li><strong>Empty move and load balance panels</strong> — show truck-to-freight matching efficiency; high empty out percentage is a direct cost driver</li>
+            <li><strong>Broker % in/out</strong> — reveals how much spot freight is being used to compensate for network imbalance; high broker dependence in a weak-OR area is a structural problem</li>
+            <li><strong>Day-of-week breakdown</strong> — surface operational patterns that drive empty miles on specific days</li>
+            <li><strong>Filters:</strong> area, date range, footprint, freight type, customer type, and deadhead model</li>
+          </ul>
+
+          <div class="watch-box">
+            <div class="wbox-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Watch For
+            </div>
+            <ul>
+              <li>Teach Area Balance before Area OR — most underperforming areas have a balance problem, not a rate problem; diagnosing rate first leads to wrong corrective actions</li>
+              <li>Don't judge an area only by outbound OR — inbound strength frequently compensates and the blended view changes the picture entirely</li>
+              <li>High broker % out in an area with weak OR usually means you're buying your way out of a structural imbalance; the fix is lane development, not spot market optimization</li>
+            </ul>
+          </div>
+
+          <div class="scenario-box">
+            <div class="scenario-box-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Example Scenario
+            </div>
+            <p>The Midwest area shows an OR of 107 — above the network average. Area Analysis reveals loads out exceed loads in by 2:1, broker % out is running at 34%, and empty miles spike on Thursdays. The issue is not rate — it's that the carrier is repeatedly repositioning power out of an area it can't reload efficiently, and covering it with expensive spot freight.</p>
+          </div>
+
+          <div class="use-box">
+            <strong>Supports</strong>
+            Decisions around pricing, sales focus, network planning, empty mile reduction, and broker dependency management.
+          </div>
+
+          <div class="related-strip">
+            <span class="related-strip-label">Related pages →</span>
+            <a class="related-link" href="#">Areas of Profit</a>
+            <a class="related-link" href="#">Lanes of Profit</a>
+            <a class="related-link" href="#">Power Segment Map</a>
+          </div>
+
+          <div class="tag-row">
+            <span class="tag orange">SLC</span>
+            <span class="tag blue">Area OR</span>
+            <span class="tag blue">Load Balance</span>
+            <span class="tag">Broker %</span>
+            <span class="tag">Deadhead Model</span>
+            <span class="tag">Day of Week</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         BILL TO BY LANE
+    ══════════════════════════════════════ -->
+    <div class="accordion-item" data-acc data-roles="analyst pricing exec">
+      <button class="accordion-trigger" aria-expanded="false">
+        <div class="accordion-trigger-left">
+          <span class="acc-emoji">🏷️</span>
+          <div>
+            <div class="acc-title">Bill To by Lane <span class="slc-badge">SLC</span></div>
+            <div class="acc-trigger-meta">
+              <span class="role-badge analyst">Analyst</span>
+              <span class="role-badge pricing">Pricing</span>
+              <span class="acc-freq">Weekly</span>
+            </div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="acc-divider"></div>
+        <img class="acc-screenshot" src="https://freightmathmodel.netlify.app/images/bill-to-by-lane.png" alt="Bill To by Lane screenshot">
+        <div class="acc-body">
+          <p class="acc-subtitle">Customer-by-Lane Performance</p>
+          <p>The primary customer-facing analysis tool in FreightMath. Evaluates freight at the customer and lane level, ranking bill-to entities by load volume with full operational and financial metrics. Highly effective for customer pricing discussions — include it in virtually every pricing workflow.</p>
+
+          <div class="flow-strip">
+            <span class="flow-strip-label">Workflow position →</span>
+            <div class="flow-nodes">
+              <a class="flow-node" href="#">Home</a>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#">Rev / Vol Change</a>
+              <span class="flow-arrow">›</span>
+              <span class="flow-node current">Bill To by Lane</span>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#">Price Impact</a>
+            </div>
+          </div>
+
+          <div class="questions-panel">
+            <div class="questions-panel-header">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+              <span>Key Questions This Page Answers</span>
+            </div>
+            <ul class="questions-list">
+              <li>Which customers have the best and worst OR, and on which specific lanes?</li>
+              <li>Is a specific customer performing differently across different lanes, or is performance uniform?</li>
+              <li>How do deadhead, velocity, and length of haul vary by customer — and are operational differences explaining OR differences?</li>
+              <li>Which customers deserve a pricing conversation based on combined volume and OR position?</li>
+              <li>How has a customer's OR and load count changed over time?</li>
+            </ul>
+          </div>
+
+          <ul class="bullet-list">
+            <li><strong>Metrics per row:</strong> load count, FM OR, Core OR, revenue, linehaul + fuel, loaded miles, deadhead, velocity, length of haul — conditional formatting highlights OR outliers</li>
+            <li><strong>Load Count Minimum filter</strong> — dramatically improves analysis quality by removing low-volume noise that distorts rankings; this filter should be set early in every session</li>
+            <li><strong>Trend chart</strong> — pairs weekly load volume with FM OR and Core OR for the selected customer/lane set; use to confirm whether the current period is an anomaly or a continuing pattern</li>
+            <li><strong>Always use alongside Lane by Bill To</strong> — these two pages are inverse views of the same data; use both to get the complete picture</li>
+          </ul>
+
+          <div class="watch-box">
+            <div class="wbox-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Watch For
+            </div>
+            <ul>
+              <li>Set the Load Count Minimum filter immediately — without it, a customer with 2 loads at OR 145 will rank alongside a customer with 400 loads at OR 105, which is misleading</li>
+              <li>Operational differences (deadhead, dwell time, routing) often explain OR differences between customers on the same lane — don't jump to rate conclusions before checking these</li>
+              <li>A customer's OR on this page may look fine in aggregate — click into the lane breakdown to see if one weak lane is hidden by stronger ones</li>
+            </ul>
+          </div>
+
+          <div class="scenario-box">
+            <div class="scenario-box-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Example Scenario
+            </div>
+            <p>A pricing review for a top-10 customer shows blended OR of 97 — looks healthy. Drilling into the lane breakdown reveals the Chicago–Atlanta lane running at OR 118 on 85 loads, while all other lanes are 88–94. The pricing conversation becomes very focused: one lane, one customer, quantified impact.</p>
+          </div>
+
+          <div class="use-box">
+            <strong>Supports</strong>
+            Customer pricing discussions, lane economics analysis, identifying routing and operational efficiency opportunities, and preparing for customer reviews.
+          </div>
+
+          <div class="related-strip">
+            <span class="related-strip-label">Related pages →</span>
+            <a class="related-link" href="#">Lane by Bill To</a>
+            <a class="related-link" href="#">Price Impact</a>
+            <a class="related-link" href="#">Historical Trends</a>
+          </div>
+
+          <div class="tag-row">
+            <span class="tag orange">SLC</span>
+            <span class="tag blue">Bill To</span>
+            <span class="tag blue">Lane Economics</span>
+            <span class="tag">Core OR</span>
+            <span class="tag">Load Count Min</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         LANE BY BILL TO
+    ══════════════════════════════════════ -->
+    <div class="accordion-item" data-acc data-roles="analyst pricing ops">
+      <button class="accordion-trigger" aria-expanded="false">
+        <div class="accordion-trigger-left">
+          <span class="acc-emoji">🛣️</span>
+          <div>
+            <div class="acc-title">Lane by Bill To <span class="slc-badge">SLC</span></div>
+            <div class="acc-trigger-meta">
+              <span class="role-badge analyst">Analyst</span>
+              <span class="role-badge pricing">Pricing</span>
+              <span class="acc-freq">Weekly</span>
+            </div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="acc-divider"></div>
+        <img class="acc-screenshot" src="https://freightmathmodel.netlify.app/images/lane-by-bill-to.png" alt="Lane by Bill To screenshot">
+        <div class="acc-body">
+          <p class="acc-subtitle">Lane-Level View by Customer</p>
+          <p>The inverse perspective of Bill To by Lane — organizes the same underlying data around origin-destination pairs first, then customers within each lane. A weak lane is not always a weak lane; frequently one customer is driving the problem while all others perform fine. This page surfaces that distinction directly.</p>
+
+          <div class="questions-panel">
+            <div class="questions-panel-header">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+              <span>Key Questions This Page Answers</span>
+            </div>
+            <ul class="questions-list">
+              <li>Is this lane genuinely weak, or is one customer making a good lane look bad?</li>
+              <li>Which customers on a specific lane have the best and worst OR?</li>
+              <li>Are pricing differences between customers on the same lane causing OR dispersion?</li>
+              <li>Are operational differences (deadhead, dwell, routing) between customers driving OR differences on this lane?</li>
+              <li>Which lanes deserve growth focus vs. reduction?</li>
+            </ul>
+          </div>
+
+          <ul class="bullet-list">
+            <li><strong>Lane-first view</strong> — ranks O/D pairs by load volume; selecting a lane shows each customer's OR, revenue, miles, deadhead, velocity, and length of haul within that lane</li>
+            <li><strong>Trend chart</strong> — shows load volume and OR over time for the selected lane set; confirms whether current performance is trending or stable</li>
+            <li><strong>Use alongside Bill To by Lane</strong> — these pages answer the same question from opposite angles; using both together produces a complete picture</li>
+          </ul>
+
+          <div class="watch-box">
+            <div class="wbox-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Watch For
+            </div>
+            <ul>
+              <li>Never exit a lane analysis without checking customer-level detail — aggregate lane OR regularly masks a single problem customer behind healthy averages</li>
+              <li>Deadhead and dwell variance between customers on the same lane often explains OR variance better than rate differences — check operational metrics first</li>
+            </ul>
+          </div>
+
+          <div class="scenario-box">
+            <div class="scenario-box-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Example Scenario
+            </div>
+            <p>The Dallas–Memphis lane shows an overall OR of 108. Expanding the customer breakdown reveals Customer A at OR 150 (22 loads) while Customers B, C, and D are all below OR 100. The lane isn't broken — one customer relationship is. Pricing focus narrows to a single account.</p>
+          </div>
+
+          <div class="related-strip">
+            <span class="related-strip-label">Related pages →</span>
+            <a class="related-link" href="#">Bill To by Lane</a>
+            <a class="related-link" href="#">Price Impact</a>
+            <a class="related-link" href="#">Historical Trends</a>
+          </div>
+
+          <div class="tag-row">
+            <span class="tag orange">SLC</span>
+            <span class="tag blue">O/D Pairs</span>
+            <span class="tag">Lane Planning</span>
+            <span class="tag">Customer OR Dispersion</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         POWER / DRIVER BY SEGMENT
+    ══════════════════════════════════════ -->
+    <div class="accordion-item" data-acc data-roles="ops analyst">
+      <button class="accordion-trigger" aria-expanded="false">
+        <div class="accordion-trigger-left">
+          <span class="acc-emoji">🚛</span>
+          <div>
+            <div class="acc-title">Power / Driver by Segment <span class="slc-badge">SLC</span></div>
+            <div class="acc-trigger-meta">
+              <span class="role-badge ops">Operations</span>
+              <span class="role-badge analyst">Analyst</span>
+              <span class="acc-freq">Weekly</span>
+            </div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="acc-divider"></div>
+        <img class="acc-screenshot" src="https://freightmathmodel.netlify.app/images/power-driver-by-segment.png" alt="Power/Driver by Segment screenshot">
+        <div class="acc-body">
+          <p class="acc-subtitle">Equipment &amp; Driver Profitability</p>
+          <p>Evaluates how individual power units and drivers contribute to network economics at the segment level. This page is most valuable when performance varies significantly between units — it surfaces whether the issue is assignment quality, lane selection, or driver behavior, and prevents those causes from being confused.</p>
+
+          <div class="questions-panel">
+            <div class="questions-panel-header">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+              <span>Key Questions This Page Answers</span>
+            </div>
+            <ul class="questions-list">
+              <li>Which power units or drivers are underperforming, and by how much?</li>
+              <li>Is underperformance driven by the driver, the lanes they're assigned to, or the network structure they operate in?</li>
+              <li>What is the loaded vs. empty movement split for a specific unit or driver?</li>
+              <li>How does allocated overhead and variable cost compare across different labor groups?</li>
+            </ul>
+          </div>
+
+          <ul class="bullet-list">
+            <li><strong>Summary tables</strong> — compare power units and drivers on OR, miles, allocated revenue, overhead cost, and variable cost side by side</li>
+            <li><strong>Segment detail table</strong> — trip-level records showing departure time, movement status, origin/destination, miles, revenue, and labor group; color-coded for loaded vs. empty</li>
+            <li><strong>Filters:</strong> power ID, driver ID, origin, destination, customer, labor group, and deadhead model</li>
+          </ul>
+
+          <div class="watch-box">
+            <div class="wbox-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Watch For
+            </div>
+            <ul>
+              <li>This page is frequently misread as a driver performance scorecard — resist that interpretation; poor unit OR often reflects assignment quality and lane selection, not driver behavior</li>
+              <li>Always check what lanes a driver or unit is assigned to before attributing OR variance to the individual — the network structure they operate in may be the cause</li>
+              <li>Labor group differences in overhead allocation can make comparisons across groups misleading if not filtered appropriately</li>
+            </ul>
+          </div>
+
+          <div class="use-box">
+            <strong>Supports</strong>
+            Dispatch decisions, asset utilization analysis, cost control, and identifying whether operational issues are structural or individual.
+          </div>
+
+          <div class="related-strip">
+            <span class="related-strip-label">Related pages →</span>
+            <a class="related-link" href="#">Power Segment Map</a>
+            <a class="related-link" href="#">Area Analysis</a>
+          </div>
+
+          <div class="tag-row">
+            <span class="tag orange">SLC</span>
+            <span class="tag blue">Power Units</span>
+            <span class="tag">Driver</span>
+            <span class="tag">Segment Detail</span>
+            <span class="tag">Asset Utilization</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         POWER SEGMENT MAP
+    ══════════════════════════════════════ -->
+    <div class="accordion-item" data-acc data-roles="ops">
+      <button class="accordion-trigger" aria-expanded="false">
+        <div class="accordion-trigger-left">
+          <span class="acc-emoji">📍</span>
+          <div>
+            <div class="acc-title">Power Segment Map</div>
+            <div class="acc-trigger-meta">
+              <span class="role-badge ops">Operations</span>
+              <span class="acc-freq">Weekly</span>
+            </div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="acc-divider"></div>
+        <img class="acc-screenshot" src="https://freightmathmodel.netlify.app/images/power-segment-map.png" alt="Power Segment Map screenshot">
+        <div class="acc-body">
+          <p class="acc-subtitle">Geographic Equipment Movement</p>
+          <p>A geographic view of power-unit movement across the selected network. Color-coded lines distinguish movement categories — loaded, empty, repositioning — giving operations leadership a spatial understanding of where assets are moving and whether that movement is efficient.</p>
+
+          <div class="questions-panel">
+            <div class="questions-panel-header">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+              <span>Key Questions This Page Answers</span>
+            </div>
+            <ul class="questions-list">
+              <li>Where are empty repositioning moves concentrated, and can they be reduced?</li>
+              <li>Which segments are generating the longest empty moves relative to loaded miles?</li>
+              <li>Are there geographic patterns in inefficient movement that suggest network design changes?</li>
+            </ul>
+          </div>
+
+          <ul class="bullet-list">
+            <li><strong>Map layer</strong> — visualizes trip segments between origin and destination; color coding separates loaded movement from empty repositioning</li>
+            <li><strong>Supporting tables</strong> — connect map activity to OR, miles, revenue, and segment-level records so visual patterns can be quantified</li>
+            <li><strong>Filters:</strong> deadhead model, OR format, date period, origin, destination, footprint, freight type</li>
+          </ul>
+
+          <div class="use-box">
+            <strong>Supports</strong>
+            Dispatching decisions, repositioning strategy, network planning, and identifying geographic patterns in inefficient empty movement.
+          </div>
+
+          <div class="related-strip">
+            <span class="related-strip-label">Related pages →</span>
+            <a class="related-link" href="#">Power / Driver by Segment</a>
+            <a class="related-link" href="#">Area Analysis</a>
+          </div>
+
+          <div class="tag-row">
+            <span class="tag blue">Geographic</span>
+            <span class="tag">Repositioning</span>
+            <span class="tag">Network Planning</span>
+            <span class="tag">Empty Miles</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         REVENUE / VOLUME CHANGE
+    ══════════════════════════════════════ -->
+    <div class="accordion-item" data-acc id="acc-rev-vol" data-roles="exec analyst pricing">
+      <button class="accordion-trigger" aria-expanded="false">
+        <div class="accordion-trigger-left">
+          <span class="acc-emoji">📊</span>
+          <div>
+            <div class="acc-title">Revenue / Volume Change <span class="slc-badge">SLC</span></div>
+            <div class="acc-trigger-meta">
+              <span class="role-badge exec">Executive</span>
+              <span class="role-badge analyst">Analyst</span>
+              <span class="acc-freq">Weekly</span>
+            </div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="acc-divider"></div>
+        <img class="acc-screenshot" src="https://freightmathmodel.netlify.app/images/revenue-volume-change.png" alt="Revenue / Volume Change screenshot">
+        <div class="acc-body">
+          <p class="acc-subtitle">Period-over-Period Comparison</p>
+          <p>One of the fastest paths to root cause identification in FreightMath. Compares two reporting periods side by side and quantifies exactly where performance changed — by customer and by lane. Often serves as the starting point for deeper analysis because it answers "what changed?" before you know "why it changed."</p>
+
+          <div class="flow-strip">
+            <span class="flow-strip-label">Workflow position →</span>
+            <div class="flow-nodes">
+              <a class="flow-node" href="#">Home</a>
+              <span class="flow-arrow">›</span>
+              <span class="flow-node current">Rev / Vol Change</span>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#">Historical Trends</a>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#">Bill To by Lane</a>
+            </div>
+          </div>
+
+          <div class="questions-panel">
+            <div class="questions-panel-header">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+              <span>Key Questions This Page Answers</span>
+            </div>
+            <ul class="questions-list">
+              <li>Which customers gained or lost volume between periods, and did their OR improve or worsen?</li>
+              <li>Which lanes drove the most OR change — and was it rate-driven or volume-driven?</li>
+              <li>Was OR improvement in a period caused by better pricing, or did weak lanes simply fall off the book?</li>
+              <li>Where did we book more broker freight, and what did it do to OR on those lanes?</li>
+            </ul>
+          </div>
+
+          <ul class="bullet-list">
+            <li><strong>Current vs. prior period delta</strong> — shows loads, loaded miles, linehaul + fuel per mile, total revenue, and OR with directional indicators for each customer and lane</li>
+            <li><strong>Customer table</strong> — ranks customers by OR change with full volume and revenue context; check the Total row first before drilling into individual accounts</li>
+            <li><strong>Lane table</strong> — shows which O/D pairs drove the largest changes; always cross-check with customer table to understand whether a lane change is customer-driven</li>
+            <li><strong>Broker filter</strong> — filter by Bill To Type = Broker to see exactly where spot freight shifted in or out and what it cost in profitability</li>
+          </ul>
+
+          <div class="watch-box">
+            <div class="wbox-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Watch For
+            </div>
+            <ul>
+              <li>Check the Total row first — it gives network-level context before individual customer or lane movements can be interpreted correctly</li>
+              <li>Big percentage swings on small lanes are usually immaterial — always cross-check load count before acting on a change signal</li>
+              <li>An OR improvement in a period may simply mean weak lanes disappeared from the book — that's not the same as earning better rates; always compare load deltas with OR shifts</li>
+            </ul>
+          </div>
+
+          <div class="scenario-box">
+            <div class="scenario-box-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Example Scenario
+            </div>
+            <p>Between 8/2 and 8/30, network OR improved from 104 to 99. Rev/Vol Change shows the improvement is entirely explained by Kroger adding 51 loads at OR 88 while the GA→MN lane lost 23 loads — which had been running OR 118. The OR got better not because rates improved, but because a weak-lane relationship was lost. That changes the next conversation entirely.</p>
+          </div>
+
+          <div class="time-note">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span><strong>Best time periods:</strong> Period 4-Week for clean monthly comparisons; Weekly when investigating a specific event or recent customer change.</span>
+          </div>
+
+          <div class="related-strip">
+            <span class="related-strip-label">Related pages →</span>
+            <a class="related-link" href="#">Home</a>
+            <a class="related-link" href="#">Historical Trends</a>
+            <a class="related-link" href="#">Bill To by Lane</a>
+          </div>
+
+          <div class="tag-row">
+            <span class="tag orange">SLC</span>
+            <span class="tag blue">Period Comparison</span>
+            <span class="tag blue">Volume Delta</span>
+            <span class="tag">OR Change</span>
+            <span class="tag">Broker Filter</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         FIELD SELECTION TABLE
+    ══════════════════════════════════════ -->
+    <div class="accordion-item" data-acc data-roles="analyst pricing">
+      <button class="accordion-trigger" aria-expanded="false">
+        <div class="accordion-trigger-left">
+          <span class="acc-emoji">⚙️</span>
+          <div>
+            <div class="acc-title">Field Selection Table <span class="slc-badge">SLC</span></div>
+            <div class="acc-trigger-meta">
+              <span class="role-badge analyst">Analyst</span>
+              <span class="role-badge pricing">Pricing</span>
+              <span class="acc-freq">As Needed</span>
+            </div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="acc-divider"></div>
+        <img class="acc-screenshot" src="https://freightmathmodel.netlify.app/images/field-selection-table.png" alt="Field Selection Table screenshot">
+        <div class="acc-body">
+          <p class="acc-subtitle">Configurable Pivot Analysis</p>
+          <p>The utility tool of the FreightMath platform. Functions like a configurable pivot table giving analysts flexible access to nearly every FreightMath measure with full control over row grouping, value selection, and filters. Use this page when no other dashboard answers your specific question.</p>
+
+          <div class="questions-panel">
+            <div class="questions-panel-header">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+              <span>Key Questions This Page Answers</span>
+            </div>
+            <ul class="questions-list">
+              <li>Any performance question not answered by the dedicated dashboard pages</li>
+              <li>How do specific metrics compare across custom dimension combinations not available elsewhere?</li>
+              <li>What does performance look like grouped by destination area, city, state, or location?</li>
+              <li>How do truck mile metrics compare to billable mile metrics across a custom filter set?</li>
+            </ul>
+          </div>
+
+          <ul class="bullet-list">
+            <li><strong>Row selection:</strong> destination area, city, state/province, location, bill-to type, and other dimensions</li>
+            <li><strong>Value selection:</strong> linehaul + fuel per mile, billable mile metrics, truck mile metrics, peer benchmarks, DAT comparison values</li>
+            <li><strong>Full filter support:</strong> customer, lane, origin, destination, planner, area, date, footprint, freight type</li>
+            <li><strong>Export capability</strong> — right-click any visual to export to Excel for further analysis outside the platform</li>
+          </ul>
+
+          <div class="use-box">
+            <strong>Supports</strong>
+            Open-ended investigation — the dashboard's ad hoc analysis tool when a structured page doesn't fit the specific question.
+          </div>
+
+          <div class="related-strip">
+            <span class="related-strip-label">Related pages →</span>
+            <a class="related-link" href="#">Bill To by Lane</a>
+            <a class="related-link" href="#">Lane by Bill To</a>
+            <a class="related-link" href="#">Price Impact</a>
+          </div>
+
+          <div class="tag-row">
+            <span class="tag orange">SLC</span>
+            <span class="tag blue">Pivot</span>
+            <span class="tag">Export</span>
+            <span class="tag">Custom Fields</span>
+            <span class="tag">DAT Benchmarks</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         PROFITABILITY MATRIX
+    ══════════════════════════════════════ -->
+    <div class="accordion-item" data-acc id="acc-prof-matrix" data-roles="exec analyst pricing">
+      <button class="accordion-trigger" aria-expanded="false">
+        <div class="accordion-trigger-left">
+          <span class="acc-emoji">⬡</span>
+          <div>
+            <div class="acc-title">Profitability Matrix <span class="slc-badge">SLC</span></div>
+            <div class="acc-trigger-meta">
+              <span class="role-badge exec">Executive</span>
+              <span class="role-badge pricing">Pricing</span>
+              <span class="acc-freq">Monthly</span>
+            </div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="acc-divider"></div>
+        <div class="acc-screenshot-row">
+          <figure>
+            <img class="acc-screenshot" style="margin-bottom:0;" src="https://freightmathmodel.netlify.app/images/profitability-matrix-1.png" alt="Profitability Matrix view 1">
+            <figcaption>By Bill To</figcaption>
+          </figure>
+          <figure>
+            <img class="acc-screenshot" style="margin-bottom:0;" src="https://freightmathmodel.netlify.app/images/profitability-matrix-2.png" alt="Profitability Matrix view 2">
+            <figcaption>By Lane</figcaption>
+          </figure>
+        </div>
+        <div class="acc-body">
+          <p class="acc-subtitle">Lane &amp; Customer Opportunity Classification</p>
+          <p>One of the highest-value executive dashboards in the platform. The Profitability Matrix provides rapid customer and lane segmentation by evaluating both direct lane economics (Core OR) and broader network impact (FM OR) simultaneously — so you can distinguish between freight that's good for the load and freight that's good for the network.</p>
+
+          <div class="flow-strip">
+            <span class="flow-strip-label">Workflow position →</span>
+            <div class="flow-nodes">
+              <a class="flow-node" href="#">Home</a>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#">Rev / Vol Change</a>
+              <span class="flow-arrow">›</span>
+              <span class="flow-node current">Profitability Matrix</span>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#">Price Impact</a>
+            </div>
+          </div>
+
+          <div class="questions-panel">
+            <div class="questions-panel-header">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+              <span>Key Questions This Page Answers</span>
+            </div>
+            <ul class="questions-list">
+              <li>Which customers are Desirable (good FM OR + good Core OR) and which are Undesirable (poor on both)?</li>
+              <li>Which accounts are high-volume and in the Undesirable quadrant — representing the highest-priority improvement opportunities?</li>
+              <li>Are any customers providing valuable network balance (Backhaul) that wouldn't be apparent from Core OR alone?</li>
+              <li>Which customers show Flow Issues — profitable in isolation but creating costly imbalances that hurt the network?</li>
+            </ul>
+          </div>
+
+          <ul class="bullet-list">
+            <li><strong>Four matrix zones:</strong> <strong>Desirable</strong> (strong FM OR + strong Core OR — grow these) · <strong>Backhaul</strong> (weak Core OR but supports network balance — evaluate carefully before exiting) · <strong>Undesirable</strong> (weak on both — largest opportunity, especially at high volume) · <strong>Flow Issues</strong> (good locally but disrupts network flow)</li>
+            <li><strong>Toggle between By Bill To and By Lane</strong> — top 20 by volume by default; both views needed for a complete strategic picture</li>
+            <li><strong>Volume weighting is critical</strong> — a customer in the Undesirable quadrant at 400 loads per month has far more impact than one at 12; always interpret quadrant position alongside volume</li>
+            <li><strong>Trend table</strong> — tracks inbound OR, outbound OR, and linehaul + fuel per mile over time for the selected account or lane</li>
+          </ul>
+
+          <div class="watch-box">
+            <div class="wbox-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Watch For
+            </div>
+            <ul>
+              <li>The largest opportunity is always in the Undesirable quadrant at high volume — teach volume-weighted interpretation before any other matrix concept</li>
+              <li>Don't immediately move to exit Backhaul accounts — some of them are providing critical network balance that keeps empty miles low in specific regions; the matrix shows Core OR, not total cost</li>
+              <li>This page is ideal for executive onboarding — it gives strategic orientation in two minutes that would otherwise require deep familiarity with individual lane detail</li>
+            </ul>
+          </div>
+
+          <div class="scenario-box">
+            <div class="scenario-box-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Example Scenario
+            </div>
+            <p>A monthly executive review surfaces two customers in the Undesirable quadrant — Customer A at 85 loads/month and Customer B at 410 loads/month. Despite Customer A's worse Core OR, the strategic conversation focuses on Customer B first. Moving 410 loads per month from Undesirable to Desirable is a network-changing event; moving 85 loads is a rounding error.</p>
+          </div>
+
+          <div class="related-strip">
+            <span class="related-strip-label">Related pages →</span>
+            <a class="related-link" href="#">Price Impact</a>
+            <a class="related-link" href="#">Bill To by Lane</a>
+            <a class="related-link" href="#">Areas of Profit</a>
+          </div>
+
+          <div class="tag-row">
+            <span class="tag orange">SLC</span>
+            <span class="tag blue">Quadrant Analysis</span>
+            <span class="tag blue">Core OR</span>
+            <span class="tag">FM OR</span>
+            <span class="tag">Desirable</span>
+            <span class="tag">Undesirable</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         AREAS OF PROFIT
+    ══════════════════════════════════════ -->
+    <div class="accordion-item" data-acc data-roles="exec ops analyst">
+      <button class="accordion-trigger" aria-expanded="false">
+        <div class="accordion-trigger-left">
+          <span class="acc-emoji">🌐</span>
+          <div>
+            <div class="acc-title">Areas of Profit <span class="slc-badge">SLC</span></div>
+            <div class="acc-trigger-meta">
+              <span class="role-badge exec">Executive</span>
+              <span class="role-badge ops">Operations</span>
+              <span class="acc-freq">Weekly</span>
+            </div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="acc-divider"></div>
+        <div class="acc-screenshot-row">
+          <figure>
+            <img class="acc-screenshot" style="margin-bottom:0;" src="https://freightmathmodel.netlify.app/images/areas-of-profit-1.png" alt="Areas of Profit map view">
+            <figcaption>Area Map</figcaption>
+          </figure>
+          <figure>
+            <img class="acc-screenshot" style="margin-bottom:0;" src="https://freightmathmodel.netlify.app/images/areas-of-profit-2.png" alt="Areas of Profit overview view">
+            <figcaption>Area Overview</figcaption>
+          </figure>
+        </div>
+        <div class="acc-body">
+          <p class="acc-subtitle">Geographic Profitability &amp; Network Density</p>
+          <p>Identifies where the network creates value and where it dilutes profitability, aligned with KSM Transport Advisors' <em>Islands of Profit</em> framework. The map identifies problems; the Overview table explains them. Use both views together — the map alone gives a visual pattern, but the density dimension is what tells you where to act first.</p>
+
+          <div class="flow-strip">
+            <span class="flow-strip-label">Workflow position →</span>
+            <div class="flow-nodes">
+              <span class="flow-node current">Areas of Profit</span>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#">Area Analysis</a>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#">Lanes of Profit</a>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#">Profitability Matrix</a>
+            </div>
+          </div>
+
+          <div class="questions-panel">
+            <div class="questions-panel-header">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+              <span>Key Questions This Page Answers</span>
+            </div>
+            <ul class="questions-list">
+              <li>Which geographic markets are most profitable, and which are dragging down network OR?</li>
+              <li>Which markets are high-density AND underperforming — the highest-priority areas for improvement?</li>
+              <li>Where are we growing in the right markets vs. adding volume in low-performing areas?</li>
+              <li>Which areas have significant inbound/outbound imbalances that are creating structural empty mile costs?</li>
+            </ul>
+          </div>
+
+          <ul class="bullet-list">
+            <li><strong>Area Map</strong> — shades markets by profitability and density; high-density underperforming areas are the priority, not all red areas equally</li>
+            <li><strong>Density matrix</strong> — shows combinations of load density and OR performance; use this to decide where to grow and where to reduce exposure</li>
+            <li><strong>Area Overview table</strong> — loads, balance, miles in/out, area OR, inbound OR, outbound OR, and broker load activity per market</li>
+            <li><strong>Right-side detail tables</strong> — connect area performance to underlying inbound, outbound, and empty flows with customer-level visibility</li>
+          </ul>
+
+          <div class="watch-box">
+            <div class="wbox-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Watch For
+            </div>
+            <ul>
+              <li>Density is as important as profitability — not all red areas deserve equal attention; a low-density red area with 8 loads per month moves the network far less than a high-density red area with 200</li>
+              <li>Don't chase insignificant red areas — always confirm load count before prioritizing any market for action</li>
+              <li>The map identifies the problem; always switch to the Overview table before drawing conclusions about why an area is underperforming</li>
+            </ul>
+          </div>
+
+          <div class="scenario-box">
+            <div class="scenario-box-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Example Scenario
+            </div>
+            <p>The map shows 11 high-density areas below average OR in the Midwest. Switching to Area Overview reveals Nestle and Walmart dominate inbound in 7 of those 11 areas. The repricing priority is clear — not a geographic fix, but a specific customer conversation across a concentration of underperforming markets.</p>
+          </div>
+
+          <div class="related-strip">
+            <span class="related-strip-label">Related pages →</span>
+            <a class="related-link" href="#">Area Analysis</a>
+            <a class="related-link" href="#">Lanes of Profit</a>
+            <a class="related-link" href="#">Profitability Matrix</a>
+          </div>
+
+          <div class="tag-row">
+            <span class="tag orange">SLC</span>
+            <span class="tag blue">Area Map</span>
+            <span class="tag blue">Density Matrix</span>
+            <span class="tag">Inbound/Outbound OR</span>
+            <span class="tag">Islands of Profit</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         PRICE IMPACT
+    ══════════════════════════════════════ -->
+    <div class="accordion-item" data-acc data-roles="pricing exec analyst">
+      <button class="accordion-trigger" aria-expanded="false">
+        <div class="accordion-trigger-left">
+          <span class="acc-emoji">💰</span>
+          <div>
+            <div class="acc-title">Price Impact <span class="slc-badge">SLC</span></div>
+            <div class="acc-trigger-meta">
+              <span class="role-badge pricing">Pricing</span>
+              <span class="role-badge exec">Executive</span>
+              <span class="acc-freq">Monthly</span>
+            </div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="acc-divider"></div>
+        <img class="acc-screenshot" src="https://freightmathmodel.netlify.app/images/price-impact.png" alt="Price Impact screenshot">
+        <div class="acc-body">
+          <p class="acc-subtitle">Pricing Opportunity Quantification</p>
+          <p>Highly actionable — frequently leads directly to pricing decisions. Calculates the total revenue opportunity available by comparing current lane rates against available benchmarks: lane average, peer group carrier-first rates, and DAT market rates. The output is a prioritized list of underpriced lanes with the total dollar impact quantified.</p>
+
+          <div class="flow-strip">
+            <span class="flow-strip-label">Workflow position →</span>
+            <div class="flow-nodes">
+              <a class="flow-node" href="#">Bill To by Lane</a>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#">Profitability Matrix</a>
+              <span class="flow-arrow">›</span>
+              <span class="flow-node current">Price Impact</span>
+              <span class="flow-arrow">›</span>
+              <a class="flow-node" href="#">What If</a>
+            </div>
+          </div>
+
+          <div class="questions-panel">
+            <div class="questions-panel-header">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+              <span>Key Questions This Page Answers</span>
+            </div>
+            <ul class="questions-list">
+              <li>Which lanes are most underpriced relative to the market, and what is the total revenue upside in dollars?</li>
+              <li>Which customers have the largest aggregate pricing opportunity across their lane portfolio?</li>
+              <li>How does current lane pricing compare to DAT spot, peer carrier-first rates, and our own lane average?</li>
+              <li>Which lanes are worth prioritizing for a rate conversation vs. which have minimal total impact?</li>
+            </ul>
+          </div>
+
+          <ul class="bullet-list">
+            <li><strong>Benchmark selection logic</strong> — automatically selects the benchmark with the largest favorable variance (lane average, peer group, or DAT) and multiplies it by length of haul × load count to produce Total Price Impact in dollars</li>
+            <li><strong>Main table</strong> — each lane shows: origin, destination, OR, length of haul, loads, current rate, all three benchmark rates, impact per mile, and total price impact</li>
+            <li><strong>Lane and bill-to summary tables</strong> — aggregate the opportunity by lane and by customer for prioritization</li>
+            <li><strong>Trend chart</strong> — tracks price impact and benchmark rate movement over time to confirm whether the opportunity is widening or narrowing</li>
+          </ul>
+
+          <div class="watch-box">
+            <div class="wbox-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Watch For
+            </div>
+            <ul>
+              <li>Users often fixate on Impact Per Mile — always teach Total Dollar Impact first; a $0.04/mile gap on 12 loads is irrelevant; a $0.02/mile gap on 800 loads is a material conversation</li>
+              <li>This page is the primary pricing analysis tool — position it as the starting point for customer rate conversations, not a validation exercise after decisions are already made</li>
+              <li>Benchmark selection is automatic but contextual — review which benchmark is being used for each lane to confirm it's the most appropriate comparator</li>
+            </ul>
+          </div>
+
+          <div class="scenario-box">
+            <div class="scenario-box-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Example Scenario
+            </div>
+            <p>A pricing review surfaces 6 lanes with a combined Total Price Impact of $1.2M annually. Three of those lanes belong to the same customer. The conversation shifts from "we need to reprice some lanes" to "we have a specific customer with a $700K annual gap — here's the data." That level of specificity changes how the sales conversation is framed and how defensible the number is.</p>
+          </div>
+
+          <div class="related-strip">
+            <span class="related-strip-label">Related pages →</span>
+            <a class="related-link" href="#">Profitability Matrix</a>
+            <a class="related-link" href="#">Bill To by Lane</a>
+            <a class="related-link" href="#">What If</a>
+          </div>
+
+          <div class="tag-row">
+            <span class="tag orange">SLC</span>
+            <span class="tag blue">Rate Benchmarks</span>
+            <span class="tag blue">Total $ Impact</span>
+            <span class="tag">DAT</span>
+            <span class="tag">Peer Group</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         WHAT IF
+    ══════════════════════════════════════ -->
+    <div class="accordion-item" data-acc data-roles="exec analyst">
+      <button class="accordion-trigger" aria-expanded="false">
+        <div class="accordion-trigger-left">
+          <span class="acc-emoji">🔮</span>
+          <div>
+            <div class="acc-title">What If <span class="slc-badge">SLC</span></div>
+            <div class="acc-trigger-meta">
+              <span class="role-badge exec">Executive</span>
+              <span class="role-badge analyst">Analyst</span>
+              <span class="acc-freq">As Needed</span>
+            </div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="acc-divider"></div>
+        <img class="acc-screenshot" src="https://freightmathmodel.netlify.app/images/what-if.png" alt="What If screenshot">
+        <div class="acc-body">
+          <p class="acc-subtitle">Scenario Planning &amp; Financial Modeling</p>
+          <p>Translates operational assumptions into financial outcomes before they're implemented. Use this page to quantify the OR impact of pricing actions, cost reduction initiatives, fleet changes, and network mix shifts — before committing to them. The output is a clean Current vs. What If vs. Delta table across every key financial measure.</p>
+
+          <div class="flow-strip">
+            <span class="flow-strip-label">Workflow position →</span>
+            <div class="flow-nodes">
+              <a class="flow-node" href="#">Price Impact</a>
+              <span class="flow-arrow">›</span>
+              <span class="flow-node current">What If</span>
+              <span class="flow-arrow">›</span>
+              <span style="font-family:'DM Sans',sans-serif; font-size:0.7rem; color:var(--fm-gray); padding:0 0.5rem;">→ Action / Decision</span>
+            </div>
+          </div>
+
+          <div class="questions-panel">
+            <div class="questions-panel-header">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+              <span>Key Questions This Page Answers</span>
+            </div>
+            <ul class="questions-list">
+              <li>If we raise rates by $0.05/mile on our top 20 lanes, what happens to OR and operating profit?</li>
+              <li>If we reduce deadhead per load by 15 miles network-wide, what is the OR impact?</li>
+              <li>If we add 10 trucks to the active fleet, how does that change our overhead allocation and OR?</li>
+              <li>If broker loaded miles drop from 18% to 12%, what is the combined OR and revenue effect?</li>
+            </ul>
+          </div>
+
+          <ul class="bullet-list">
+            <li><strong>Adjustable inputs:</strong> linehaul revenue per loaded mile, deadhead per load, active truck count, variable cost per mile, total overhead, broker loaded mile percentage</li>
+            <li><strong>Results table</strong> — compares Current, What If, and Delta across OR, gross margin, operating profit, revenue, variable cost, overhead, and miles</li>
+            <li><strong>Most useful after Price Impact</strong> — use Price Impact to identify the opportunity, then What If to model the financial outcome before committing to the pricing action</li>
+          </ul>
+
+          <div class="watch-box">
+            <div class="wbox-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Watch For
+            </div>
+            <ul>
+              <li>This page models network-level changes — it assumes changes apply uniformly across the network; for customer- or lane-specific scenarios, use Price Impact alongside Bill To by Lane instead</li>
+              <li>Overhead changes require careful interpretation — adding trucks increases overhead capacity but only improves OR if utilization holds; always model truck count changes alongside deadhead and revenue assumptions together</li>
+            </ul>
+          </div>
+
+          <div class="use-box">
+            <strong>Supports</strong>
+            Translating pricing, cost, and operational assumptions into projected financial outcomes before implementation.
+          </div>
+
+          <div class="related-strip">
+            <span class="related-strip-label">Related pages →</span>
+            <a class="related-link" href="#">Price Impact</a>
+            <a class="related-link" href="#">Home</a>
+            <a class="related-link" href="#">Revenue / Volume Change</a>
+          </div>
+
+          <div class="tag-row">
+            <span class="tag orange">SLC</span>
+            <span class="tag blue">Scenario Modeling</span>
+            <span class="tag">What If</span>
+            <span class="tag">Delta Analysis</span>
+            <span class="tag">Overhead Model</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         LENGTH OF HAUL ANALYSIS
+    ══════════════════════════════════════ -->
+    <div class="accordion-item" data-acc data-roles="analyst pricing ops">
+      <button class="accordion-trigger" aria-expanded="false">
+        <div class="accordion-trigger-left">
+          <span class="acc-emoji">📏</span>
+          <div>
+            <div class="acc-title">Length of Haul Analysis <span class="slc-badge">SLC</span></div>
+            <div class="acc-trigger-meta">
+              <span class="role-badge analyst">Analyst</span>
+              <span class="role-badge pricing">Pricing</span>
+              <span class="acc-freq">Monthly</span>
+            </div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="acc-divider"></div>
+        <img class="acc-screenshot" src="https://freightmathmodel.netlify.app/images/length-of-haul.png" alt="Length of Haul Analysis screenshot">
+        <div class="acc-body">
+          <p class="acc-subtitle">Profitability by Trip Distance</p>
+          <p>Groups freight activity into mileage bands and shows how volume and profitability change across different trip lengths. Reveals whether the carrier's pricing structure is appropriately calibrated to the cost structure at different haul lengths — short hauls carry disproportionate fixed costs per mile, while long hauls bring different asset utilization trade-offs.</p>
+
+          <div class="questions-panel">
+            <div class="questions-panel-header">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+              <span>Key Questions This Page Answers</span>
+            </div>
+            <ul class="questions-list">
+              <li>At which mileage band does our profitability peak — and which band is dragging OR down?</li>
+              <li>Are short-haul loads priced sufficiently to cover their higher per-mile cost structure?</li>
+              <li>Which customers or lanes in underperforming mileage bands represent repricing opportunities?</li>
+              <li>How does Core OR compare to FM OR across different haul lengths — does deadhead assignment change the story by band?</li>
+            </ul>
+          </div>
+
+          <ul class="bullet-list">
+            <li><strong>Chart</strong> — displays load counts by length-of-haul range with FM OR and Core OR trend lines per band; the bands allow pattern identification that individual lane data masks</li>
+            <li><strong>Bottom tables</strong> — provide customer and lane detail for the selected haul-length band so visual patterns can be investigated at the customer or lane level</li>
+            <li><strong>Metrics per band:</strong> load count, FM OR, Core OR, average length of haul, linehaul + fuel per mile</li>
+          </ul>
+
+          <div class="use-box">
+            <strong>Supports</strong>
+            Pricing strategy calibrated to distance economics, lane selection decisions, and identifying which haul-length bands deserve rate structure review.
+          </div>
+
+          <div class="related-strip">
+            <span class="related-strip-label">Related pages →</span>
+            <a class="related-link" href="#">Bill To by Lane</a>
+            <a class="related-link" href="#">Price Impact</a>
+            <a class="related-link" href="#">Field Selection Table</a>
+          </div>
+
+          <div class="tag-row">
+            <span class="tag orange">SLC</span>
+            <span class="tag blue">LOH Bands</span>
+            <span class="tag">Core OR</span>
+            <span class="tag">Short Haul</span>
+            <span class="tag">Distance Economics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         FUEL SURCHARGE BY BILL TO
+    ══════════════════════════════════════ -->
+    <div class="accordion-item" data-acc data-roles="analyst pricing">
+      <button class="accordion-trigger" aria-expanded="false">
+        <div class="accordion-trigger-left">
+          <span class="acc-emoji">⛽</span>
+          <div>
+            <div class="acc-title">Fuel Surcharge by Bill To</div>
+            <div class="acc-trigger-meta">
+              <span class="role-badge analyst">Analyst</span>
+              <span class="role-badge pricing">Pricing</span>
+              <span class="acc-freq">Monthly</span>
+            </div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="acc-divider"></div>
+        <img class="acc-screenshot" src="https://freightmathmodel.netlify.app/images/fuel-by-bill-to.png" alt="Fuel Surcharge by Bill To screenshot">
+        <div class="acc-body">
+          <p class="acc-subtitle">Fuel Recovery Performance by Customer</p>
+          <p>Shows how fuel surcharge recovery varies by customer — identifying which accounts are under-recovering relative to actual fuel costs and how that flows through to OR. FSC structure is often negotiated independently from linehaul rates, creating situations where good linehaul pricing is partially offset by poor fuel recovery on the same freight.</p>
+
+          <div class="questions-panel">
+            <div class="questions-panel-header">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+              <span>Key Questions This Page Answers</span>
+            </div>
+            <ul class="questions-list">
+              <li>Which customers are under-recovering on fuel surcharge relative to the network average?</li>
+              <li>Does FSC per mile vary significantly across customers on the same lanes — and why?</li>
+              <li>How is FSC recovery connected to OR for each customer?</li>
+              <li>Are FSC trends improving or deteriorating over recent periods for high-volume customers?</li>
+            </ul>
+          </div>
+
+          <ul class="bullet-list">
+            <li><strong>Top table</strong> — compares weekly load counts and FSC per mile across recent periods with conditional formatting; quickly surfaces customers trending in the wrong direction</li>
+            <li><strong>Customer detail table:</strong> FM OR, Core OR, revenue, linehaul + fuel per total/billed mile, FSC per billed/loaded/total mile, FSC per load, length of haul, and deadhead — one of the most metric-dense tables in the platform</li>
+            <li><strong>Multiple FSC measures</strong> — the distinction between FSC per billed mile vs. FSC per loaded mile vs. FSC per total mile matters; each tells a different story about the surcharge program structure</li>
+          </ul>
+
+          <div class="watch-box">
+            <div class="wbox-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Watch For
+            </div>
+            <ul>
+              <li>Length of haul affects FSC recovery — a customer with shorter average hauls will naturally show lower FSC per load even with a well-structured program; always compare FSC per mile, not FSC per load, when benchmarking across customers</li>
+              <li>Use this page alongside Bill To by Lane to connect FSC performance to overall profitability — poor FSC recovery on a high-volume customer has compounding OR impact</li>
+            </ul>
+          </div>
+
+          <div class="use-box">
+            <strong>Supports</strong>
+            Evaluating fuel recovery quality, identifying FSC program weaknesses by customer, and connecting surcharge performance to profitability outcomes.
+          </div>
+
+          <div class="related-strip">
+            <span class="related-strip-label">Related pages →</span>
+            <a class="related-link" href="#">Bill To by Lane</a>
+            <a class="related-link" href="#">Price Impact</a>
+          </div>
+
+          <div class="tag-row">
+            <span class="tag blue">FSC/Billed Mi</span>
+            <span class="tag blue">Fuel Recovery</span>
+            <span class="tag">Core OR</span>
+            <span class="tag">FSC per Load</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         QUALITY CONTROL
+    ══════════════════════════════════════ -->
+    <div class="accordion-item" data-acc data-roles="analyst">
+      <button class="accordion-trigger" aria-expanded="false">
+        <div class="accordion-trigger-left">
+          <span class="acc-emoji">✅</span>
+          <div>
+            <div class="acc-title">Quality Control</div>
+            <div class="acc-trigger-meta">
+              <span class="role-badge analyst">Analyst</span>
+              <span class="acc-freq">Weekly</span>
+            </div>
+          </div>
+        </div>
+        <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="accordion-body">
+        <div class="acc-divider"></div>
+        <img class="acc-screenshot" src="https://freightmathmodel.netlify.app/images/quality-control.png" alt="Quality Control screenshot">
+        <div class="acc-body">
+          <p class="acc-subtitle">Exception-Based Data &amp; Operational Monitoring</p>
+          <p>The data integrity control panel for FreightMath. Highlights anomalous activity across the freight network, bringing exception reporting into one workspace. Run this page before distributing any period OR analysis — a data quality flag caught here prevents a difficult conversation after numbers are already published.</p>
+
+          <div class="questions-panel">
+            <div class="questions-panel-header">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+              <span>Key Questions This Page Answers</span>
+            </div>
+            <ul class="questions-list">
+              <li>Are there orders with $0 linehaul revenue that should be investigated before OR is published?</li>
+              <li>Are empty segments exceeding 250 miles — which may indicate data or dispatching issues?</li>
+              <li>Are any loads showing unusually high or low Core OR that could signal data errors vs. real outliers?</li>
+              <li>Is there excessive time at origin or destination that is inflating cost allocation on specific loads?</li>
+              <li>Is trailer pool cost per load spiking in a way that warrants review?</li>
+            </ul>
+          </div>
+
+          <ul class="bullet-list">
+            <li><strong>Exception panels:</strong> $0 linehaul revenue orders, empty segments &gt;250 miles, trailer pool cost per load outliers, unusually high/low Core OR, low linehaul + fuel per loaded mile, excessive time at origin or destination</li>
+            <li><strong>Order-level detail table</strong> — provides the individual records behind each exception flag; allows investigation and correction before period close</li>
+            <li><strong>Filters:</strong> customer, freight type, bill-to type, deadhead model, and time period</li>
+            <li><strong>Period-close checklist integration</strong> — this page is a non-negotiable step in the period validation workflow before OR is distributed to stakeholders</li>
+          </ul>
+
+          <div class="watch-box">
+            <div class="wbox-label">
+              <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              Watch For
+            </div>
+            <ul>
+              <li>A data quality flag caught on this page before period close takes minutes to resolve — the same flag caught after OR is distributed can require re-publication and erodes stakeholder confidence</li>
+              <li>Not every exception is an error — some anomalies are real operational events; use the order-level detail to distinguish between data problems and legitimate outliers</li>
+              <li>Unusually low Core OR on a large load is often a $0 revenue data issue, not a legitimate loss — always check this panel when OR looks better than expected, not just when it looks worse</li>
+            </ul>
+          </div>
+
+          <div class="use-box">
+            <strong>Supports</strong>
+            A centralized control panel for data integrity, exception investigation, outlier validation, and period-close sign-off before FM OR is published.
+          </div>
+
+          <div class="related-strip">
+            <span class="related-strip-label">Use alongside →</span>
+            <a class="related-link" href="#">Home</a>
+            <a class="related-link" href="#">Historical Trends</a>
+          </div>
+
+          <div class="tag-row">
+            <span class="tag blue">Exceptions</span>
+            <span class="tag blue">Data Integrity</span>
+            <span class="tag">Period Close</span>
+            <span class="tag orange">Outliers</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /accordion-list -->
+
+</main>
+
+<!-- ════════════════════════════════════════════════════════
+     GLOSSARY SECTION
+════════════════════════════════════════════════════════ -->
+<section id="glossary" class="glossary-section" style="padding:0;background:var(--fm-light-gray);">
+  <div style="max-width:1200px;margin:0 auto;padding:2.5rem 2.5rem 3rem;">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;">
+      <div>
+        <p class="section-eyebrow" style="margin-bottom:0.35rem;">Platform Reference</p>
+        <h2 style="font-family:'DM Sans',sans-serif;font-size:1.6rem;font-weight:700;color:var(--fm-navy);line-height:1.2;margin:0;">FreightMath Glossary</h2>
+      </div>
+      <a href="https://info.ksmcpa.com/hubfs/FreightMath_Glossary.html" target="_blank"
+         style="display:inline-flex;align-items:center;gap:0.45rem;font-family:'DM Sans',sans-serif;font-size:0.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:0.09em;color:var(--fm-blue);text-decoration:none;border:1px solid var(--fm-blue);padding:0.45em 0.9em;transition:background 0.18s,color 0.18s;white-space:nowrap;"
+         onmouseover="this.style.background='var(--fm-blue)';this.style.color='#fff'"
+         onmouseout="this.style.background='transparent';this.style.color='var(--fm-blue)'">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Open Full Page
+      </a>
+    </div>
+    <div style="border:1px solid var(--fm-warm-gray);overflow:hidden;background:#fff;box-shadow:0 2px 16px rgba(10,36,99,0.07);">
+      <iframe
+        src="https://info.ksmcpa.com/hubfs/FreightMath_Glossary.html"
+        title="FreightMath Glossary"
+        width="100%"
+        height="820"
+        style="display:block;border:none;"
+        loading="lazy"
+        allow="same-origin">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+
+<!-- LIGHTBOX OVERLAY -->
+<div class="lightbox-overlay" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot preview">
+  <div class="lightbox-img-wrap">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <img id="lightboxImg" src="" alt="">
+    <p class="lightbox-caption" id="lightboxCaption"></p>
+    <span class="lightbox-hint">Click anywhere or press Esc to close</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <a href="https://freightmath-site.vercel.app/" target="_blank" style="display:inline-flex;"><img src="https://info.ksmcpa.com/hubfs/FreightMath/Images/KSM_FM_Logo_RGB_Color.png" alt="FreightMath"></a>
+  <div class="footer-right">
+    <div style="color:var(--fm-light-blue); margin-bottom:0.2rem; font-family:'DM Sans',sans-serif; font-size:0.6875rem; text-transform:uppercase; letter-spacing:0.1em; font-weight:700;">A KSM Transport Advisors Platform</div>
+    <div><a href="#">Privacy</a> &nbsp;·&nbsp; <a href="#">Terms</a> &nbsp;·&nbsp; <a href="#">Support</a></div>
+    <div style="margin-top:0.25rem;">© KSM Transport Advisors</div>
+  </div>
+</footer>
+
+<script>
+  // ── Expand / Collapse All — Dashboard ────────────────
+  document.getElementById('dashExpandAll')?.addEventListener('click', () => {
+    document.querySelectorAll('.accordion-item[data-acc]').forEach(item => {
+      if (!item.classList.contains('hidden-by-filter')) {
+        item.classList.add('open');
+        item.querySelector('.accordion-trigger').setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+  document.getElementById('dashCollapseAll')?.addEventListener('click', () => {
+    document.querySelectorAll('.accordion-item[data-acc]').forEach(item => {
+      item.classList.remove('open');
+      item.querySelector('.accordion-trigger').setAttribute('aria-expanded', 'false');
+    });
+  });
+
+
+
+  // ── Dashboard accordions ──────────────────────────────
+  document.querySelectorAll('[data-acc]').forEach(item => {
+    const trigger = item.querySelector('.accordion-trigger');
+    trigger.addEventListener('click', () => {
+      const isOpen = item.classList.toggle('open');
+      trigger.setAttribute('aria-expanded', isOpen);
+    });
+  });
+
+  // ── Role filter ───────────────────────────────────────
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.accordion-item[data-roles]').forEach(item => {
+        if (filter === 'all') {
+          item.classList.remove('hidden-by-filter');
+        } else {
+          const roles = item.dataset.roles || '';
+          item.classList.toggle('hidden-by-filter', !roles.includes(filter));
+        }
+      });
+    });
+  });
+
+  // ── Workflow sequence openAccordion helper ─────────────
+  function openAccordion(id) {
+    // no-op placeholder for flow strip links
+    return false;
+  }
+
+
+
+  // ── Lightbox ──────────────────────────────────────────
+  const lightbox     = document.getElementById('lightbox');
+  const lightboxImg  = document.getElementById('lightboxImg');
+  const lightboxCap  = document.getElementById('lightboxCaption');
+  const lightboxClose= document.getElementById('lightboxClose');
+
+  document.querySelectorAll('.acc-screenshot').forEach(img => {
+    img.addEventListener('click', () => {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightboxCap.textContent = img.alt;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    lightboxImg.src = '';
+  }
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+</script>
+
+</body>
+</html>

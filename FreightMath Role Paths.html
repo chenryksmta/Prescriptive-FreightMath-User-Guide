@@ -1,0 +1,1755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Role-Based Learning Paths — FreightMath | KSM Transport Advisors</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fm-navy:         #0A2463;
+    --fm-blue:         #2C78C9;
+    --fm-orange:       #E26E17;
+    --fm-black:        #000000;
+    --fm-gray:         #6E6E6E;
+    --fm-light-blue:   #96BCE4;
+    --fm-mid-blue:     #8592B1;
+    --fm-light-gray:   #F5F5F5;
+    --fm-warm-gray:    #DCDAD8;
+    --fm-light-orange: #F1B78B;
+    --fm-white:        #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Public Sans', sans-serif;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--fm-black);
+    background: var(--fm-white);
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--fm-navy);
+    padding: 0 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+    position: sticky; top: 0; z-index: 200;
+    box-shadow: 0 2px 12px rgba(10,36,99,0.4);
+  }
+  .site-header img { height: 34px; filter: brightness(0) invert(1); }
+  .header-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--fm-light-blue);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--fm-navy);
+    padding: 4rem 2.5rem 3.5rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; right: -60px; top: -40px;
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, rgba(44,120,201,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; right: 2.5rem; bottom: 0;
+    width: 4px; height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--fm-orange) 60%, transparent);
+    opacity: 0.5; transform: skewX(-12deg);
+  }
+  .hero-inner { max-width: 860px; position: relative; }
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--fm-orange); margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300; color: var(--fm-white);
+    line-height: 1.15; margin-bottom: 1rem;
+  }
+  .hero h1 strong { font-weight: 700; color: var(--fm-light-blue); }
+  .hero-desc {
+    color: var(--fm-mid-blue); font-size: 1rem;
+    max-width: 600px; line-height: 1.7;
+  }
+
+  /* ── ROLE SELECTOR NAV ── */
+  .role-nav {
+    background: var(--fm-white);
+    border-bottom: 1px solid var(--fm-warm-gray);
+    padding: 0 2.5rem;
+    display: flex; gap: 0;
+    overflow-x: auto; scrollbar-width: none;
+    position: sticky; top: 108px; z-index: 97;
+  }
+  .role-nav::-webkit-scrollbar { display: none; }
+  .role-tab {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.875rem 1.25rem 0.875rem 0;
+    text-decoration: none;
+    color: var(--fm-gray);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.07em;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.2s, border-color 0.2s;
+    cursor: pointer; background: none; border-top: none; border-left: none; border-right: none;
+  }
+  .role-tab:hover { color: var(--fm-blue); border-bottom-color: var(--fm-light-blue); }
+  .role-tab.active { color: var(--fm-navy); border-bottom-color: var(--fm-orange); }
+  .role-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--fm-warm-gray);
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .role-tab.active .role-dot { background: var(--fm-orange); }
+
+  /* ── MAIN ── */
+  .guide-body {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem 5rem;
+  }
+
+  /* ── ROLE PANEL (shown/hidden) ── */
+  .role-panel { display: none; }
+  .role-panel.active { display: block; }
+
+  /* ── ROLE HEADER CARD ── */
+  .role-header-card {
+    background: var(--fm-navy);
+    padding: 2rem 2.5rem;
+    display: flex; align-items: flex-start; gap: 2rem;
+    margin-bottom: 2.5rem;
+    position: relative; overflow: hidden;
+  }
+  .role-header-card::after {
+    content: '';
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 280px;
+    background: linear-gradient(to left, rgba(44,120,201,0.12), transparent);
+    pointer-events: none;
+  }
+  .role-icon-lg {
+    width: 64px; height: 64px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(150,188,228,0.25);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: var(--fm-light-blue);
+  }
+  .role-header-text {}
+  .role-header-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--fm-orange); margin-bottom: 0.4rem;
+  }
+  .role-header-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.6rem; font-weight: 700;
+    color: var(--fm-white); line-height: 1.2;
+    margin-bottom: 0.6rem;
+  }
+  .role-header-desc {
+    color: var(--fm-mid-blue);
+    font-size: 0.9rem; line-height: 1.65;
+    max-width: 600px;
+  }
+
+  /* ── TWO-COLUMN LAYOUT ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem; }
+  .full-col { margin-bottom: 1.25rem; }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--fm-blue);
+    margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px;
+    background: var(--fm-warm-gray);
+  }
+
+  /* ── INFO CARD ── */
+  .info-card {
+    background: var(--fm-white);
+    border: 1px solid var(--fm-warm-gray);
+    border-top: 3px solid var(--fm-blue);
+    padding: 1.25rem;
+  }
+  .info-card.orange { border-top-color: var(--fm-orange); }
+  .info-card.navy { border-top-color: var(--fm-navy); background: #f8f9fc; }
+  .info-card-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8125rem; font-weight: 700;
+    color: var(--fm-navy);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    margin-bottom: 0.875rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .info-card-title svg { color: var(--fm-blue); flex-shrink: 0; }
+  .info-card.orange .info-card-title svg { color: var(--fm-orange); }
+
+  /* bullet list inside info card */
+  .bullet-list { list-style: none; }
+  .bullet-list li {
+    display: flex; align-items: flex-start; gap: 0.625rem;
+    font-size: 0.875rem; line-height: 1.65;
+    margin-bottom: 0.5rem; color: var(--fm-black);
+  }
+  .bullet-list li:last-child { margin-bottom: 0; }
+  .bullet-list li::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--fm-blue);
+    flex-shrink: 0;
+    margin-top: 0.45em;
+  }
+  .info-card.orange .bullet-list li::before { background: var(--fm-orange); }
+
+  /* ── KPI TILES ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .kpi-tile {
+    background: var(--fm-light-gray);
+    border: 1px solid var(--fm-warm-gray);
+    border-left: 3px solid var(--fm-blue);
+    padding: 0.875rem 1rem;
+  }
+  .kpi-tile.orange { border-left-color: var(--fm-orange); }
+  .kpi-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.625rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--fm-gray); margin-bottom: 0.3rem;
+  }
+  .kpi-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem; font-weight: 700;
+    color: var(--fm-navy); line-height: 1.25;
+  }
+  .kpi-freq {
+    font-size: 0.6875rem; color: var(--fm-gray);
+    margin-top: 0.2rem;
+  }
+
+  /* ── SKILL LADDER (expandable) ── */
+  .skill-ladder { border: 1px solid var(--fm-warm-gray); margin-bottom: 1.25rem; }
+  .skill-rung {
+    border-bottom: 1px solid var(--fm-warm-gray);
+  }
+  .skill-rung:last-child { border-bottom: none; }
+  .skill-trigger {
+    width: 100%; background: none; border: none; cursor: pointer;
+    padding: 1rem 1.25rem;
+    display: flex; align-items: center; gap: 1rem;
+    text-align: left;
+  }
+  .skill-trigger:hover { background: var(--fm-light-gray); }
+  .skill-level-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.625rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 0.2em 0.65em;
+    flex-shrink: 0;
+  }
+  .level-beginner    { background: #E8F5E9; color: #2E7D32; border: 1px solid #A5D6A7; }
+  .level-intermediate{ background: #E3F2FD; color: #1565C0; border: 1px solid #90CAF9; }
+  .level-advanced    { background: #FFF3E0; color: #E65100; border: 1px solid #FFCC80; }
+  .level-expert      { background: #EDE7F6; color: #4527A0; border: 1px solid #CE93D8; }
+  .skill-trigger-text {
+    flex: 1;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; font-weight: 700;
+    color: var(--fm-navy);
+  }
+  .skill-chevron {
+    width: 20px; height: 20px; color: var(--fm-gray);
+    flex-shrink: 0;
+    transition: transform 0.22s ease;
+  }
+  .skill-rung.open .skill-chevron { transform: rotate(180deg); color: var(--fm-blue); }
+  .skill-body {
+    display: none;
+    padding: 0 1.25rem 1.25rem 1.25rem;
+    animation: fadeSlide 0.2s ease;
+  }
+  .skill-rung.open .skill-body { display: block; }
+  .skill-body p {
+    font-size: 0.875rem; line-height: 1.7;
+    color: var(--fm-black); margin-bottom: 0.625rem;
+  }
+  .skill-body p:last-child { margin-bottom: 0; }
+
+  /* ── WORKFLOW STEPS ── */
+  .workflow { margin-bottom: 1.25rem; }
+  .workflow-step {
+    display: flex; align-items: flex-start; gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .workflow-step:last-child { margin-bottom: 0; }
+  .workflow-num {
+    min-width: 28px; height: 28px;
+    background: var(--fm-navy); color: var(--fm-white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .workflow-content {}
+  .workflow-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem; font-weight: 700;
+    color: var(--fm-navy); margin-bottom: 0.2rem;
+  }
+  .workflow-desc {
+    font-size: 0.8125rem; color: var(--fm-gray); line-height: 1.6;
+  }
+
+  /* ── ACTION CARDS ── */
+  .action-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 0.875rem;
+    margin-bottom: 1.25rem;
+  }
+  .action-card {
+    background: var(--fm-white);
+    border: 1px solid var(--fm-warm-gray);
+    padding: 1rem 1.125rem;
+    display: flex; gap: 0.875rem; align-items: flex-start;
+  }
+  .action-icon {
+    width: 32px; height: 32px;
+    background: #EAF2FB;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; color: var(--fm-blue);
+  }
+  .action-card.warn .action-icon { background: #FEF0E6; color: var(--fm-orange); }
+  .action-card-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8125rem; font-weight: 700;
+    color: var(--fm-navy); margin-bottom: 0.2rem;
+  }
+  .action-card-desc {
+    font-size: 0.8rem; color: var(--fm-gray); line-height: 1.6;
+  }
+
+  /* ── ROUTINE TABLE ── */
+  .routine-table { width: 100%; border-collapse: collapse; margin-bottom: 1.25rem; font-size: 0.875rem; }
+  .routine-table th {
+    background: var(--fm-navy);
+    color: var(--fm-white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.09em;
+    padding: 0.625rem 1rem; text-align: left;
+  }
+  .routine-table td {
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid var(--fm-warm-gray);
+    line-height: 1.55;
+    color: var(--fm-black);
+    vertical-align: top;
+  }
+  .routine-table tr:last-child td { border-bottom: none; }
+  .routine-table tr:nth-child(even) td { background: var(--fm-light-gray); }
+  .freq-badge {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    padding: 0.15em 0.5em;
+    background: #EAF2FB;
+    color: var(--fm-blue);
+    border: 1px solid var(--fm-light-blue);
+    white-space: nowrap;
+  }
+  .freq-badge.orange {
+    background: #FEF0E6;
+    color: var(--fm-orange);
+    border-color: var(--fm-light-orange);
+  }
+
+  /* ── TIP / WARN BOX ── */
+  .tip-box {
+    background: #EAF2FB;
+    border-left: 3px solid var(--fm-blue);
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.8125rem;
+    color: var(--fm-navy);
+    line-height: 1.6;
+  }
+  .tip-box strong {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700; color: var(--fm-blue);
+    display: block; margin-bottom: 0.2rem;
+    font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.1em;
+  }
+  .tip-box.warn { background: #FEF0E6; border-left-color: var(--fm-orange); }
+  .tip-box.warn strong { color: var(--fm-orange); }
+
+  /* inline code */
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8em;
+    background: var(--fm-light-gray);
+    padding: 0.1em 0.35em;
+    border: 1px solid var(--fm-warm-gray);
+    color: var(--fm-navy);
+  }
+
+  /* tag */
+  .tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem; font-weight: 600;
+    padding: 0.2em 0.5em;
+    background: var(--fm-light-gray);
+    color: var(--fm-navy);
+    border: 1px solid var(--fm-warm-gray);
+    text-transform: uppercase; letter-spacing: 0.04em;
+    margin: 0.15rem 0.2rem 0.15rem 0;
+  }
+  .tag.blue { background: #EAF2FB; border-color: var(--fm-light-blue); color: var(--fm-blue); }
+  .tag.orange { background: #FEF0E6; border-color: var(--fm-light-orange); color: var(--fm-orange); }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    background: var(--fm-navy);
+    padding: 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .site-footer img { height: 28px; filter: brightness(0) invert(1); opacity: 0.85; }
+  .footer-right {
+    font-size: 0.75rem; color: var(--fm-mid-blue);
+    text-align: right; line-height: 1.6;
+  }
+  .footer-right a { color: var(--fm-light-blue); text-decoration: none; }
+  .footer-right a:hover { text-decoration: underline; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(-5px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 820px) {
+    .two-col, .three-col { grid-template-columns: 1fr; }
+    .role-header-card { flex-direction: column; gap: 1.25rem; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .site-header, .hero, .guide-body { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .role-nav { padding: 0 1.25rem; }
+    .site-footer { padding: 1.75rem 1.25rem; }
+    .footer-right { text-align: left; }
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ── SHARED PLATFORM NAV ── */
+  .platform-nav {
+    background: #061840;
+    border-bottom: 1px solid rgba(150,188,228,0.12);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    position: sticky;
+    top: 68px;
+    z-index: 99;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .platform-nav::-webkit-scrollbar { display: none; }
+  .platform-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    height: 100%;
+  }
+  .platform-nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0 1rem;
+    height: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--fm-mid-blue);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.18s, border-color 0.18s, background 0.18s;
+  }
+  .platform-nav a:hover {
+    color: var(--fm-light-blue);
+    background: rgba(44,120,201,0.08);
+  }
+  .platform-nav a.active {
+    color: var(--fm-white);
+    border-bottom-color: var(--fm-orange);
+  }
+  .platform-nav-dot {
+    width: 5px; height: 5px;
+    background: var(--fm-orange);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: none;
+  }
+  .platform-nav a.active .platform-nav-dot { display: block; }
+  .platform-nav-glossary {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25em 0.75em;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fm-light-blue);
+    text-decoration: none;
+    background: rgba(44,120,201,0.08);
+    white-space: nowrap;
+    transition: color 0.18s, background 0.18s;
+    flex-shrink: 0;
+    height: 100%;
+    border-bottom: 2px solid transparent;
+  }
+  .platform-nav-glossary:hover {
+    color: var(--fm-light-blue);
+    background: rgba(44,120,201,0.15);
+  }
+  @media (max-width: 640px) {
+    .platform-nav { padding: 0 1.25rem; top: 68px; }
+  }
+
+  /* ── ROLE PREV / NEXT ── */
+  .role-prevnext {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--fm-warm-gray);
+    flex-wrap: wrap;
+  }
+  .role-prevnext-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    background: var(--fm-white);
+    border: 1px solid var(--fm-warm-gray);
+    padding: 0.625rem 1.125rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--fm-navy);
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, color 0.18s;
+    text-align: left;
+  }
+  .role-prevnext-btn:hover {
+    background: var(--fm-navy);
+    border-color: var(--fm-navy);
+    color: var(--fm-white);
+  }
+  .role-prevnext-btn:hover svg { stroke: var(--fm-white); }
+  .role-prevnext-btn svg { color: var(--fm-blue); transition: stroke 0.18s; }
+  .role-prevnext-btn .pn-sub {
+    font-size: 0.6875rem;
+    font-weight: 400;
+    color: var(--fm-gray);
+    display: block;
+    margin-top: 0.1rem;
+    font-family: 'Public Sans', sans-serif;
+    transition: color 0.18s;
+  }
+  .role-prevnext-btn:hover .pn-sub { color: var(--fm-light-blue); }
+  .role-prevnext-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.625rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--fm-gray);
+    text-align: center;
+  }
+
+  /* ── RECOMMENDED FOR THIS ROLE ── */
+  .recommended-section {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--fm-warm-gray);
+  }
+  .recommended-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--fm-blue);
+    margin-bottom: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .recommended-label::after { content: ''; flex: 1; height: 1px; background: var(--fm-warm-gray); }
+  .recommended-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 0.75rem;
+  }
+  .recommended-card {
+    background: var(--fm-white);
+    border: 1px solid var(--fm-warm-gray);
+    border-left: 3px solid var(--fm-orange);
+    padding: 1rem 1.125rem;
+    text-decoration: none;
+    display: block;
+    transition: box-shadow 0.18s, border-left-color 0.18s;
+  }
+  .recommended-card:hover {
+    box-shadow: 0 4px 16px rgba(10,36,99,0.1);
+    border-left-color: var(--fm-blue);
+  }
+  .recommended-card-step {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.5875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--fm-orange);
+    margin-bottom: 0.25rem;
+  }
+  .recommended-card:hover .recommended-card-step { color: var(--fm-blue); }
+  .recommended-card-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--fm-navy);
+    line-height: 1.3;
+    margin-bottom: 0.3rem;
+  }
+  .recommended-card-desc {
+    font-size: 0.8rem;
+    color: var(--fm-gray);
+    line-height: 1.55;
+  }
+
+  .tip-box.best {
+    background: #F0FAF4;
+    border-left-color: #2E7D32;
+  }
+  .tip-box.best strong { color: #2E7D32; }
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="https://freightmath-site.vercel.app/" target="_blank" style="display:inline-flex;"><img src="https://info.ksmcpa.com/hubfs/FreightMath/Images/KSM_FM_Logo_RGB_Color.png" alt="FreightMath"></a>
+  <span class="header-label">Role-Based Learning Paths</span>
+</header>
+
+<!-- PLATFORM NAV -->
+<nav class="platform-nav" aria-label="Platform navigation">
+  <div class="platform-nav-links">
+    <a href="FreightMath Guide Page Home.html">Home</a>
+    <a href="FreightMath Quick Start Guide.html">Quick Start</a>
+    <a href="FreightMath Role Paths.html" class="active"><span class="platform-nav-dot"></span>Role Paths</a>
+    <a href="FreightMath Dashboard Pages.html">User Guide</a>
+    
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+    <a href="FreightMath Client Onboarding Schedule.html" class="platform-nav-glossary">
+      <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M8 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"/><path d="M17 2H11a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg>
+      Onboarding
+    </a>
+    <a href="https://info.ksmcpa.com/hubfs/FreightMath_Glossary.html" class="platform-nav-glossary">
+      <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+      Glossary
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">KSM Transport Advisors</p>
+    <h1>FreightMath for<br><strong>Every Role on Your Team</strong></h1>
+    <p class="hero-desc">Profitability data is only powerful when the right person acts on it. These learning paths show each role exactly what to look at, what questions to answer, and what to do with what they find. The primary metric throughout is <strong>FM OR (FreightMath Operating Ratio)</strong>. New to any term? The <a href="https://info.ksmcpa.com/hubfs/FreightMath_Glossary.html" style="color:var(--fm-light-blue);">FreightMath Glossary</a> defines every metric and measure used in the platform — the composite measure that accounts for each load's full network impact: the load itself (Core OR), the freight that positioned the truck at origin (IB OR), and the outbound reload environment at destination (OB OR).</p>
+  </div>
+</section>
+
+<!-- ROLE NAV -->
+<nav class="role-nav" aria-label="Role paths">
+  <button class="role-tab active" data-role="executive">
+    <span class="role-dot"></span> Executive
+  </button>
+  <button class="role-tab" data-role="sales">
+    <span class="role-dot"></span> Sales Leader
+  </button>
+  <button class="role-tab" data-role="pricing">
+    <span class="role-dot"></span> Pricing Analyst
+  </button>
+  <button class="role-tab" data-role="ops">
+    <span class="role-dot"></span> Operations Leader
+  </button>
+  <button class="role-tab" data-role="dispatch">
+    <span class="role-dot"></span> Dispatcher / Load Planner / CSR
+  </button>
+  <button class="role-tab" data-role="finance">
+    <span class="role-dot"></span> Finance / Revenue Mgmt
+  </button>
+</nav>
+
+<main class="guide-body">
+
+<!-- ════════════════════════════════════════════════════
+     ROLE 1: EXECUTIVE
+═══════════════════════════════════════════════════════ -->
+<div class="role-panel active" id="role-executive">
+
+  <div class="role-header-card">
+    <div class="role-icon-lg">
+      <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 3h18v18H3zM3 9h18M9 21V9"/></svg>
+    </div>
+    <div class="role-header-text">
+      <p class="role-header-eyebrow">Learning Path — Role 1 of 6</p>
+      <h2 class="role-header-title">Executive</h2>
+      <p class="role-header-desc">CEOs, Presidents, and VP-level leaders who need a clear, fast read on network profitability without wading through operational detail. Your job is to ask the right questions and hold the team accountable to the answers.</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="info-card">
+      <div class="info-card-title">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        What This Role Cares About
+      </div>
+      <ul class="bullet-list">
+        <li>Is the overall network profitable — and is it improving or deteriorating?</li>
+        <li>Which customers, lanes, or segments are dragging overall FM OR — and is it a Core OR problem, an IB OR problem, or an OB OR problem?</li>
+        <li>How does our profitability compare to industry peers?</li>
+        <li>Are the right operational and pricing decisions being made downstream?</li>
+        <li>What strategic actions need to be taken in the next 30–90 days?</li>
+      </ul>
+    </div>
+    <div class="info-card orange">
+      <div class="info-card-title">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Profitability Questions to Answer
+      </div>
+      <ul class="bullet-list">
+        <li>What is our current network FM OR — and what's the 12-month trend?</li>
+        <li>Which top 10 customers have a blended FM OR above 0.97?</li>
+        <li>What percentage of our analyzed loads (ANALYZED_FLAG = 1) are profitable vs. unprofitable?</li>
+        <li>Where does our FM OR sit relative to FreightMarks peer benchmarks?</li>
+        <li>Which segments are growing revenue but compressing FM OR — and is the driver Core OR, IB OR, or OB OR?</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="section-label">Dashboards &amp; Workflows</p>
+  <div class="tip-box">
+    <strong>Dashboard Reference</strong>
+    The pages listed below are documented in detail in the <a href="FreightMath Dashboard Pages.html" style="color:var(--fm-blue)">Detailed User Guide</a> — including screenshots, metric definitions, and filter guidance for each view.
+  </div>
+  <div class="action-grid">
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><path d="M3 9h18M9 21V9"/></svg></div>
+      <div><div class="action-card-title">Home</div><div class="action-card-desc">Network-level FM OR KPI strip with trend line, load volume, revenue, and margin. FM OR is the headline metric — start every session here. The bottom row (Deadhead, Density, Velocity) are your leading operational indicators.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div><div class="action-card-title">Historical Trends</div><div class="action-card-desc">Interactive dual Y-axis chart for trend investigation and YoY analysis. Plot any FreightMath measure over time. Toggle to Table view for a full snapshot across all key metrics. Your primary trend signal for long-range OR movement.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+      <div><div class="action-card-title">Areas of Profit <span class="tag orange" style="font-size:0.55rem;">SLC</span></div><div class="action-card-desc">Geographic view shaded by profitability and density. The density matrix shows load volume vs. OR — identifying where to grow and where to reduce exposure. The Area Overview table shows inbound, outbound, and broker OR by market.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+      <div><div class="action-card-title">Profitability Matrix <span class="tag orange" style="font-size:0.55rem;">SLC</span></div><div class="action-card-desc">Classifies customers and lanes into four zones: Desirable, Backhaul, Undesirable, and Flow Issues — using both Core OR and FreightMath OR. Toggle between by Bill To and by Lane views. Sorted by volume, top 20 by default. Your customer strategy view.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+      <div><div class="action-card-title">Price Impact <span class="tag orange" style="font-size:0.55rem;">SLC</span></div><div class="action-card-desc">Quantifies revenue upside by comparing current linehaul + fuel rates against lane average, peer group, and DAT benchmarks. Selects the most favorable benchmark and multiplies by LOH × load count. The dollar figure is your repricing agenda.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      <div><div class="action-card-title">What If <span class="tag orange" style="font-size:0.55rem;">SLC</span></div><div class="action-card-desc">Scenario planning tool — model the OR and profit impact of changes to linehaul rate per loaded mile, deadhead per load, truck count, variable cost, overhead, and broker mile %. Results table shows Current vs. What If vs. Delta across all financial measures.</div></div>
+    </div>
+  </div>
+
+  <p class="section-label">KPIs to Monitor</p>
+  <div class="kpi-grid">
+    <div class="kpi-tile"><div class="kpi-label">Primary</div><div class="kpi-name">Network FM OR</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile orange"><div class="kpi-label">Trend</div><div class="kpi-name">12-Month Rolling FM OR</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Benchmark</div><div class="kpi-name">FM OR vs. Peer Quartile</div><div class="kpi-freq">Quarterly</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Risk</div><div class="kpi-name">% Analyzed Loads FM OR &gt; 1.0</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile orange"><div class="kpi-label">Revenue</div><div class="kpi-name">LH Revenue per Loaded Mile</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Customer</div><div class="kpi-name">Top 10 Customer Blended FM OR</div><div class="kpi-freq">Monthly</div></div>
+  </div>
+
+  <p class="section-label">Skill Progression</p>
+  <div class="skill-ladder">
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-beginner">Beginner</span><span class="skill-trigger-text">Read the OR Summary Dashboard and understand the KPI strip</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>Open the FM OR Summary Dashboard and locate the network-level FM OR in the top strip. FM OR is the primary metric — it accounts for the full network impact of every load, not just the load in isolation. An FM OR below 1.0 means the network is profitable; the lower, the better. Always confirm you are looking at a completed period (month-end recast), not a forecasted intra-month OR — the two can differ meaningfully.</p><p>At this stage, your goal is one clean data point: what is our FM OR right now, and is it better or worse than the prior period?</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-intermediate">Intermediate</span><span class="skill-trigger-text">Interpret the 12-month trend and identify deterioration signals</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>Move to the rolling 12-month FM OR chart. Learn to distinguish seasonal variance from structural deterioration — a single bad month is noise; three consecutive months of rising FM OR is a signal. When FM OR is trending upward, the right question is not "what happened to our rate?" but "which component is rising — Core OR, IB OR, or OB OR?" Each points to a different fix: rate (Core), positioning lanes (IB), or destination reload markets (OB).</p><p>At this level you can communicate whether profitability is stable, improving, or compressing — and name the component driving the change.</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-advanced">Advanced</span><span class="skill-trigger-text">Segment the network and identify which customers, lane tiers, or OR components drive FM OR movement</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>Use the Customer Profitability Ranking to identify which customers have blended ORs above 0.97. Cross-reference with volume — a high-OR, low-volume customer is a nuisance; a high-OR, high-volume customer is a strategic problem. Use the Segment Comparison view to see whether deterioration is concentrated in a lane cluster or spread network-wide.</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-expert">Expert</span><span class="skill-trigger-text">Use FreightMarks benchmarks to frame strategic decisions and hold teams accountable</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>Enable the FreightMarks overlay on the trend chart and contextualize your OR against the peer interquartile range. Top-quartile performance (OR below the 25th percentile of peers) is the operational target. Use this context in board conversations, pricing strategy, and M&A evaluation. Hold pricing and ops teams accountable to specific OR improvement targets backed by benchmark data.</p></div>
+    </div>
+  </div>
+
+  <p class="section-label">Recommended Routine</p>
+  <table class="routine-table">
+    <thead><tr><th>Frequency</th><th>Task</th><th>Time Required</th></tr></thead>
+    <tbody>
+      <tr><td><span class="freq-badge">Monthly</span></td><td>Review OR Summary Dashboard — network OR, trend, top 5 customer flags</td><td>15 min</td></tr>
+      <tr><td><span class="freq-badge">Monthly</span></td><td>Review Customer Profitability Ranking — flag any new entrants above OR 0.97</td><td>10 min</td></tr>
+      <tr><td><span class="freq-badge orange">Quarterly</span></td><td>Review FreightMarks benchmark position — where do we sit vs. peers?</td><td>20 min</td></tr>
+      <tr><td><span class="freq-badge orange">Quarterly</span></td><td>Strategic review with KSM advisor — profitability diagnosis and action plan</td><td>60 min</td></tr>
+    </tbody>
+  </table>
+
+  <p class="section-label">Common Mistakes to Avoid</p>
+  <div class="two-col">
+    <div class="tip-box warn"><strong>Mistake</strong>Reading a single period FM OR without the 12-month context. One bad month can be explained; trend direction is what drives decisions. Also confirm whether you are reading forecasted OR (intra-month) or actual OR (month-end recast) — presenting a forecasted OR as final is a common source of board-level confusion.</div>
+    <div class="tip-box warn"><strong>Mistake</strong>Treating high-OR customers as automatically disposable. A customer with a poor OR may still be critical for backhaul balance, network density, or strategic relationships.</div>
+    <div class="tip-box warn"><strong>Mistake</strong>Waiting for quarterly reviews to surface profitability issues. Monthly reviews catch deterioration before it compounds into a structural problem.</div>
+    <div class="tip-box warn"><strong>Mistake</strong>Benchmarking against the wrong peer group. Confirm with your KSM advisor that the FreightMarks peer set matches your operational profile (fleet size, lane density, asset type).</div>
+  </div>
+
+
+  <div class="recommended-section">
+    <p class="recommended-label">Recommended Quick Start Cards for This Role</p>
+    <div class="recommended-grid">
+      <a href="FreightMath Quick Start Guide.html#step-1" class="recommended-card">
+        <div class="recommended-card-step">Step 1</div>
+        <div class="recommended-card-title">Dashboard Home</div>
+        <div class="recommended-card-desc">The red arrow triage — your fastest daily read on where performance degraded.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-1" class="recommended-card">
+        <div class="recommended-card-step">Step 1</div>
+        <div class="recommended-card-title">Areas of Profit</div>
+        <div class="recommended-card-desc">The High Density / High OR table surfaces your highest-leverage geographic priorities instantly.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-2" class="recommended-card">
+        <div class="recommended-card-step">Step 2</div>
+        <div class="recommended-card-title">Profitability Matrix</div>
+        <div class="recommended-card-desc">Understand which customers to protect, which to reprice, and which demand operational attention.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-4" class="recommended-card">
+        <div class="recommended-card-step">Step 4</div>
+        <div class="recommended-card-title">What If Analysis</div>
+        <div class="recommended-card-desc">Model the financial impact of strategic changes before committing — the final boss for scenario planning.</div>
+      </a>
+    </div>
+  </div>
+  <div class="role-prevnext">
+    <div></div>
+    <span class="role-prevnext-label">Role 1 of 6</span>
+    <button class="role-prevnext-btn" onclick="switchRole('role-sales')">
+      <div style="text-align:right"><span>Next Role</span><span class="pn-sub">Sales Leader</span></div>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 19l7-7-7-7"/></svg>
+    </button>
+  </div>
+
+</div><!-- /executive -->
+
+
+<!-- ════════════════════════════════════════════════════
+     ROLE 2: SALES LEADER
+═══════════════════════════════════════════════════════ -->
+<div class="role-panel" id="role-sales">
+
+  <div class="role-header-card">
+    <div class="role-icon-lg">
+      <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+    </div>
+    <div class="role-header-text">
+      <p class="role-header-eyebrow">Learning Path — Role 2 of 6</p>
+      <h2 class="role-header-title">Sales Leader</h2>
+      <p class="role-header-desc">VPs of Sales, Account Executives, and Business Development leaders who manage customer relationships and volume growth. Your job is to grow revenue without degrading FM OR — and to use ABC cost data to defend rate positions and build the case for increases. When a lane's FM OR is elevated, the first question is always whether Core OR is the driver — if IB OR or OB OR is the problem, a customer rate increase won't fix it and you'll lose credibility bringing it to the table.</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="info-card">
+      <div class="info-card-title">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        What This Role Cares About
+      </div>
+      <ul class="bullet-list">
+        <li>Which customers and lanes are profitable — and which are quietly losing money?</li>
+        <li>Which customer relationships are at risk due to unsustainable rate structures?</li>
+        <li>How to defend a rate increase conversation with cost evidence, not just market talk</li>
+        <li>Which new lanes or customers would strengthen network profitability</li>
+        <li>Which RFPs are worth pursuing vs. likely to add volume without margin</li>
+      </ul>
+    </div>
+    <div class="info-card orange">
+      <div class="info-card-title">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Profitability Questions to Answer
+      </div>
+      <ul class="bullet-list">
+        <li>What is the blended FM OR for each of my top 20 accounts — and for each account, is the FM OR elevation driven by Core OR, IB OR, or OB OR?</li>
+        <li>Which lanes within my key accounts have OR above 1.0?</li>
+        <li>What is the minimum rate needed to bring a red lane's Core OR to target — and is Core OR actually the driver, or is it IB/OB OR?</li>
+        <li>Which customers are growing volume but compressing our margin?</li>
+        <li>What does the cost-to-serve look like on the lanes in this RFP?</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="section-label">Dashboards &amp; Workflows</p>
+  <div class="action-grid">
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+      <div><div class="action-card-title">Customer Profitability Ranking</div><div class="action-card-desc">Ranked list by blended OR. Your pre-call preparation list.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <div><div class="action-card-title">Lane Detail — Rate Analysis</div><div class="action-card-desc">Cost-to-serve breakdown and rate floor for any lane. Export as PDF for customer conversations.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <div><div class="action-card-title">Export to BidRight</div><div class="action-card-desc">Push ABC cost floors into RFP bid pricing. Ensures every submitted rate has a margin floor.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+      <div><div class="action-card-title">Segment Comparison View</div><div class="action-card-desc">Compare OR trajectory across customer groups or segments. Spot which accounts are drifting.</div></div>
+    </div>
+  </div>
+
+  <p class="section-label">Rate Increase Workflow</p>
+  <div class="workflow">
+    <div class="workflow-step"><div class="workflow-num">1</div><div class="workflow-content"><div class="workflow-title">Identify the target lane or account</div><div class="workflow-desc">Filter Customer Profitability Ranking to accounts with blended FM OR ≥ 0.97. Sort by load volume to prioritize Power Lane volume first — a high-FM OR account running mostly Power Lane freight is a higher-priority conversation than one with scattered Spider Lane volume.</div></div></div>
+    <div class="workflow-step"><div class="workflow-num">2</div><div class="workflow-content"><div class="workflow-title">Diagnose the FM OR driver before building the rate case</div><div class="workflow-desc">In Lane Detail, check Core OR, IB OR, and OB OR separately. If Core OR is the primary driver of elevated FM OR, a rate increase is the right lever. If IB OR or OB OR is dominant, the issue is in the positioning or reload environment — repricing the load rate may not resolve FM OR and could damage the customer relationship unnecessarily. Only build the rate case when Core OR confirms it.</div></div></div>
+    <div class="workflow-step"><div class="workflow-num">3</div><div class="workflow-content"><div class="workflow-title">Build and export the rate case</div><div class="workflow-desc">Once Core OR is confirmed as the driver, open the Rate Analysis panel. Review the cost-to-serve waterfall — variable CPM, overhead allocation, and the rate floor that targets your minimum FM OR. Export the lane summary PDF. The ABC cost breakdown is far more defensible in a customer conversation than a market rate argument: "here is what it costs us to run this lane" is a factual statement, not a negotiating position.</div></div></div>
+    <div class="workflow-step"><div class="workflow-num">4</div><div class="workflow-content"><div class="workflow-title">Set the target rate and confirm FM OR improvement</div><div class="workflow-desc">After the conversation, record the new rate, effective date, and volume commitment. Revisit in 90 days and pull Lane Detail to confirm Core OR — and therefore FM OR — improved on the repriced lane. If FM OR is still elevated after a successful reprice, IB OR or OB OR may now be the dominant driver; escalate to Operations for a network-level fix.</div></div></div>
+  </div>
+
+  <p class="section-label">KPIs to Monitor</p>
+  <div class="kpi-grid">
+    <div class="kpi-tile"><div class="kpi-label">Account Health</div><div class="kpi-name">Customer Blended FM OR</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile orange"><div class="kpi-label">Risk Flag</div><div class="kpi-name">Power Lane Accounts Above FM OR 0.97</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Volume</div><div class="kpi-name">Revenue per Customer</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Lane</div><div class="kpi-name">Red Lane Count per Account</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile orange"><div class="kpi-label">Pipeline</div><div class="kpi-name">Core OR on Quoted Lanes</div><div class="kpi-freq">Per Bid</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Trend</div><div class="kpi-name">FM OR Improvement Post-Reprice</div><div class="kpi-freq">Quarterly</div></div>
+  </div>
+
+  <p class="section-label">Skill Progression</p>
+  <div class="skill-ladder">
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-beginner">Beginner</span><span class="skill-trigger-text">Read the Customer Profitability Ranking and identify your highest-OR accounts</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>Open the Customer Profitability Ranking. Filter to your assigned accounts. Understand that blended FM OR represents the full network impact of a customer's lane portfolio — not just the loaded rate vs. cost, but the positioning and reload environment their lanes create. An FM OR above 1.0 means the network is losing money on that customer. Sort descending and note the top 5 highest-FM OR accounts on your book.</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-intermediate">Intermediate</span><span class="skill-trigger-text">Use Lane Detail to understand which specific lanes within an account are unprofitable</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>Drill into a high-FM OR customer and open the lane-level breakdown. A customer with a 1.02 blended FM OR may have three excellent lanes and two that are dragging the average. For each underperforming lane, check Core OR first — if Core OR is the driver, it's a repricing target. If IB OR or OB OR is dominant, the fix is operational, not a rate conversation.</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-advanced">Advanced</span><span class="skill-trigger-text">Build rate cases using the Rate Analysis panel and use exported PDFs in customer conversations</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>For each red lane where Core OR is confirmed as the driver, open the Rate Analysis sub-panel. Review the cost-to-serve waterfall — variable CPM (fuel, driver pay, maintenance) and fixed overhead allocated via the Overhead Workday Model — and the suggested rate floor. The floor targets a minimum FM OR, not just breakeven. Export the lane summary PDF and bring it to the rate conversation. This is far more defensible than spot market references because it shows the actual ABC cost structure, not a market estimate.</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-expert">Expert</span><span class="skill-trigger-text">Integrate ABC cost floors into BidRight and use profitability data to evaluate new business</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>Use the BidRight integration to pre-populate FM OR cost floors on every RFP lane before building your bid. Never submit a rate below the FreightMath floor without a documented strategic reason. When evaluating a prospect, use the Segment Comparison view to model whether their lane profile would strengthen or weaken network FM OR — specifically whether their origin-destination pairs generate favorable or unfavorable IB OR and OB OR for adjacent lanes.</p></div>
+    </div>
+  </div>
+
+  <p class="section-label">Recommended Routine</p>
+  <table class="routine-table">
+    <thead><tr><th>Frequency</th><th>Task</th><th>Time Required</th></tr></thead>
+    <tbody>
+      <tr><td><span class="freq-badge">Weekly</span></td><td>Review Customer Profitability Ranking for accounts above OR 0.97 — flag new entrants</td><td>10 min</td></tr>
+      <tr><td><span class="freq-badge">Monthly</span></td><td>Deep-dive lane-level OR for top 5 highest-OR accounts — identify repricing targets</td><td>30 min</td></tr>
+      <tr><td><span class="freq-badge orange">Per Bid</span></td><td>Export lanes to BidRight before submitting any RFP — confirm rates are above cost floor</td><td>15 min</td></tr>
+      <tr><td><span class="freq-badge orange">Quarterly</span></td><td>Review OR improvement on lanes repriced in the prior quarter — validate the change landed</td><td>20 min</td></tr>
+    </tbody>
+  </table>
+
+  <p class="section-label">Common Mistakes to Avoid</p>
+  <div class="two-col">
+    <div class="tip-box warn"><strong>Mistake</strong>Agreeing to rate holds or volume discounts without first checking lane-level Core OR and FM OR. A concession on a lane where IB OR is the problem doesn't solve the FM OR issue — it just locks in a below-floor rate on a lane that was already being hurt by positioning costs.</div>
+    <div class="tip-box warn"><strong>Mistake</strong>Chasing volume growth without watching blended FM OR. A customer who doubles their volume at a 1.03 FM OR is compounding the problem, not solving it. And because FM OR captures network positioning effects, doubling volume on a weak-IB corridor makes the IB OR problem worse for every other lane feeding into that origin area.</div>
+    <div class="tip-box warn"><strong>Mistake</strong>Using only market spot rates to justify rate increases. The ABC cost breakdown gives you far stronger footing — "here's what it actually costs us to run this lane" is more defensible than "the market moved."</div>
+    <div class="tip-box warn"><strong>Mistake</strong>Dismissing high-OR customers without checking whether they provide strategic network value (backhaul balance, density in a key lane cluster). Always discuss with operations before making a strategic call.</div>
+  </div>
+
+
+  <div class="recommended-section">
+    <p class="recommended-label">Recommended Quick Start Cards for This Role</p>
+    <div class="recommended-grid">
+      <a href="FreightMath Quick Start Guide.html#step-1" class="recommended-card">
+        <div class="recommended-card-step">Step 1</div>
+        <div class="recommended-card-title">Price Impact</div>
+        <div class="recommended-card-desc">Filter to Shipper and read the dollar figure — this is your repricing agenda, ranked by opportunity size.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-2" class="recommended-card">
+        <div class="recommended-card-step">Step 2</div>
+        <div class="recommended-card-title">Profitability Matrix</div>
+        <div class="recommended-card-desc">Know which quadrant every customer sits in before your next account conversation.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-3" class="recommended-card">
+        <div class="recommended-card-step">Step 3</div>
+        <div class="recommended-card-title">Revenue / Volume Change</div>
+        <div class="recommended-card-desc">Find lanes where you grew volume but OR worsened — a pricing misalignment signal that needs a rate review.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-3" class="recommended-card">
+        <div class="recommended-card-step">Step 3</div>
+        <div class="recommended-card-title">Area Analysis</div>
+        <div class="recommended-card-desc">Broker % in/out tells you where you're over-reliant on spot market to fill and exit a customer's market.</div>
+      </a>
+    </div>
+  </div>
+  <div class="role-prevnext">
+    <button class="role-prevnext-btn" onclick="switchRole('role-executive')">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <div><span>Previous Role</span><span class="pn-sub">Executive</span></div>
+    </button>
+    <span class="role-prevnext-label">Role 2 of 6</span>
+    <button class="role-prevnext-btn" onclick="switchRole('role-pricing')">
+      <div style="text-align:right"><span>Next Role</span><span class="pn-sub">Pricing Analyst</span></div>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 19l7-7-7-7"/></svg>
+    </button>
+  </div>
+
+</div><!-- /sales -->
+
+
+<!-- ════════════════════════════════════════════════════
+     ROLE 3: PRICING ANALYST
+═══════════════════════════════════════════════════════ -->
+<div class="role-panel" id="role-pricing">
+
+  <div class="role-header-card">
+    <div class="role-icon-lg">
+      <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+    </div>
+    <div class="role-header-text">
+      <p class="role-header-eyebrow">Learning Path — Role 3 of 6</p>
+      <h2 class="role-header-title">Pricing Analyst</h2>
+      <p class="role-header-desc">Pricing managers, rate analysts, and revenue optimization specialists who own the rate structure. Your job is to ensure every lane is priced at or above its true cost-to-serve — and to use FreightMath as the authoritative source of cost truth for every pricing decision. Rate floors in FreightMath are derived from the ABC cost model and target a minimum FM OR, not just breakeven. Understanding what feeds those floors — GL data via MapLedger, CPM rate drivers, and the Overhead Workday Model — is the foundation of accurate pricing.</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="info-card">
+      <div class="info-card-title">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        What This Role Cares About
+      </div>
+      <ul class="bullet-list">
+        <li>The true cost-to-serve on every lane: fuel, driver pay, maintenance, fixed overhead</li>
+        <li>Which lanes are priced below cost and by how much</li>
+        <li>How to set rate floors that ensure minimum acceptable margin</li>
+        <li>Cost driver movement — when CPM rates shift, all rate floors must be updated</li>
+        <li>RFP lane profitability modeling before submission</li>
+      </ul>
+    </div>
+    <div class="info-card orange">
+      <div class="info-card-title">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Profitability Questions to Answer
+      </div>
+      <ul class="bullet-list">
+        <li>What is the fully-loaded cost per mile on each lane segment?</li>
+        <li>How has fuel CPM moved over the last 90 days — and which lanes are most exposed?</li>
+        <li>What is the rate floor needed to achieve a 0.93 FM OR on a given lane — and is that achievable through rate alone, or does IB/OB OR need to be addressed simultaneously?</li>
+        <li>Which Power Lanes have the widest gap between current LH revenue and the ABC cost floor?</li>
+        <li>What would a 5% rate decrease on our top 20 Power Lanes do to network FM OR?</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="section-label">Dashboards &amp; Workflows</p>
+  <div class="action-grid">
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+      <div><div class="action-card-title">Per-Mile Cost Driver Review</div><div class="action-card-desc">Fuel CPM, driver pay CPM, maintenance CPM by lane type. The foundation of every rate floor.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <div><div class="action-card-title">Lane Detail — Rate Analysis Panel</div><div class="action-card-desc">Cost-to-serve waterfall with suggested rate floor and margin sensitivity.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <div><div class="action-card-title">BidRight Integration</div><div class="action-card-desc">Push cost floors into bid workspace. Every RFP lane gets an ABC-backed minimum rate.</div></div>
+    </div>
+    <div class="action-card warn">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg></div>
+      <div><div class="action-card-title">Cost Deviation Alert View</div><div class="action-card-desc">Loads where actual cost exceeded modeled cost by &gt;15%. These expose rate floor miscalibration.</div></div>
+    </div>
+  </div>
+
+  <p class="section-label">KPIs to Monitor</p>
+  <div class="kpi-grid">
+    <div class="kpi-tile"><div class="kpi-label">Cost</div><div class="kpi-name">Fuel CPM</div><div class="kpi-freq">Weekly</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Cost</div><div class="kpi-name">Driver Pay CPM</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile orange"><div class="kpi-label">Risk</div><div class="kpi-name">Lanes Below Rate Floor</div><div class="kpi-freq">Weekly</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Deviation</div><div class="kpi-name">Cost Deviation &gt;15%</div><div class="kpi-freq">Weekly</div></div>
+    <div class="kpi-tile orange"><div class="kpi-label">Accuracy</div><div class="kpi-name">Rate Floor Accuracy Rate</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Margin</div><div class="kpi-name">Revenue vs. Cost Floor Gap</div><div class="kpi-freq">Monthly</div></div>
+  </div>
+
+  <p class="section-label">Skill Progression</p>
+  <div class="skill-ladder">
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-beginner">Beginner</span><span class="skill-trigger-text">Understand how FreightMath builds the cost-to-serve for each lane</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>Understand the ABC model structure: every dollar of GL cost is allocated to loads based on actual activity consumption — miles driven, hours under power, or per-load charges. Open the Per-Mile Cost Driver Review and trace what feeds each CPM rate: GL data flows through MapLedger into OR cost categories (variable costs, overhead via the Overhead Workday Model, load-specific charges), then is expressed as a per-unit rate. Fixed overhead is allocated by operational days, then applied per loaded mile — this is why overhead CPM changes when load density changes. This is the foundation of every rate floor in the system.</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-intermediate">Intermediate</span><span class="skill-trigger-text">Use Lane Detail to identify lanes priced below the ABC cost floor</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>Sort the lane table by FM OR descending. Open Lane Detail on any red lane and check Core OR first — the Rate Analysis panel is only actionable if Core OR is the driver. The waterfall shows the gap between current LH revenue and the cost floor, broken into variable CPM and overhead allocation. The suggested rate floor targets a specific Core OR (typically 0.93–0.95) that, combined with IB OR and OB OR, produces an acceptable FM OR. Never treat the floor as the target — it is the minimum. Build your target rate with a margin buffer above it.</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-advanced">Advanced</span><span class="skill-trigger-text">Monitor cost driver movement and update rate floors proactively when CPM rates shift</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>Review the Per-Mile Cost Driver panel monthly. When fuel CPM moves more than <code>$0.03/mile</code>, recalculate rate floors for long-haul lanes where fuel is the dominant variable cost driver. Also watch overhead CPM — it can shift when loaded mile volume changes, because fixed overhead is distributed per operational day and then applied per loaded mile. Use cost deviation alerts (actual vs. modeled cost &gt;15%) as a signal that a CPM rate assumption is stale. Document the date and magnitude of each shift for the quarterly cost driver narrative.</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-expert">Expert</span><span class="skill-trigger-text">Build RFP pricing models in BidRight using FreightMath cost floors and scenario analysis</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>For every active RFP, export in-scope lanes to BidRight before building the bid. In BidRight, layer your margin target on top of the FM OR cost floor per lane — the floor is minimum acceptable Core OR; your target should produce a defensible FM OR after IB and OB components are factored in. Run a scenario where you win 60% of the volume — does the bid mix strengthen or weaken network FM OR? Specifically, do the RFP lanes create favorable or unfavorable IB OR for adjacent Power Lanes? Flag any lanes where the market rate is structurally below the cost floor for leadership review rather than bidding blind.</p></div>
+    </div>
+  </div>
+
+  <p class="section-label">Recommended Routine</p>
+  <table class="routine-table">
+    <thead><tr><th>Frequency</th><th>Task</th><th>Time Required</th></tr></thead>
+    <tbody>
+      <tr><td><span class="freq-badge">Weekly</span></td><td>Review Cost Deviation Alert View — flag loads where actual exceeded modeled by &gt;15%</td><td>20 min</td></tr>
+      <tr><td><span class="freq-badge">Weekly</span></td><td>Check fuel CPM movement — update rate floors on affected lanes if shift &gt; $0.03/mile</td><td>15 min</td></tr>
+      <tr><td><span class="freq-badge">Monthly</span></td><td>Full Per-Mile Cost Driver Review — validate all CPM rates reflect current GL data</td><td>30 min</td></tr>
+      <tr><td><span class="freq-badge orange">Per Bid</span></td><td>Export RFP lanes to BidRight — confirm cost floors are loaded before building rates</td><td>20 min</td></tr>
+      <tr><td><span class="freq-badge orange">Quarterly</span></td><td>Rate floor accuracy audit — compare predicted vs. actual Core OR and FM OR on repriced lanes. If Core OR improved but FM OR remains elevated, IB or OB OR is the residual driver.</td><td>45 min</td></tr>
+    </tbody>
+  </table>
+
+  <p class="section-label">Common Mistakes to Avoid</p>
+  <div class="two-col">
+    <div class="tip-box warn"><strong>Mistake</strong>Setting rate floors from the prior quarter's cost data without checking whether CPM rates have moved. Fuel and driver pay CPM can shift meaningfully within a quarter — always use the most current baseline.</div>
+    <div class="tip-box warn"><strong>Mistake</strong>Treating the ABC rate floor as the target rate rather than the minimum. The floor targets a specific Core OR — typically 0.93–0.95 — but FM OR will be higher or lower depending on IB OR and OB OR. Your bid target must produce an acceptable FM OR after all three components are considered, not just clear the Core OR floor.</div>
+  </div>
+
+
+  <div class="recommended-section">
+    <p class="recommended-label">Recommended Quick Start Cards for This Role</p>
+    <div class="recommended-grid">
+      <a href="FreightMath Quick Start Guide.html#step-1" class="recommended-card">
+        <div class="recommended-card-step">Step 1</div>
+        <div class="recommended-card-title">Price Impact</div>
+        <div class="recommended-card-desc">Your primary pricing tool — largest opportunity lanes at the top, dollar impact quantified.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-2" class="recommended-card">
+        <div class="recommended-card-step">Step 2</div>
+        <div class="recommended-card-title">LOH Analysis</div>
+        <div class="recommended-card-desc">Find the mileage sweet spot where your operation performs best and build differentiated rate floors by band.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-3" class="recommended-card">
+        <div class="recommended-card-step">Step 3</div>
+        <div class="recommended-card-title">Revenue / Volume Change</div>
+        <div class="recommended-card-desc">Sort by most reduced volume + green FM OR — these are your best lanes that you inexplicably did less of.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-4" class="recommended-card">
+        <div class="recommended-card-step">Step 4</div>
+        <div class="recommended-card-title">What If Analysis</div>
+        <div class="recommended-card-desc">Build the financial case for a rate action — model Current vs. What If vs. Delta before executing.</div>
+      </a>
+    </div>
+  </div>
+  <div class="role-prevnext">
+    <button class="role-prevnext-btn" onclick="switchRole('role-sales')">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <div><span>Previous Role</span><span class="pn-sub">Sales Leader</span></div>
+    </button>
+    <span class="role-prevnext-label">Role 3 of 6</span>
+    <button class="role-prevnext-btn" onclick="switchRole('role-ops')">
+      <div style="text-align:right"><span>Next Role</span><span class="pn-sub">Operations Leader</span></div>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 19l7-7-7-7"/></svg>
+    </button>
+  </div>
+
+</div><!-- /pricing -->
+
+
+<!-- ════════════════════════════════════════════════════
+     ROLE 4: OPERATIONS LEADER
+═══════════════════════════════════════════════════════ -->
+<div class="role-panel" id="role-ops">
+
+  <div class="role-header-card">
+    <div class="role-icon-lg">
+      <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+    </div>
+    <div class="role-header-text">
+      <p class="role-header-eyebrow">Learning Path — Role 4 of 6</p>
+      <h2 class="role-header-title">Operations Leader</h2>
+      <p class="role-header-desc">VP of Operations, Director of Operations, and fleet managers who own cost performance and service execution. Your job is to identify where operational inefficiency is driving cost above the model and to make dispatch, equipment, and driver assignment decisions that improve lane-level FM OR. Operations owns two of the three FM OR components: when deadhead drives up empty miles, IB OR and OB OR worsen. When detention inflates load costs, Core OR rises. Both show up in FM OR, and both require operational fixes, not pricing fixes.</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="info-card">
+      <div class="info-card-title">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        What This Role Cares About
+      </div>
+      <ul class="bullet-list">
+        <li>Which lanes or load types are generating the highest cost deviation?</li>
+        <li>Where are driver-related costs (deadhead, detention, layover) inflating Core OR — and where is deadhead creating weak IB OR or OB OR at the area level?</li>
+        <li>Which operational behaviors are most correlated with poor lane profitability?</li>
+        <li>How does equipment type or driver assignment affect cost-to-serve?</li>
+        <li>Where should capacity be redeployed to improve network OR?</li>
+      </ul>
+    </div>
+    <div class="info-card orange">
+      <div class="info-card-title">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Profitability Questions to Answer
+      </div>
+      <ul class="bullet-list">
+        <li>Which load types or customer lanes have the highest cost deviation from the model?</li>
+        <li>Are specific drivers or driver groups generating above-average costs on the same lanes?</li>
+        <li>Where is deadhead mileage concentrated — and is it avoidable?</li>
+        <li>Which lanes would improve network FM OR if we reduced volume — especially Spider Lanes with persistently high FM OR?</li>
+        <li>What would happen to FM OR if we redeployed capacity from our worst-performing lanes to our best Power Lanes?</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="section-label">Dashboards &amp; Workflows</p>
+  <div class="action-grid">
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 3"/></svg></div>
+      <div><div class="action-card-title">Cost Deviation View</div><div class="action-card-desc">Loads where actual cost exceeded modeled cost. Your operational diagnostic tool.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <div><div class="action-card-title">Lane FM OR Distribution</div><div class="action-card-desc">FM OR tier breakdown across Power, Repeat, and Spider lanes. Red Power Lanes are the highest operational priority — they carry the most volume and create the largest IB/OB OR drag on adjacent lanes.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+      <div><div class="action-card-title">Driver Group Segment View</div><div class="action-card-desc">Core OR breakdown by driver group. Driver assignment affects loaded miles, empty miles, and detention exposure — all of which feed Core OR, which rolls into FM OR.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+      <div><div class="action-card-title">Per-Mile Cost Driver Review</div><div class="action-card-desc">Fuel, maintenance, and driver pay CPM by segment. Identifies where operational cost is running above model.</div></div>
+    </div>
+  </div>
+
+  <p class="section-label">KPIs to Monitor</p>
+  <div class="kpi-grid">
+    <div class="kpi-tile orange"><div class="kpi-label">Efficiency</div><div class="kpi-name">Deadhead % of Total Miles</div><div class="kpi-freq">Weekly</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Cost</div><div class="kpi-name">Maintenance CPM</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile orange"><div class="kpi-label">Deviation</div><div class="kpi-name">Loads with Cost Deviation &gt;15%</div><div class="kpi-freq">Weekly</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Network</div><div class="kpi-name">Red Power Lane FM OR Count</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Driver</div><div class="kpi-name">Cost per Driver Group</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile orange"><div class="kpi-label">Mix</div><div class="kpi-name">% Power Lane Volume with FM OR &gt; 0.97</div><div class="kpi-freq">Monthly</div></div>
+  </div>
+
+  <p class="section-label">Skill Progression</p>
+  <div class="skill-ladder">
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-beginner">Beginner</span><span class="skill-trigger-text">Use the Cost Deviation View to identify loads running above modeled cost</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>Open the Cost Deviation View and filter for deviations above 15%. Each flagged load shows actual cost, modeled cost, and variance on analyzed loads (ANALYZED_FLAG = 1). Start by reviewing the top 10 loads each week and categorizing root cause: detention event, deadhead repositioning, maintenance incident, or data error. Cost deviations on analyzed loads directly inflate Core OR — which then compounds into FM OR for every lane that shares that origin or destination area.</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-intermediate">Intermediate</span><span class="skill-trigger-text">Correlate cost deviation with specific lanes, customers, or operational behaviors</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>After several weeks of cost deviation review, look for patterns: Are deviations concentrated on certain lanes? Certain customers with chronic detention? Certain drivers? Open the Driver Group Segment View to check whether specific cohorts consistently generate above-model costs on the same lane types. This is where operational decisions — driver assignment, equipment routing — connect directly to profitability data.</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-advanced">Advanced</span><span class="skill-trigger-text">Use Lane OR Distribution to identify where capacity redeployment would improve network OR</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>Pull the Lane FM OR Distribution and sort by FM OR descending. Identify the bottom 20% of lanes by profitability that also carry meaningful volume — prioritize Power Lanes, since their FM OR impact is disproportionate to load count. Work with Sales on repricing or volume reduction. Simultaneously, identify Power Lanes with FM OR &lt; 0.90 where you could absorb more volume without degrading profitability — their favorable IB OR and OB OR means adding volume actually improves the area-level OR picture. Work with Sales to grow those lanes deliberately.</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-expert">Expert</span><span class="skill-trigger-text">Drive OR improvement through dispatch decisions, driver assignment, and network design changes</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>At this level, you use FreightMath as an ongoing dispatch decision tool — not just a reporting tool. Before accepting a load, dispatchers can reference lane FM OR and Core OR to understand whether that load strengthens or weakens the network. You understand that accepting a load on a weak-IB corridor also affects the IB OR of other loads flowing through that area — so the FM OR impact is not limited to the individual load. You have established internal FM OR benchmarks by lane tier (Power / Repeat / Spider) and use them as routing guardrails. Monthly operations reviews include a network FM OR heat map and a forward-looking capacity deployment plan tied to lane tier profitability data.</p></div>
+    </div>
+  </div>
+
+  <p class="section-label">Recommended Routine</p>
+  <table class="routine-table">
+    <thead><tr><th>Frequency</th><th>Task</th><th>Time Required</th></tr></thead>
+    <tbody>
+      <tr><td><span class="freq-badge">Weekly</span></td><td>Review top 10 cost deviation loads — categorize root cause and assign corrective action</td><td>20 min</td></tr>
+      <tr><td><span class="freq-badge">Weekly</span></td><td>Check deadhead % — flag any week where deadhead exceeds baseline by more than 2 points</td><td>10 min</td></tr>
+      <tr><td><span class="freq-badge">Monthly</span></td><td>Driver Group Segment View — identify any driver group running 5%+ above network average cost</td><td>20 min</td></tr>
+      <tr><td><span class="freq-badge">Monthly</span></td><td>Lane OR Distribution review — flag concentration of red lanes by geography or customer</td><td>30 min</td></tr>
+      <tr><td><span class="freq-badge orange">Quarterly</span></td><td>Capacity redeployment review — model shift from lowest-OR to highest-OR lanes</td><td>45 min</td></tr>
+    </tbody>
+  </table>
+
+  <p class="section-label">Common Mistakes to Avoid</p>
+  <div class="two-col">
+    <div class="tip-box warn"><strong>Mistake</strong>Reviewing cost deviation without categorizing root cause. A deviation caused by chronic customer detention is a sales problem; one caused by driver routing is an operations problem. They require different interventions.</div>
+    <div class="tip-box warn"><strong>Mistake</strong>Dismissing a high-FM OR lane as a "pricing problem" without running the OR diagnostic. If Core OR is elevated, check cost deviation for operational drivers first — detention, deadhead, or driver assignment may be the cause. If IB OR or OB OR is elevated, the fix is a network positioning change, not a customer reprice. Operations, pricing, and sales share ownership of FM OR.</div>
+  </div>
+
+
+  <div class="recommended-section">
+    <p class="recommended-label">Recommended Quick Start Cards for This Role</p>
+    <div class="recommended-grid">
+      <a href="FreightMath Quick Start Guide.html#step-3" class="recommended-card">
+        <div class="recommended-card-step">Step 3</div>
+        <div class="recommended-card-title">Area Analysis</div>
+        <div class="recommended-card-desc">Day-of-week challenges, deadhead origins, and load balance — everything you need to diagnose a market.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-2" class="recommended-card">
+        <div class="recommended-card-step">Step 2</div>
+        <div class="recommended-card-title">LOH Analysis</div>
+        <div class="recommended-card-desc">Elevated FM OR in specific LOH bands signals dwell time or poor rate alignment — filter by customer to isolate.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-3" class="recommended-card">
+        <div class="recommended-card-step">Step 3</div>
+        <div class="recommended-card-title">Lanes of Profit</div>
+        <div class="recommended-card-desc">Power Lane / High OR: the highest-volume lanes that are hurting your network most. Act immediately.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-4" class="recommended-card">
+        <div class="recommended-card-step">Step 4</div>
+        <div class="recommended-card-title">Quality Control</div>
+        <div class="recommended-card-desc">Outliers in QC are sometimes real operational problems — not just data anomalies. Review before dismissing.</div>
+      </a>
+    </div>
+  </div>
+  <div class="role-prevnext">
+    <button class="role-prevnext-btn" onclick="switchRole('role-pricing')">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <div><span>Previous Role</span><span class="pn-sub">Pricing Analyst</span></div>
+    </button>
+    <span class="role-prevnext-label">Role 4 of 6</span>
+    <button class="role-prevnext-btn" onclick="switchRole('role-dispatch')">
+      <div style="text-align:right"><span>Next Role</span><span class="pn-sub">Dispatcher / Load Planner / CSR</span></div>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 19l7-7-7-7"/></svg>
+    </button>
+  </div>
+
+</div><!-- /ops -->
+
+
+<!-- ════════════════════════════════════════════════════
+     ROLE 5: DISPATCHER / LOAD PLANNER
+═══════════════════════════════════════════════════════ -->
+<div class="role-panel" id="role-dispatch">
+
+  <div class="role-header-card">
+    <div class="role-icon-lg">
+      <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6-10l6 3m0 10l5.447-2.724A1 1 0 0021 16.382V5.618a1 1 0 00-1.447-.894L15 7m0 13V7"/></svg>
+    </div>
+    <div class="role-header-text">
+      <p class="role-header-eyebrow">Learning Path — Role 5 of 6</p>
+      <h2 class="role-header-title">Dispatcher / Load Planner / CSR</h2>
+      <p class="role-header-desc">Dispatchers, load planners, and customer service representatives who interact with freight at the load level every day. Your decisions have the most direct impact on load-level profitability — and FreightMath gives you the data to make those decisions with cost visibility. Every load a dispatcher accepts affects Core OR directly. Every empty mile generated affects IB OR and OB OR at the area level. CSRs interacting with customers on service issues, detention, or pricing inquiries benefit from knowing the FM OR profile of the freight they are managing. Together, this role group shapes FM OR from the ground up.</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="info-card">
+      <div class="info-card-title">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        What This Role Cares About
+      </div>
+      <ul class="bullet-list">
+        <li>Which loads are likely to run above modeled cost — and why?</li>
+        <li>Which lanes have consistent cost patterns vs. high variance?</li>
+        <li>How to sequence loads to minimize deadhead and improve per-load margin</li>
+        <li>Which customers consistently cause detention or service cost inflation</li>
+        <li>How to flag loads in real time that are trending toward a cost deviation</li>
+        <li><strong>CSR:</strong> What is the FM OR profile of the customer I'm speaking with — are their lanes profitable, at-risk, or being actively repriced?</li>
+        <li><strong>CSR:</strong> Is this customer's detention or service behavior visible in FreightMath data — and does it support or challenge what they're telling me on the phone?</li>
+      </ul>
+    </div>
+    <div class="info-card orange">
+      <div class="info-card-title">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Profitability Questions to Answer
+      </div>
+      <ul class="bullet-list">
+        <li>What is the Core OR and FM OR on this lane — is it a consistently profitable Power Lane, or a known Spider Lane money-loser?</li>
+        <li>Does this customer have a history of detention events that inflate cost?</li>
+        <li>If I accept this backhaul, does it improve my driver's loaded/empty mile ratio — and does the destination create a strong or weak OB OR reload environment for the next assignment?</li>
+        <li>Which loads from today's board have the best OR profile?</li>
+        <li>Where are my highest-cost deviation loads coming from this week?</li>
+        <li><strong>CSR:</strong> Before committing to a service exception or rate accommodation, what does FreightMath show about this customer's lane-level OR and load history?</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="section-label">Dashboards &amp; Workflows</p>
+  <div class="tip-box">
+    <strong>Dashboard Reference</strong>
+    Full page descriptions and screenshots for every view below are in the <a href="FreightMath Dashboard Pages.html" style="color:var(--fm-blue)">Detailed User Guide</a>.
+  </div>
+  <div class="action-grid">
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h12"/></svg></div>
+      <div><div class="action-card-title">Bill To by Lane <span class="tag orange" style="font-size:0.55rem;">SLC</span></div><div class="action-card-desc">Ranks bill-to customers by load volume with OR, deadhead, velocity, and length of haul. Conditional formatting highlights stronger and weaker OR. Trend chart pairs weekly volume with FM OR and Core OR. Use this to quickly check the profitability profile of a customer before accepting a load on an unfamiliar lane.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <div><div class="action-card-title">Lane by Bill To <span class="tag orange" style="font-size:0.55rem;">SLC</span></div><div class="action-card-desc">Lane-level OR lookup organized by origin-destination pairs. Know the profitability profile of any lane — including Power Lane vs. Repeat vs. Spider classification — before accepting it. Red lanes (FM OR &gt; 1.0) on a Power Lane require supervisor flag; on a Spider Lane require a deprioritize-or-exit decision.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6-10l6 3m0 10l5.447-2.724A1 1 0 0021 16.382V5.618a1 1 0 00-1.447-.894L15 7m0 13V7"/></svg></div>
+      <div><div class="action-card-title">Power / Driver by Segment <span class="tag orange" style="font-size:0.55rem;">SLC</span></div><div class="action-card-desc">Evaluates individual power units and drivers at the segment level. Detailed segment table shows trip records with departure time, movement status, O/D, miles, revenue, and labor group. Filter by driver ID to see your team's OR, miles, and loaded vs. empty breakdown. The loaded/empty color coding instantly shows where empty miles are accumulating.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+      <div><div class="action-card-title">Quality Control — CSR Reference</div><div class="action-card-desc">Exception-based monitoring showing loads with $0 linehaul, excessive dwell time at origin or destination, and unusually high Core OR. For CSRs: the excessive dwell time and high Core OR exception panels surface the customers and loads generating service cost inflation — useful context before customer conversations about service expectations or detention disputes.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+      <div><div class="action-card-title">Revenue / Volume Change <span class="tag orange" style="font-size:0.55rem;">SLC</span> — CSR Reference</div><div class="action-card-desc">Period-over-period view by customer and lane showing volume change and OR impact. For CSRs handling account management or growth conversations: see which customers grew volume and whether that growth improved or worsened FM OR — essential context for understanding whether to encourage more freight from a given account.</div></div>
+    </div>
+  </div>
+
+  <p class="section-label">Daily Profitability Checklist</p>
+  <div class="workflow">
+    <div class="workflow-step"><div class="workflow-num">1</div><div class="workflow-content"><div class="workflow-title">Review yesterday's cost deviation loads</div><div class="workflow-desc">Check the Cost Deviation View for loads from the prior day that came in &gt;15% above model. Note any customers or lanes that appear more than once — these are pattern problems to escalate.</div></div></div>
+    <div class="workflow-step"><div class="workflow-num">2</div><div class="workflow-content"><div class="workflow-title">Check lane Core OR and FM OR before accepting today's loads</div><div class="workflow-desc">For any load on a lane you're unfamiliar with, pull the lane FM OR in the quick reference. Red lanes (FM OR &gt; 1.0) should be flagged to your supervisor before acceptance if pricing hasn't confirmed a rate action is in progress. Also note whether the lane is a Power, Repeat, or Spider Lane — your supervisor needs that context to prioritize the flag correctly.</div></div></div>
+    <div class="workflow-step"><div class="workflow-num">3</div><div class="workflow-content"><div class="workflow-title">Sequence loads to minimize deadhead and strengthen area OR</div><div class="workflow-desc">Use lane FM OR alongside driver position to prioritize backhaul loads that reduce empty miles and land drivers in strong-OB OR markets. A slightly lower-rate backhaul that eliminates 200 deadhead miles and positions the driver in a high-OR reload area will improve FM OR more than a higher-rate load requiring significant repositioning into a weak reload market. Empty miles are not just a cost — they are the primary driver of IB OR at the area level.</div></div></div>
+    <div class="workflow-step"><div class="workflow-num">4</div><div class="workflow-content"><div class="workflow-title">Flag detention and service escalations in real time</div><div class="workflow-desc">When a driver is being detained beyond the grace period, document it immediately. Chronic detention customers inflate cost per load and should be escalated to Operations and Sales using FreightMath load detail as supporting evidence.</div></div></div>
+  </div>
+
+  <p class="section-label">KPIs to Monitor</p>
+  <div class="kpi-grid">
+    <div class="kpi-tile orange"><div class="kpi-label">Daily</div><div class="kpi-name">Cost Deviation Loads &gt;15%</div><div class="kpi-freq">Daily</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Efficiency</div><div class="kpi-name">Empty Miles %</div><div class="kpi-freq">Weekly</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Service</div><div class="kpi-name">Detention Events per Customer</div><div class="kpi-freq">Weekly</div></div>
+    <div class="kpi-tile orange"><div class="kpi-label">Load Mix</div><div class="kpi-name">% Loads on Red Lanes</div><div class="kpi-freq">Weekly</div></div>
+  </div>
+
+  <p class="section-label">Skill Progression</p>
+  <div class="skill-ladder">
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-beginner">Beginner</span><span class="skill-trigger-text">Use the lane OR quick reference to understand which lanes are profitable before accepting loads</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>Learn to pull lane FM OR in the quick reference for any lane you're about to dispatch. Green (FM OR &lt; 0.95), yellow (FM OR 0.95–1.0), and red (FM OR &gt; 1.0) give you a fast read on network impact. Also note whether the lane is a Power Lane (top ~25% volume), Repeat Lane (middle ~50%), or Spider Lane (bottom ~25%) — a red Power Lane is far more urgent to flag than a red Spider Lane. At this stage, the goal is awareness — you're building the context your supervisor needs to make decisions.</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-intermediate">Intermediate</span><span class="skill-trigger-text">Review cost deviation loads and identify which customers and lanes generate the most variance</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>Review the Cost Deviation View at the start of each week for the prior week's loads. Identify which customers appear most frequently in the deviation list. Correlate with detention records — chronic detention is often the top driver of load-level cost deviation. Share this pattern data with your supervisor for escalation to Sales.</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-advanced">Advanced</span><span class="skill-trigger-text">Factor lane OR into load sequencing and backhaul acceptance decisions</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>Use lane FM OR as a tiebreaker when sequencing loads with similar rates. A backhaul on a green lane that eliminates significant deadhead and lands the driver in a strong-OB OR market will produce better FM OR than a higher-rate load on a red lane requiring repositioning into a weak reload area. Build a mental model of your highest-FM OR Power Lane corridors and prioritize coverage there — strong Power Lanes generate favorable IB OR and OB OR that benefits all adjacent loads.</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-expert">Expert</span><span class="skill-trigger-text">Use profitability data proactively to escalate chronic issues and inform network decisions</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>At this level, you're not just reading profitability data — you're generating it. You document detention events with timestamps, escalate chronic-deviation customers with load-level evidence, and flag lanes where FM OR has deteriorated over multiple weeks. You understand that your deadhead patterns are visible in the IB OR and OB OR area reports that Operations reviews monthly — and you use that knowledge to make positioning decisions that strengthen area-level OR, not just individual load economics. Your ground-truth observations from daily dispatching feed the operations and pricing teams with data no dashboard can replicate.</p></div>
+    </div>
+  </div>
+
+  <p class="section-label">Common Mistakes to Avoid</p>
+  <div class="two-col">
+    <div class="tip-box warn"><strong>Mistake</strong>Accepting loads on chronically red lanes without flagging them. If a lane has had FM OR &gt; 1.05 for three consecutive months, that is a pricing and operations problem that dispatchers should be surfacing, not silently absorbing. Note the lane tier when you escalate — a red Power Lane needs immediate attention; a red Spider Lane may be a deprioritize-or-exit decision for leadership.</div>
+    <div class="tip-box warn"><strong>Mistake</strong>Optimizing for load count rather than load profitability. A day of 10 loads on green Power Lanes outperforms 14 loads mixed with red Spider Lane volume. Volume is a vanity metric; FM OR is the scorecard. And because empty miles between loads affect IB OR at the area level, the sequencing of those 10 loads matters as much as the loads themselves.</div>
+  </div>
+
+
+  <div class="recommended-section">
+    <p class="recommended-label">Recommended Quick Start Cards for This Role</p>
+    <div class="recommended-grid">
+      <a href="FreightMath Quick Start Guide.html#step-1" class="recommended-card">
+        <div class="recommended-card-step">Step 1</div>
+        <div class="recommended-card-title">Dashboard Home</div>
+        <div class="recommended-card-desc">Red arrows first — before accepting today's board, know which areas degraded yesterday.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-3" class="recommended-card">
+        <div class="recommended-card-step">Step 3</div>
+        <div class="recommended-card-title">Area Analysis</div>
+        <div class="recommended-card-desc">Deadhead origins/destinations with their FM OR — use to sequence loads that land drivers in strong-OB markets.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-3" class="recommended-card">
+        <div class="recommended-card-step">Step 3</div>
+        <div class="recommended-card-title">Lanes of Profit</div>
+        <div class="recommended-card-desc">Know which lanes are Power, Repeat, or Spider before you accept — a red Power Lane needs a supervisor flag.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-4" class="recommended-card">
+        <div class="recommended-card-step">Step 4</div>
+        <div class="recommended-card-title">Quality Control</div>
+        <div class="recommended-card-desc">Excessive dwell time and high Core OR exceptions surface your chronic detention customers by name.</div>
+      </a>
+    </div>
+  </div>
+  <div class="role-prevnext">
+    <button class="role-prevnext-btn" onclick="switchRole('role-ops')">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <div><span>Previous Role</span><span class="pn-sub">Operations Leader</span></div>
+    </button>
+    <span class="role-prevnext-label">Role 5 of 6</span>
+    <button class="role-prevnext-btn" onclick="switchRole('role-finance')">
+      <div style="text-align:right"><span>Next Role</span><span class="pn-sub">Finance / Revenue Mgmt</span></div>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 19l7-7-7-7"/></svg>
+    </button>
+  </div>
+
+</div><!-- /dispatch -->
+
+
+<!-- ════════════════════════════════════════════════════
+     ROLE 6: FINANCE / REVENUE MANAGEMENT
+═══════════════════════════════════════════════════════ -->
+<div class="role-panel" id="role-finance">
+
+  <div class="role-header-card">
+    <div class="role-icon-lg">
+      <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 7H6a2 2 0 00-2 2v9a2 2 0 002 2h9a2 2 0 002-2v-3M14 3h7m0 0v7m0-7L10 14"/></svg>
+    </div>
+    <div class="role-header-text">
+      <p class="role-header-eyebrow">Learning Path — Role 6 of 6</p>
+      <h2 class="role-header-title">Finance / Revenue Management</h2>
+      <p class="role-header-desc">CFOs, Controllers, Revenue Managers, and FP&A analysts who own financial accuracy, GL integrity, and period-close reporting. Your job is to ensure the FreightMath model is fed clean data, that cost categories are correctly mapped via MapLedger, and that FM OR is a trustworthy input to financial decisions. FM OR is only as accurate as the GL data flowing through MapLedger and the analyzed load count from the TMS — both must be validated at every period close before FM OR is published or presented to leadership.</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="info-card">
+      <div class="info-card-title">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        What This Role Cares About
+      </div>
+      <ul class="bullet-list">
+        <li>Are GL accounts correctly mapped to FreightMath cost categories via MapLedger?</li>
+        <li>Is the load count in FreightMath reconciled to the TMS for each reporting period?</li>
+        <li>Do CPM rates reflect current GL actuals — or are they lagging by a period?</li>
+        <li>Is the FM OR output defensible enough to use in board reporting and investor materials — and is it clearly labeled as forecasted (intra-month) vs. actual (month-end recast)?</li>
+        <li>How does ABC-based FM OR reconcile to the traditional income statement OR — and can we explain the gap from overhead allocation methodology, not just "it's a different model"?</li>
+      </ul>
+    </div>
+    <div class="info-card orange">
+      <div class="info-card-title">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Profitability Questions to Answer
+      </div>
+      <ul class="bullet-list">
+        <li>Are there any unmapped GL accounts distorting the cost baseline this period?</li>
+        <li>Does the FreightMath load count match the TMS within 0.5%?</li>
+        <li>Have CPM rates been updated to reflect the most recent completed period's GL actuals?</li>
+        <li>How does FM OR compare to the P&L OR — and can we explain the gap in terms of the Overhead Workday Model allocation methodology vs. traditional overhead spreading?</li>
+        <li>Which cost categories are running above budget — and which lanes are driving it?</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="section-label">Dashboards &amp; Workflows</p>
+  <div class="action-grid">
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><path d="M3 9h18M9 21V9"/></svg></div>
+      <div><div class="action-card-title">MapLedger — Account Review</div><div class="action-card-desc">GL account to cost category mapping. Run every period close to catch unmapped or reclassified accounts.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+      <div><div class="action-card-title">Data Integrity — Load Reconciliation</div><div class="action-card-desc">FreightMath analyzed load count (ANALYZED_FLAG = 1) vs. TMS billable load count. Must match within 0.5% before publishing any FM OR analysis — missing analyzed loads understate the OR denominator.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+      <div><div class="action-card-title">Per-Mile Cost Driver Review</div><div class="action-card-desc">Validate CPM rates reflect current GL actuals. Run quarterly — or whenever a major cost category moves.</div></div>
+    </div>
+    <div class="action-card">
+      <div class="action-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div><div class="action-card-title">OR Summary Dashboard</div><div class="action-card-desc">Period close validation — confirm network OR is consistent with P&L directional movement before reporting.</div></div>
+    </div>
+  </div>
+
+  <p class="section-label">Period-Close Data Validation Workflow</p>
+  <div class="workflow">
+    <div class="workflow-step"><div class="workflow-num">1</div><div class="workflow-content"><div class="workflow-title">Run MapLedger Account Review</div><div class="workflow-desc">Navigate to MapLedger → Account Review. Filter for Unmapped status. Any GL account added or reclassified during the period must be mapped before period FM OR is calculated — a misclassified variable cost (e.g., booked as overhead) distorts Core OR on every load. Contact your KSM advisor for ambiguous accounts; incorrect OR category assignment is harder to explain after distribution than before.</div></div></div>
+    <div class="workflow-step"><div class="workflow-num">2</div><div class="workflow-content"><div class="workflow-title">Reconcile analyzed load count to TMS</div><div class="workflow-desc">Navigate to Data Integrity → Load Reconciliation. Compare the FreightMath analyzed load count (ANALYZED_FLAG = 1) to your TMS billable load export for the same period. Variance above 0.5% must be investigated before publishing FM OR — missing analyzed loads understate the revenue denominator and produce an artificially elevated FM OR reading.</div></div></div>
+    <div class="workflow-step"><div class="workflow-num">3</div><div class="workflow-content"><div class="workflow-title">Validate CPM rates against GL actuals</div><div class="workflow-desc">Open the Per-Mile Cost Driver Review. Confirm that fuel CPM, driver pay CPM, and maintenance CPM rates reflect the most recent completed period's GL data. Note any categories that have moved more than 5% — document the change for the period narrative.</div></div></div>
+    <div class="workflow-step"><div class="workflow-num">4</div><div class="workflow-content"><div class="workflow-title">Reconcile FM OR to P&L OR</div><div class="workflow-desc">Compare the network FM OR from FreightMath to the traditionally calculated OR from your income statement. At the full-network level, FM OR and Core OR converge — small variance between them is expected and normal. The gap between FM OR and P&L OR is typically explained by the Overhead Workday Model (which distributes fixed costs by operational days rather than spreading them by revenue or miles) and period timing differences. Document the reconciliation methodology. A gap greater than 2–3 OR points requires investigation; beyond 5 points, pause publication and contact KSM.</div></div></div>
+    <div class="workflow-step"><div class="workflow-num">5</div><div class="workflow-content"><div class="workflow-title">Publish period OR with data quality sign-off</div><div class="workflow-desc">Once steps 1–4 are complete, the period OR is cleared for distribution. Document the validation steps in your period-close checklist and note any data quality flags that were resolved or outstanding.</div></div></div>
+  </div>
+
+  <p class="section-label">KPIs to Monitor</p>
+  <div class="kpi-grid">
+    <div class="kpi-tile orange"><div class="kpi-label">Data Quality</div><div class="kpi-name">Unmapped GL Accounts</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Reconciliation</div><div class="kpi-name">Load Count Variance %</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Accuracy</div><div class="kpi-name">ABC OR vs. P&amp;L OR Gap</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile orange"><div class="kpi-label">Cost Integrity</div><div class="kpi-name">CPM Rate Staleness (days)</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Trend</div><div class="kpi-name">Cost Category Variance to Budget</div><div class="kpi-freq">Monthly</div></div>
+    <div class="kpi-tile"><div class="kpi-label">Baseline</div><div class="kpi-name">Periods Since Last Baseline Review</div><div class="kpi-freq">Quarterly</div></div>
+  </div>
+
+  <p class="section-label">Skill Progression</p>
+  <div class="skill-ladder">
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-beginner">Beginner</span><span class="skill-trigger-text">Complete the MapLedger Account Review and load reconciliation at every period close</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>Establish MapLedger Account Review and analyzed load reconciliation (ANALYZED_FLAG = 1 vs. TMS billable load count) as non-negotiable steps in your period-close checklist. These two steps ensure FM OR has clean inputs. FM OR based on incomplete or miscategorized data is worse than no OR at all — it creates false confidence in the wrong number, and once published to leadership it is extremely difficult to walk back.</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-intermediate">Intermediate</span><span class="skill-trigger-text">Validate CPM rates quarterly and document the cost driver narrative</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>Each quarter, open the Per-Mile Cost Driver Review and compare CPM rates to the prior quarter. Document which cost categories moved, by how much, and why (fuel markets, driver pay adjustments, maintenance cycles, changes in loaded mile volume that shift overhead CPM via the Overhead Workday Model). This cost driver narrative becomes part of your period reporting and is the bridge that helps leadership understand FM OR movement in operational terms rather than just OR point changes.</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-advanced">Advanced</span><span class="skill-trigger-text">Reconcile ABC OR to the P&L OR and explain any gap to leadership</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>FM OR and the traditional income statement OR will rarely match exactly. The primary source of the gap is the Overhead Workday Model: FreightMath allocates fixed overhead by operational days and applies it per loaded mile, while P&L OR spreads overhead by period total. Period timing differences (accruals, reclassifications) add additional variance. At this level you have documented the reconciliation methodology, can explain any gap above 2 OR points in those specific terms, and can do so confidently in a board or investor conversation where both OR figures may appear on the same page.</p></div>
+    </div>
+    <div class="skill-rung" data-rung>
+      <button class="skill-trigger"><span class="skill-level-badge level-expert">Expert</span><span class="skill-trigger-text">Use FreightMath as a forward-looking financial planning tool alongside the historical GL</span><svg class="skill-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="skill-body"><p>At the expert level, FM OR data is integrated into your annual budgeting process. Lane-level cost floors — derived from the FreightMath ABC model — inform minimum revenue targets by segment and lane tier. CPM rate trend analysis feeds cost assumptions in the forward financial model. The Overhead Workday Model output informs fixed cost absorption assumptions. FM OR becomes the financial operating system alongside the P&L, and period-close FM OR is published with a reconciliation memo as a standard deliverable. Forecasted vs. actual OR is clearly labeled in all outputs — leadership should always know which they are reading.</p></div>
+    </div>
+  </div>
+
+  <p class="section-label">Recommended Routine</p>
+  <table class="routine-table">
+    <thead><tr><th>Frequency</th><th>Task</th><th>Time Required</th></tr></thead>
+    <tbody>
+      <tr><td><span class="freq-badge">Monthly</span></td><td>MapLedger Account Review — clear all unmapped accounts before period FM OR is calculated; verify no variable costs are miscategorized as overhead</td><td>20 min</td></tr>
+      <tr><td><span class="freq-badge">Monthly</span></td><td>Analyzed Load Reconciliation — confirm ANALYZED_FLAG = 1 load count matches TMS billable loads within 0.5%</td><td>15 min</td></tr>
+      <tr><td><span class="freq-badge">Monthly</span></td><td>FM OR vs. P&L OR reconciliation — document and explain any gap above 2 OR points using Overhead Workday Model methodology and period timing differences</td><td>30 min</td></tr>
+      <tr><td><span class="freq-badge orange">Quarterly</span></td><td>Full Baseline Review — validate all CPM rates, document cost driver movement narrative</td><td>60 min</td></tr>
+      <tr><td><span class="freq-badge orange">Quarterly</span></td><td>KSM Advisor review — confirm model assumptions, overhead allocation, and period methodology</td><td>60 min</td></tr>
+    </tbody>
+  </table>
+
+  <p class="section-label">Common Mistakes to Avoid</p>
+  <div class="two-col">
+    <div class="tip-box warn"><strong>Mistake</strong>Publishing period FM OR before completing MapLedger Account Review and analyzed load reconciliation. Unmapped accounts or missing ANALYZED_FLAG = 1 loads distort FM OR in ways that are difficult to explain after distribution — and once leadership has seen a number, correcting it retroactively damages credibility more than a one-day delay in publication.</div>
+    <div class="tip-box warn"><strong>Mistake</strong>Allowing CPM rates to go stale for multiple quarters. When fuel or driver pay moves significantly and the model isn't updated, the OR output becomes directionally unreliable. Quarterly updates are the minimum cadence; monthly is recommended in volatile cost environments.</div>
+    <div class="tip-box warn"><strong>Mistake</strong>Presenting FM OR and P&L OR in the same document without a reconciliation note. Leadership will notice the difference and ask — if you can't explain it in terms of the Overhead Workday Model allocation methodology and period timing, the entire OR presentation loses credibility. The reconciliation memo is not optional when both figures appear in the same report.</div>
+    <div class="tip-box warn"><strong>Mistake</strong>Deferring baseline updates to the KSM advisor without providing updated GL exports on time. The FreightMath model is only as current as the data you feed it. Finance owns the data pipeline (GL exports, TMS load extracts); KSM owns the model integrity and Overhead Workday Model calibration. Both sides must stay current — a one-quarter lag in GL data means CPM rates are stale and FM OR is unreliable for decision-making.</div>
+  </div>
+
+
+  <div class="recommended-section">
+    <p class="recommended-label">Recommended Quick Start Cards for This Role</p>
+    <div class="recommended-grid">
+      <a href="FreightMath Quick Start Guide.html#step-4" class="recommended-card">
+        <div class="recommended-card-step">Step 4</div>
+        <div class="recommended-card-title">Quality Control</div>
+        <div class="recommended-card-desc">QC exceptions are your period-close checklist — clear them before publishing FM OR to leadership.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-4" class="recommended-card">
+        <div class="recommended-card-step">Step 4</div>
+        <div class="recommended-card-title">Fuel by Bill To</div>
+        <div class="recommended-card-desc">Cross-reference FM OR, Core OR, and FSC/Billed Mi — calculate the offset impact at both fuel extremes.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-2" class="recommended-card">
+        <div class="recommended-card-step">Step 2</div>
+        <div class="recommended-card-title">Field Selection Table</div>
+        <div class="recommended-card-desc">Configure, export, and build custom views for reporting — the closest thing to a live pivot against the GL.</div>
+      </a>
+      <a href="FreightMath Quick Start Guide.html#step-4" class="recommended-card">
+        <div class="recommended-card-step">Step 4</div>
+        <div class="recommended-card-title">What If Analysis</div>
+        <div class="recommended-card-desc">Integrate scenario modeling into your annual budget — lane-level cost floors feed your forward financial model.</div>
+      </a>
+    </div>
+  </div>
+  <div class="role-prevnext">
+    <button class="role-prevnext-btn" onclick="switchRole('role-dispatch')">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      <div><span>Previous Role</span><span class="pn-sub">Dispatcher / Load Planner / CSR</span></div>
+    </button>
+    <span class="role-prevnext-label">Role 6 of 6</span>
+    <div></div>
+  </div>
+
+</div><!-- /finance -->
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <a href="https://freightmath-site.vercel.app/" target="_blank" style="display:inline-flex;"><img src="https://info.ksmcpa.com/hubfs/FreightMath/Images/KSM_FM_Logo_RGB_Color.png" alt="FreightMath"></a>
+  <div class="footer-right">
+    <div style="color: var(--fm-light-blue); margin-bottom:0.2rem; font-family:'DM Sans',sans-serif; font-size:0.6875rem; text-transform:uppercase; letter-spacing:0.1em; font-weight:700;">A KSM Transport Advisors Platform</div>
+    <div><a href="#">Privacy</a> &nbsp;·&nbsp; <a href="#">Terms</a> &nbsp;·&nbsp; <a href="#">Support</a></div>
+    <div style="margin-top:0.25rem;">© KSM Transport Advisors</div>
+  </div>
+</footer>
+
+<script>
+  // ── Role tab switching ─────────────────────────────────────────
+  const roleTabs = document.querySelectorAll('.role-tab');
+  const rolePanels = document.querySelectorAll('.role-panel');
+
+  const roleMap = {
+    'executive': 'role-executive',
+    'sales':     'role-sales',
+    'pricing':   'role-pricing',
+    'ops':       'role-ops',
+    'dispatch':  'role-dispatch',
+    'finance':   'role-finance',
+  };
+
+  function switchRole(roleId) {
+    const role = roleId.replace('role-', '');
+    roleTabs.forEach(t => t.classList.remove('active'));
+    rolePanels.forEach(p => p.classList.remove('active'));
+    const tab = document.querySelector('[data-role="' + role + '"]');
+    if (tab) tab.classList.add('active');
+    const panel = document.getElementById(roleId);
+    if (panel) panel.classList.add('active');
+    window.scrollTo({ top: document.querySelector('.role-nav').offsetTop - 108, behavior: 'smooth' });
+  }
+
+  roleTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      switchRole('role-' + tab.dataset.role);
+    });
+  });
+
+  // ── Skill ladder expand/collapse ──────────────────────────────
+  document.addEventListener('click', e => {
+    const trigger = e.target.closest('.skill-trigger');
+    if (!trigger) return;
+    const rung = trigger.closest('.skill-rung');
+    const isOpen = rung.classList.toggle('open');
+    trigger.setAttribute('aria-expanded', isOpen);
+  });
+</script>
+
+</body>
+</html>

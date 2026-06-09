@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreightMath Platform — KSM Transport Advisors</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --fm-navy:         #0A2463;
+  --fm-blue:         #2C78C9;
+  --fm-orange:       #E26E17;
+  --fm-black:        #000000;
+  --fm-gray:         #6E6E6E;
+  --fm-light-blue:   #96BCE4;
+  --fm-mid-blue:     #8592B1;
+  --fm-light-gray:   #F5F5F5;
+  --fm-warm-gray:    #DCDAD8;
+  --fm-light-orange: #F1B78B;
+  --fm-white:        #FFFFFF;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Public Sans', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--fm-black);
+  background: var(--fm-white);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── HEADER ── */
+.site-header {
+  background: var(--fm-navy);
+  padding: 0 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 68px;
+  flex-shrink: 0;
+  position: sticky; top: 0; z-index: 200;
+  box-shadow: 0 2px 16px rgba(10,36,99,0.5);
+}
+.site-header img { height: 34px; filter: brightness(0) invert(1); }
+.header-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--fm-light-blue);
+}
+
+/* ── MAIN WRAPPER ── */
+.page-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--fm-navy);
+  padding: 5rem 2.5rem 4.5rem;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* background constellation nodes — decorative */
+.hero-nodes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-nodes svg {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px; height: 600px;
+  opacity: 0.07;
+}
+
+/* left/right slash accents */
+.hero::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 5px;
+  background: linear-gradient(to bottom, transparent 10%, var(--fm-blue) 50%, transparent 90%);
+  opacity: 0.6;
+}
+.hero::after {
+  content: '';
+  position: absolute; right: 0; top: 0; bottom: 0;
+  width: 5px;
+  background: linear-gradient(to bottom, transparent 10%, var(--fm-orange) 50%, transparent 90%);
+  opacity: 0.5;
+}
+
+.hero-inner {
+  position: relative;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.18em;
+  color: var(--fm-orange);
+  margin-bottom: 1.25rem;
+  display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: '';
+  display: block;
+  width: 32px; height: 1px;
+  background: var(--fm-orange);
+  opacity: 0.5;
+}
+
+.hero h1 {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.75rem);
+  font-weight: 300;
+  color: var(--fm-white);
+  line-height: 1.12;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.01em;
+}
+.hero h1 strong {
+  font-weight: 700;
+  color: var(--fm-light-blue);
+  display: block;
+}
+
+.hero-sub {
+  color: var(--fm-mid-blue);
+  font-size: 1.0625rem;
+  line-height: 1.72;
+  max-width: 560px;
+  margin: 0 auto 2.25rem;
+}
+
+/* FM OR pill */
+.hero-metric-row {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+}
+.metric-pill {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  border: 1px solid rgba(150,188,228,0.25);
+  background: rgba(44,120,201,0.12);
+  padding: 0.4em 0.9em;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--fm-light-blue);
+}
+.metric-pill .pip {
+  width: 6px; height: 6px;
+  background: var(--fm-orange);
+  flex-shrink: 0;
+}
+
+/* ── CARD SECTION ── */
+.cards-section {
+  background: var(--fm-light-gray);
+  flex: 1;
+  padding: 4rem 2.5rem 5rem;
+  position: relative;
+}
+
+/* top border rule */
+.cards-section::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--fm-navy) 0%, var(--fm-blue) 50%, var(--fm-orange) 100%);
+}
+
+.cards-section-label {
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--fm-blue);
+  margin-bottom: 2.5rem;
+  display: flex; align-items: center; gap: 1rem;
+  max-width: 960px; margin-left: auto; margin-right: auto;
+}
+.cards-section-label::before, .cards-section-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--fm-warm-gray);
+}
+
+/* 3-column grid */
+.card-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+/* ── GUIDE CARD ── */
+.guide-card {
+  background: var(--fm-white);
+  border: 1px solid var(--fm-warm-gray);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.22s ease, transform 0.22s ease;
+}
+.guide-card:hover {
+  box-shadow: 0 8px 32px rgba(10,36,99,0.13);
+  transform: translateY(-3px);
+}
+.guide-card:hover .card-cta-arrow {
+  transform: translateX(4px);
+}
+
+/* top accent bar — different color per card */
+.guide-card::before {
+  content: '';
+  display: block;
+  height: 4px;
+  width: 100%;
+  flex-shrink: 0;
+}
+.card-1::before { background: var(--fm-blue); }
+.card-2::before { background: var(--fm-navy); }
+.card-3::before { background: var(--fm-orange); }
+
+/* card number badge */
+.card-num {
+  position: absolute;
+  top: 1.25rem; right: 1.25rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.625rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--fm-warm-gray);
+}
+
+.card-body {
+  padding: 1.75rem 1.75rem 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-icon-wrap {
+  width: 48px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.25rem;
+  flex-shrink: 0;
+}
+.card-1 .card-icon-wrap { background: #EAF2FB; color: var(--fm-blue); }
+.card-2 .card-icon-wrap { background: #E8EBF4; color: var(--fm-navy); }
+.card-3 .card-icon-wrap { background: #FEF0E6; color: var(--fm-orange); }
+
+.card-step {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 0.4rem;
+}
+.card-1 .card-step { color: var(--fm-blue); }
+.card-2 .card-step { color: var(--fm-navy); }
+.card-3 .card-step { color: var(--fm-orange); }
+
+.card-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.35rem; font-weight: 700;
+  color: var(--fm-navy); line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.card-desc {
+  font-size: 0.875rem;
+  color: var(--fm-gray);
+  line-height: 1.7;
+  flex: 1;
+  margin-bottom: 1.5rem;
+}
+
+/* bullet features inside card */
+.card-features {
+  list-style: none;
+  margin-bottom: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+.card-features li {
+  display: flex; align-items: flex-start; gap: 0.625rem;
+  font-size: 0.8125rem;
+  color: var(--fm-black);
+  line-height: 1.55;
+}
+.card-features li::before {
+  content: '';
+  width: 5px; height: 5px;
+  flex-shrink: 0;
+  margin-top: 0.42em;
+}
+.card-1 .card-features li::before { background: var(--fm-blue); }
+.card-2 .card-features li::before { background: var(--fm-navy); }
+.card-3 .card-features li::before { background: var(--fm-orange); }
+
+/* CTA row */
+.card-cta {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 1.75rem;
+  border-top: 1px solid var(--fm-warm-gray);
+  flex-shrink: 0;
+}
+.card-cta-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.09em;
+}
+.card-1 .card-cta-label { color: var(--fm-blue); }
+.card-2 .card-cta-label { color: var(--fm-navy); }
+.card-3 .card-cta-label { color: var(--fm-orange); }
+
+.card-cta-arrow {
+  transition: transform 0.18s ease;
+  flex-shrink: 0;
+}
+.card-1 .card-cta-arrow { color: var(--fm-blue); }
+.card-2 .card-cta-arrow { color: var(--fm-navy); }
+.card-3 .card-cta-arrow { color: var(--fm-orange); }
+
+/* ── BOTTOM CONTEXT STRIP ── */
+.context-strip {
+  background: var(--fm-navy);
+  padding: 2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.context-strip-text {
+  flex: 1;
+  min-width: 240px;
+}
+.context-strip-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.6875rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--fm-orange);
+  margin-bottom: 0.35rem;
+}
+.context-strip-heading {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.05rem; font-weight: 700;
+  color: var(--fm-white); line-height: 1.3;
+  margin-bottom: 0.35rem;
+}
+.context-strip-body {
+  font-size: 0.8125rem;
+  color: var(--fm-mid-blue);
+  line-height: 1.6;
+  max-width: 580px;
+}
+.context-strip-pills {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  align-self: center;
+}
+.cs-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  padding: 0.3em 0.75em;
+  border: 1px solid rgba(150,188,228,0.2);
+  color: var(--fm-light-blue);
+  white-space: nowrap;
+}
+
+/* ── FOOTER ── */
+.site-footer {
+  background: var(--fm-navy);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 2rem 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+  flex-shrink: 0;
+}
+.site-footer img { height: 28px; filter: brightness(0) invert(1); opacity: 0.8; }
+.footer-right { font-size: 0.75rem; color: var(--fm-mid-blue); text-align: right; line-height: 1.6; }
+.footer-right a { color: var(--fm-light-blue); text-decoration: none; }
+.footer-right a:hover { text-decoration: underline; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 860px) {
+  .card-row { grid-template-columns: 1fr; max-width: 520px; }
+  .hero { padding: 3.5rem 1.5rem 3rem; }
+  .cards-section { padding: 3rem 1.5rem 4rem; }
+}
+@media (max-width: 640px) {
+  .site-header, .hero, .cards-section, .context-strip, .site-footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .hero h1 { font-size: 2rem; }
+  .footer-right { text-align: left; }
+  .context-strip { flex-direction: column; gap: 1.25rem; }
+}
+
+  /* ── SHARED PLATFORM NAV ── */
+  .platform-nav {
+    background: #061840;
+    border-bottom: 1px solid rgba(150,188,228,0.12);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    position: sticky;
+    top: 68px;
+    z-index: 99;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .platform-nav::-webkit-scrollbar { display: none; }
+  .platform-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    height: 100%;
+  }
+  .platform-nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0 1rem;
+    height: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--fm-mid-blue);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.18s, border-color 0.18s, background 0.18s;
+  }
+  .platform-nav a:hover {
+    color: var(--fm-light-blue);
+    background: rgba(44,120,201,0.08);
+  }
+  .platform-nav a.active {
+    color: var(--fm-white);
+    border-bottom-color: var(--fm-orange);
+  }
+  .platform-nav-dot {
+    width: 5px; height: 5px;
+    background: var(--fm-orange);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: none;
+  }
+  .platform-nav a.active .platform-nav-dot { display: block; }
+  .platform-nav-glossary {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25em 0.75em;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fm-light-blue);
+    text-decoration: none;
+    background: rgba(44,120,201,0.08);
+    white-space: nowrap;
+    transition: color 0.18s, background 0.18s;
+    flex-shrink: 0;
+    height: 100%;
+    border-bottom: 2px solid transparent;
+  }
+  .platform-nav-glossary:hover {
+    color: var(--fm-light-blue);
+    background: rgba(44,120,201,0.15);
+  }
+  @media (max-width: 640px) {
+    .platform-nav { padding: 0 1.25rem; top: 68px; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="https://freightmath-site.vercel.app/" target="_blank" style="display:inline-flex;"><img src="https://info.ksmcpa.com/hubfs/FreightMath/Images/KSM_FM_Logo_RGB_Color.png" alt="FreightMath"></a>
+  <span class="header-label">Platform Documentation</span>
+</header>
+
+<!-- PLATFORM NAV -->
+<nav class="platform-nav" aria-label="Platform navigation">
+  <div class="platform-nav-links">
+    <a href="FreightMath Guide Page Home.html" class="active"><span class="platform-nav-dot"></span>Home</a>
+    <a href="FreightMath Quick Start Guide.html">Quick Start</a>
+    <a href="FreightMath Role Paths.html">Role Paths</a>
+    <a href="FreightMath Dashboard Pages.html">User Guide</a>
+    
+  </div>
+  <div class="platform-nav-right" style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+    <a href="FreightMath Client Onboarding Schedule.html" class="platform-nav-glossary">
+      <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M8 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"/><path d="M17 2H11a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg>
+      Onboarding
+    </a>
+    <a href="https://info.ksmcpa.com/hubfs/FreightMath_Glossary.html" class="platform-nav-glossary">
+      <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+      Glossary
+    </a>
+  </div>
+</nav>
+
+<main class="page-main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <!-- background constellation graphic -->
+    <div class="hero-nodes">
+      <svg viewBox="0 0 900 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- network nodes -->
+        <circle cx="180" cy="160" r="5" fill="#96BCE4"/>
+        <circle cx="340" cy="90"  r="7" fill="#2C78C9"/>
+        <circle cx="520" cy="200" r="5" fill="#96BCE4"/>
+        <circle cx="660" cy="110" r="8" fill="#2C78C9"/>
+        <circle cx="760" cy="260" r="4" fill="#96BCE4"/>
+        <circle cx="450" cy="320" r="9" fill="#E26E17"/>
+        <circle cx="240" cy="380" r="5" fill="#96BCE4"/>
+        <circle cx="600" cy="400" r="6" fill="#2C78C9"/>
+        <circle cx="140" cy="480" r="4" fill="#96BCE4"/>
+        <circle cx="780" cy="450" r="5" fill="#96BCE4"/>
+        <circle cx="380" cy="500" r="7" fill="#2C78C9"/>
+        <!-- connections -->
+        <line x1="180" y1="160" x2="340" y2="90"  stroke="#2C78C9" stroke-width="1"/>
+        <line x1="340" y1="90"  x2="520" y2="200" stroke="#2C78C9" stroke-width="1"/>
+        <line x1="520" y1="200" x2="660" y2="110" stroke="#2C78C9" stroke-width="1"/>
+        <line x1="660" y1="110" x2="760" y2="260" stroke="#96BCE4" stroke-width="1"/>
+        <line x1="340" y1="90"  x2="450" y2="320" stroke="#2C78C9" stroke-width="1" stroke-dasharray="4 4"/>
+        <line x1="520" y1="200" x2="450" y2="320" stroke="#E26E17" stroke-width="1"/>
+        <line x1="760" y1="260" x2="450" y2="320" stroke="#2C78C9" stroke-width="1"/>
+        <line x1="450" y1="320" x2="240" y2="380" stroke="#2C78C9" stroke-width="1"/>
+        <line x1="450" y1="320" x2="600" y2="400" stroke="#E26E17" stroke-width="1"/>
+        <line x1="240" y1="380" x2="140" y2="480" stroke="#96BCE4" stroke-width="1"/>
+        <line x1="240" y1="380" x2="380" y2="500" stroke="#2C78C9" stroke-width="1"/>
+        <line x1="600" y1="400" x2="780" y2="450" stroke="#96BCE4" stroke-width="1"/>
+        <line x1="600" y1="400" x2="380" y2="500" stroke="#2C78C9" stroke-width="1" stroke-dasharray="4 4"/>
+        <line x1="180" y1="160" x2="240" y2="380" stroke="#96BCE4" stroke-width="1" stroke-dasharray="4 4"/>
+      </svg>
+    </div>
+
+    <div class="hero-inner">
+      <p class="hero-eyebrow">KSM Transport Advisors</p>
+      <h1>
+        Welcome to the
+        <strong>FreightMath Platform</strong>
+      </h1>
+      <p class="hero-sub">FreightMath is a precision Activity-Based Costing model for truckload carriers — built to isolate profitability at the load, lane, and network level using FM OR as the primary analytical metric. These three resources will help your team put that data to work.</p>
+      <div class="hero-metric-row">
+        <span class="metric-pill"><span class="pip"></span>FM OR — Primary Metric</span>
+        <span class="metric-pill"><span class="pip"></span>Core · IB · OB OR Components</span>
+        <span class="metric-pill"><span class="pip"></span>Power · Repeat · Spider Lane Tiers</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section class="cards-section">
+    <p class="cards-section-label">Choose Your Starting Point</p>
+
+    <div class="card-row">
+
+      <!-- CARD 1: QUICK START GUIDE -->
+      <a href="FreightMath Quick Start Guide.html" class="guide-card card-1">
+        <span class="card-num">01</span>
+        <div class="card-body">
+          <div class="card-icon-wrap">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h12"/></svg>
+          </div>
+          <p class="card-step">Start Here</p>
+          <h2 class="card-title">Quick Start Guide</h2>
+          <p class="card-desc">A practitioner's four-step walkthrough built from real advisor workflows — from your first triage session through operational refinement. Packed with pro tips, diagnostic sequences, and the habits that surface results fastest.</p>
+          <ul class="card-features">
+            <li>Quick Triage — read the network in 5 minutes</li>
+            <li>Baseline Review — Profitability Matrix, LOH Analysis, Field Selection</li>
+            <li>Trend Exploration — Area Analysis, Revenue/Volume Change, Lanes of Profit</li>
+            <li>Operational Refinement — QC, Fuel by Bill To, What If Analysis</li>
+          </ul>
+        </div>
+        <div class="card-cta">
+          <span class="card-cta-label">Open Quick Start Guide</span>
+          <svg class="card-cta-arrow" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <!-- CARD 2: ROLE PATHS -->
+      <a href="FreightMath Role Paths.html" class="guide-card card-2">
+        <span class="card-num">02</span>
+        <div class="card-body">
+          <div class="card-icon-wrap">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <p class="card-step">By Role</p>
+          <h2 class="card-title">Role-Based Learning Paths</h2>
+          <p class="card-desc">Tailored guidance for every member of your team — from CEO to dispatcher. Each path covers what your role should monitor, which FM OR components matter most to you, and a beginner-to-expert skill progression with practical workflows.</p>
+          <ul class="card-features">
+            <li>Executive — FM OR trend &amp; strategic accountability</li>
+            <li>Sales Leader — Core OR diagnosis before repricing</li>
+            <li>Pricing Analyst — rate floors &amp; Overhead Workday Model</li>
+            <li>Operations, Dispatch &amp; Finance paths included</li>
+          </ul>
+        </div>
+        <div class="card-cta">
+          <span class="card-cta-label">Open Role Paths</span>
+          <svg class="card-cta-arrow" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <!-- CARD 3: DETAILED USER GUIDE -->
+      <a href="FreightMath Dashboard Pages.html" class="guide-card card-3">
+        <span class="card-num">03</span>
+        <div class="card-body">
+          <div class="card-icon-wrap">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
+          </div>
+          <p class="card-step">Platform Reference</p>
+          <h2 class="card-title">Detailed User Guide</h2>
+          <p class="card-desc">A complete reference for every page in the FreightMath Dashboard — what it shows, how it works, and how segment-level costing powers the underlying analytics. Screenshots and full descriptions for all 15 dashboard pages.</p>
+          <ul class="card-features">
+            <li>Home, Historical Trends, Area Analysis, Bill To by Lane</li>
+            <li>Profitability Matrix, Areas of Profit, Price Impact</li>
+            <li>What If, Length of Haul, Fuel Surcharge by Bill To</li>
+            <li>Quality Control, Field Selection Table &amp; more</li>
+          </ul>
+        </div>
+        <div class="card-cta">
+          <span class="card-cta-label">Open Detailed Guide</span>
+          <svg class="card-cta-arrow" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- CONTEXT STRIP -->
+  <div class="context-strip">
+    <div class="context-strip-text">
+      <p class="context-strip-eyebrow">About the Platform</p>
+      <p class="context-strip-heading">Built on Activity-Based Costing — delivered through Power BI</p>
+      <p class="context-strip-body">FreightMath distributes every dollar of GL cost to the individual load using actual activity drivers — miles, hours under power, and load-specific charges. FM OR is the composite output: Core OR (the load) + IB OR (positioning) + OB OR (reload environment). All analysis runs on <code style="font-family:'JetBrains Mono',monospace;font-size:.8em;background:rgba(255,255,255,0.08);padding:.1em .35em;color:var(--fm-light-blue)">V_CLIENT_DATASET_ORDERS</code> with <code style="font-family:'JetBrains Mono',monospace;font-size:.8em;background:rgba(255,255,255,0.08);padding:.1em .35em;color:var(--fm-light-blue)">ANALYZED_FLAG = 1</code>.</p>
+    </div>
+    <div class="context-strip-pills">
+      <span class="cs-pill">FM OR</span>
+      <span class="cs-pill">Core OR</span>
+      <span class="cs-pill">IB OR</span>
+      <span class="cs-pill">OB OR</span>
+      <span class="cs-pill">MapLedger</span>
+      <span class="cs-pill">BidRight</span>
+      <span class="cs-pill">FreightMarks</span>
+      <span class="cs-pill">Power BI</span>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <a href="https://freightmath-site.vercel.app/" target="_blank" style="display:inline-flex;"><img src="https://info.ksmcpa.com/hubfs/FreightMath/Images/KSM_FM_Logo_RGB_Color.png" alt="FreightMath"></a>
+  <div class="footer-right">
+    <div style="color:var(--fm-light-blue);margin-bottom:.2rem;font-family:'DM Sans',sans-serif;font-size:.6875rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700">A KSM Transport Advisors Platform</div>
+    <div><a href="#">Privacy</a> &nbsp;·&nbsp; <a href="#">Terms</a> &nbsp;·&nbsp; <a href="#">Support</a></div>
+    <div style="margin-top:.25rem">© KSM Transport Advisors</div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quick Start Guide — FreightMath | KSM Transport Advisors</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,500&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --fm-navy:         #0A2463;
+    --fm-blue:         #2C78C9;
+    --fm-orange:       #E26E17;
+    --fm-black:        #000000;
+    --fm-gray:         #6E6E6E;
+    --fm-light-blue:   #96BCE4;
+    --fm-mid-blue:     #8592B1;
+    --fm-light-gray:   #F5F5F5;
+    --fm-warm-gray:    #DCDAD8;
+    --fm-light-orange: #F1B78B;
+    --fm-white:        #FFFFFF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Public Sans', sans-serif;
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--fm-black);
+    background: var(--fm-white);
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--fm-navy);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(10,36,99,0.4);
+  }
+  .site-header img { height: 34px; filter: brightness(0) invert(1); }
+  .header-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--fm-light-blue);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--fm-navy);
+    padding: 4rem 2.5rem 3.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    right: -60px;
+    top: -40px;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(44,120,201,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: 2.5rem;
+    bottom: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--fm-orange) 60%, transparent);
+    opacity: 0.5;
+    transform: skewX(-12deg);
+  }
+  .hero-inner { max-width: 860px; position: relative; }
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--fm-orange);
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    color: var(--fm-white);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .hero h1 strong {
+    font-weight: 700;
+    color: var(--fm-light-blue);
+  }
+  .hero-desc {
+    color: var(--fm-mid-blue);
+    font-size: 1rem;
+    max-width: 560px;
+    line-height: 1.7;
+  }
+
+  /* ── PROGRESS NAV ── */
+  .progress-nav {
+    background: var(--fm-white);
+    border-bottom: 1px solid var(--fm-warm-gray);
+    padding: 0 2.5rem;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .progress-nav::-webkit-scrollbar { display: none; }
+  .nav-step {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 1.5rem 1rem 0;
+    text-decoration: none;
+    color: var(--fm-gray);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav-step:hover { color: var(--fm-blue); border-color: var(--fm-light-blue); }
+  .nav-step.active { color: var(--fm-navy); border-color: var(--fm-orange); }
+  .nav-step-num {
+    width: 22px; height: 22px;
+    background: var(--fm-light-gray);
+    color: var(--fm-gray);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nav-step.active .nav-step-num {
+    background: var(--fm-orange);
+    color: var(--fm-white);
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .guide-body {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 2.5rem 5rem;
+  }
+
+  /* ── SECTION ── */
+  .guide-section {
+    margin-bottom: 4rem;
+    scroll-margin-top: 160px;
+  }
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 2px solid var(--fm-warm-gray);
+  }
+  .step-badge {
+    flex-shrink: 0;
+    width: 48px; height: 48px;
+    background: var(--fm-navy);
+    color: var(--fm-white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .section-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--fm-blue);
+    margin-bottom: 0.25rem;
+  }
+  .section-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: var(--fm-navy);
+    line-height: 1.2;
+  }
+  .section-subtitle {
+    color: var(--fm-gray);
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+  }
+
+  /* ── CARD GRID ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+  }
+
+  /* ── EXPANDABLE CARD ── */
+  .feature-card {
+    background: var(--fm-white);
+    border: 1px solid var(--fm-warm-gray);
+    border-top: 3px solid var(--fm-blue);
+    transition: box-shadow 0.2s, border-top-color 0.2s;
+  }
+  .feature-card:hover {
+    box-shadow: 0 4px 20px rgba(10,36,99,0.1);
+  }
+  .feature-card.accent { border-top-color: var(--fm-orange); }
+
+  .card-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 1.25rem 1.25rem 1.125rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    text-align: left;
+  }
+  .card-trigger-left {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    flex: 1;
+    min-width: 0;
+  }
+  .card-icon {
+    width: 36px; height: 36px;
+    background: var(--fm-light-gray);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: var(--fm-blue);
+  }
+  .feature-card.accent .card-icon { color: var(--fm-orange); }
+
+  .card-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--fm-navy);
+    line-height: 1.3;
+  }
+  .card-meta {
+    font-size: 0.75rem;
+    color: var(--fm-gray);
+    margin-top: 0.15rem;
+    font-family: 'Public Sans', sans-serif;
+  }
+
+  .card-chevron {
+    flex-shrink: 0;
+    width: 24px; height: 24px;
+    color: var(--fm-gray);
+    transition: transform 0.25s ease, color 0.2s;
+  }
+  .feature-card.open .card-chevron {
+    transform: rotate(180deg);
+    color: var(--fm-blue);
+  }
+
+  .card-body {
+    display: none;
+    padding: 0 1.25rem 1.25rem;
+    animation: fadeSlide 0.22s ease;
+  }
+  .feature-card.open .card-body { display: block; }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-divider {
+    height: 1px;
+    background: var(--fm-warm-gray);
+    margin-bottom: 1rem;
+  }
+
+  .card-body p {
+    font-size: 0.875rem;
+    color: var(--fm-black);
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+  }
+  .card-body p:last-child { margin-bottom: 0; }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin-top: 0.875rem;
+  }
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    padding: 0.2em 0.55em;
+    background: var(--fm-light-gray);
+    color: var(--fm-navy);
+    border: 1px solid var(--fm-warm-gray);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .tag.orange {
+    background: #FEF0E6;
+    border-color: var(--fm-light-orange);
+    color: var(--fm-orange);
+  }
+  .tag.blue {
+    background: #EAF2FB;
+    border-color: var(--fm-light-blue);
+    color: var(--fm-blue);
+  }
+
+  .tip-box {
+    background: #EAF2FB;
+    border-left: 3px solid var(--fm-blue);
+    padding: 0.75rem 1rem;
+    margin-top: 0.875rem;
+    font-size: 0.8125rem;
+    color: var(--fm-navy);
+    line-height: 1.6;
+  }
+  .tip-box strong {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    color: var(--fm-blue);
+    display: block;
+    margin-bottom: 0.2rem;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .tip-box.warn {
+    background: #FEF0E6;
+    border-left-color: var(--fm-orange);
+  }
+  .tip-box.warn strong { color: var(--fm-orange); }
+
+  .step-list {
+    list-style: none;
+    counter-reset: step-counter;
+    margin-top: 0.75rem;
+  }
+  .step-list li {
+    counter-increment: step-counter;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-bottom: 0.625rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+  .step-list li::before {
+    content: counter(step-counter);
+    min-width: 22px; height: 22px;
+    background: var(--fm-navy);
+    color: var(--fm-white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8em;
+    background: var(--fm-light-gray);
+    padding: 0.1em 0.35em;
+    border: 1px solid var(--fm-warm-gray);
+    color: var(--fm-navy);
+  }
+
+  .section-intro {
+    font-size: 0.9375rem;
+    color: var(--fm-gray);
+    line-height: 1.7;
+    max-width: 720px;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── COMING SOON PLACEHOLDER ── */
+  .coming-soon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    color: var(--fm-gray);
+    border: 2px dashed var(--fm-warm-gray);
+    margin-top: 2rem;
+  }
+  .coming-soon-icon {
+    width: 56px; height: 56px;
+    background: var(--fm-light-gray);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--fm-mid-blue);
+    margin-bottom: 1rem;
+  }
+  .coming-soon h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--fm-navy);
+    margin-bottom: 0.4rem;
+  }
+  .coming-soon p {
+    font-size: 0.875rem;
+    color: var(--fm-gray);
+    max-width: 360px;
+  }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    background: var(--fm-navy);
+    padding: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .site-footer img { height: 28px; filter: brightness(0) invert(1); opacity: 0.85; }
+  .footer-right {
+    font-size: 0.75rem;
+    color: var(--fm-mid-blue);
+    text-align: right;
+    line-height: 1.6;
+  }
+  .footer-right a { color: var(--fm-light-blue); text-decoration: none; }
+  .footer-right a:hover { text-decoration: underline; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .site-header { padding: 0 1.25rem; }
+    .hero, .guide-body { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .progress-nav { padding: 0 1.25rem; }
+    .card-grid { grid-template-columns: 1fr; }
+    .site-footer { padding: 1.75rem 1.25rem; }
+    .footer-right { text-align: left; }
+  }
+
+  /* ── SHARED PLATFORM NAV ── */
+  .platform-nav {
+    background: #061840;
+    border-bottom: 1px solid rgba(150,188,228,0.12);
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
+    position: sticky;
+    top: 68px;
+    z-index: 99;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .platform-nav::-webkit-scrollbar { display: none; }
+  .platform-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    height: 100%;
+  }
+  .platform-nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0 1rem;
+    height: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--fm-mid-blue);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color 0.18s, border-color 0.18s, background 0.18s;
+  }
+  .platform-nav a:hover {
+    color: var(--fm-light-blue);
+    background: rgba(44,120,201,0.08);
+  }
+  .platform-nav a.active {
+    color: var(--fm-white);
+    border-bottom-color: var(--fm-orange);
+  }
+  .platform-nav-dot {
+    width: 5px; height: 5px;
+    background: var(--fm-orange);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: none;
+  }
+  .platform-nav a.active .platform-nav-dot { display: block; }
+  .platform-nav-glossary {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25em 0.75em;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--fm-light-blue);
+    text-decoration: none;
+    background: rgba(44,120,201,0.08);
+    white-space: nowrap;
+    transition: color 0.18s, background 0.18s;
+    flex-shrink: 0;
+    height: 100%;
+    border-bottom: 2px solid transparent;
+  }
+  .platform-nav-glossary:hover {
+    color: var(--fm-light-blue);
+    background: rgba(44,120,201,0.15);
+  }
+  @media (max-width: 640px) {
+    .platform-nav { padding: 0 1.25rem; top: 68px; }
+  }
+
+  /* ── STEP PROGRESS INDICATOR ── */
+  .step-progress {
+    background: var(--fm-white);
+    border-bottom: 1px solid var(--fm-warm-gray);
+    padding: 1.25rem 2.5rem;
+    position: sticky;
+    top: 108px;
+    z-index: 90;
+    box-shadow: 0 2px 8px rgba(10,36,99,0.06);
+  }
+  .step-progress-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+  .step-progress-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  /* connector line between steps */
+  .step-progress-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: calc(50% + 18px);
+    right: calc(-50% + 18px);
+    height: 2px;
+    background: var(--fm-warm-gray);
+    transition: background 0.3s;
+  }
+  .step-progress-item.sp-complete:not(:last-child)::after { background: var(--fm-blue); }
+  .step-progress-item.sp-active:not(:last-child)::after   { background: var(--fm-warm-gray); }
+
+  .sp-circle {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--fm-light-gray);
+    border: 2px solid var(--fm-warm-gray);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--fm-gray);
+    transition: background 0.25s, border-color 0.25s, color 0.25s;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+  .step-progress-item.sp-complete .sp-circle {
+    background: var(--fm-blue);
+    border-color: var(--fm-blue);
+    color: var(--fm-white);
+  }
+  .step-progress-item.sp-active .sp-circle {
+    background: var(--fm-navy);
+    border-color: var(--fm-navy);
+    color: var(--fm-white);
+    box-shadow: 0 0 0 4px rgba(10,36,99,0.12);
+  }
+  .sp-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--fm-gray);
+    margin-top: 0.4rem;
+    text-align: center;
+    line-height: 1.3;
+    transition: color 0.25s;
+  }
+  .step-progress-item.sp-active .sp-label { color: var(--fm-navy); }
+  .step-progress-item.sp-complete .sp-label { color: var(--fm-blue); }
+  @media (max-width: 640px) {
+    .step-progress { padding: 1rem 1.25rem; top: 108px; }
+    .sp-label { display: none; }
+    .step-progress-item:not(:last-child)::after { top: 17px; }
+  }
+
+  .tip-box.best {
+    background: #F0FAF4;
+    border-left-color: #2E7D32;
+  }
+  .tip-box.best strong { color: #2E7D32; }
+
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="https://freightmath-site.vercel.app/" target="_blank" style="display:inline-flex;"><img src="https://info.ksmcpa.com/hubfs/FreightMath/Images/KSM_FM_Logo_RGB_Color.png" alt="FreightMath"></a>
+  <span class="header-label">Unique Approaches</span>
+</header>
+
+<!-- PLATFORM NAV -->
+<nav class="platform-nav" aria-label="Platform navigation">
+  <div class="platform-nav-links">
+    <a href="FreightMath Guide Page Home.html">Home</a>
+    <a href="FreightMath Quick Start Guide.html" class="active"><span class="platform-nav-dot"></span>Quick Start</a>
+    <a href="FreightMath Role Paths.html">Role Paths</a>
+    <a href="FreightMath Dashboard Pages.html">User Guide</a>
+    
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+    <a href="FreightMath Client Onboarding Schedule.html" class="platform-nav-glossary">
+      <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M8 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-2"/><path d="M17 2H11a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z"/></svg>
+      Onboarding
+    </a>
+    <a href="https://info.ksmcpa.com/hubfs/FreightMath_Glossary.html" class="platform-nav-glossary">
+      <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+      Glossary
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">KSM Transport Advisors</p>
+    <h1>FreightMath<br><strong>Quick Start Guide</strong></h1>
+    <p class="hero-desc">A practitioner's guide to FreightMath — proven workflows, diagnostic habits, and the sequences that surface results fastest. Each step builds on the last, from your first triage session through full operational refinement.</p>
+  </div>
+</section>
+
+
+
+
+
+
+
+  <nav class="progress-nav" aria-label="Guide sections">
+    <a href="#step-1" class="nav-step active">
+      <span class="nav-step-num">1</span> Quick Triage
+    </a>
+    <a href="#step-2" class="nav-step">
+      <span class="nav-step-num">2</span> Baseline Review
+    </a>
+    <a href="#step-3" class="nav-step">
+      <span class="nav-step-num">3</span> Trend Exploration
+    </a>
+    <a href="#step-4" class="nav-step">
+      <span class="nav-step-num">4</span> Operational Refinement
+    </a>
+  </nav>
+
+  <main class="guide-body">
+
+    <!-- ── BRAD STEP 1 ── -->
+    <section class="guide-section" id="step-1">
+      <div class="section-header">
+        <div class="step-badge">01</div>
+        <div class="section-title-block">
+          <p class="section-eyebrow">Step One</p>
+          <h2 class="section-title">Quick Triage</h2>
+          <p class="section-subtitle">Get your bearings in 5 minutes — identify the biggest cost and revenue signals before going deep.</p>
+        </div>
+      </div>
+
+      <p class="section-intro">Begin every FreightMath session here. Unfamiliar with a metric? The <a href="https://info.ksmcpa.com/hubfs/FreightMath_Glossary.html" style="color:var(--fm-blue);">FreightMath Glossary</a> has definitions for every term used across the platform. Quick Triage surfaces the highest-priority items across your network so you know exactly where to focus your analysis time.</p>
+
+      <div class="card-grid">
+
+        <!-- Card 1: Dashboard Home -->
+        <div class="feature-card" data-card>
+          <button class="card-trigger" aria-expanded="false">
+            <div class="card-trigger-left">
+              <div class="card-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+              </div>
+              <div>
+                <div class="card-title">Dashboard Home</div>
+                <div class="card-meta">Start here every session</div>
+              </div>
+            </div>
+            <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="card-body">
+            <div class="card-divider"></div>
+            <p>Look for red arrows representing period-over-period degradation and attack those areas first. The dashboard home gives you an immediate visual signal of where performance has moved in the wrong direction — don't scroll past a red arrow without noting it for follow-up.</p>
+            <div class="tip-box warn">
+              <strong>Pro Tip</strong>
+              Red arrows are your to-do list. Every red arrow on the dashboard home is an action item, not just an observation.
+            </div>
+            <div class="tag-row">
+              <span class="tag orange">Red Arrows</span>
+              <span class="tag blue">Dashboard</span>
+              <span class="tag">Period Over Period</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Areas of Profit -->
+        <div class="feature-card" data-card>
+          <button class="card-trigger" aria-expanded="false">
+            <div class="card-trigger-left">
+              <div class="card-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="card-title">Areas of Profit</div>
+                <div class="card-meta">Find the geographies demanding immediate action</div>
+              </div>
+            </div>
+            <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="card-body">
+            <div class="card-divider"></div>
+            <p>Click the number in the <strong>High Density / High OR</strong> table — those are geographies you need to address immediately. This intersection of high load volume and elevated operating ratio represents your highest-leverage opportunity: significant revenue exposure in areas you're already running hard.</p>
+            <div class="tip-box">
+              <strong>Why This Matters</strong>
+              High density means you have enough data to act with confidence. High OR means the cost structure isn't working. That combination demands urgency.
+            </div>
+            <div class="tag-row">
+              <span class="tag orange">High OR</span>
+              <span class="tag blue">Geography</span>
+              <span class="tag">High Density</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Price Impact -->
+        <div class="feature-card accent" data-card>
+          <button class="card-trigger" aria-expanded="false">
+            <div class="card-trigger-left">
+              <div class="card-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+              </div>
+              <div>
+                <div class="card-title">Price Impact</div>
+                <div class="card-meta">Where rate adjustments move the needle most</div>
+              </div>
+            </div>
+            <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="card-body">
+            <div class="card-divider"></div>
+            <p>Filter to bill-to type <strong>Shipper</strong> and look at the price impact dollar figure in the top table. Those lanes have the greatest opportunity for price adjustment — the dollar figure tells you exactly how much revenue is at stake if you close the gap between current rate and the cost-justified rate.</p>
+            <div class="tip-box">
+              <strong>Filter First</strong>
+              Always set the bill-to filter to Shipper before reading the price impact column. Broker and intermodal lanes have different rate dynamics and will skew your read if included.
+            </div>
+            <div class="tag-row">
+              <span class="tag orange">Price Impact</span>
+              <span class="tag blue">Shipper</span>
+              <span class="tag">Rate Adjustment</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── BRAD STEP 2 ── -->
+    <section class="guide-section" id="step-2">
+      <div class="section-header">
+        <div class="step-badge">02</div>
+        <div class="section-title-block">
+          <p class="section-eyebrow">Step Two</p>
+          <h2 class="section-title">Baseline Review</h2>
+          <p class="section-subtitle">Establish your cost structure foundation before drawing any conclusions from variance.</p>
+        </div>
+      </div>
+
+      <p class="section-intro">With triage complete, move into Baseline Review to understand the structural story behind your numbers — who's performing, who's costing you, and where the operational gaps live.</p>
+
+      <div class="card-grid">
+
+        <!-- Card 1: Profitability Matrix -->
+        <div class="feature-card accent" data-card>
+          <button class="card-trigger" aria-expanded="false">
+            <div class="card-trigger-left">
+              <div class="card-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
+              </div>
+              <div>
+                <div class="card-title">Profitability Matrix</div>
+                <div class="card-meta">Know exactly where every customer stands</div>
+              </div>
+            </div>
+            <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="card-body">
+            <div class="card-divider"></div>
+            <p>This chart can be centered either on your current average FM OR or with an OR of 100 as the center point. I recommend filtering to your <strong>AVG OR</strong> — it gives you a realistic picture of who's above and below your actual baseline, not an arbitrary threshold.</p>
+            <p>Read the four quadrants this way:</p>
+            <ul style="list-style:none; margin: 0.5rem 0 0.75rem; display:flex; flex-direction:column; gap:0.5rem;">
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-blue); display:inline-block;"></span>
+                <span><strong>Top Right — Protect these.</strong> High revenue, favorable OR. These are your best customers; keep them happy and don't let rates erode.</span>
+              </li>
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-light-blue); display:inline-block;"></span>
+                <span><strong>Top Left — Likely backhaul customers.</strong> Lower revenue but good OR. If they're not serving a backhaul purpose, pricing may be an issue worth investigating.</span>
+              </li>
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-light-orange); display:inline-block;"></span>
+                <span><strong>Bottom Right — Operations issue.</strong> High revenue but elevated OR. Most likely a dwell time problem, poor length-of-haul fit, or cost driver inefficiency. Dig in operationally.</span>
+              </li>
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-orange); display:inline-block;"></span>
+                <span><strong>Bottom Left — Act quickly.</strong> Low revenue and high OR. These customers are causing OR pressure. Need pricing or operational attention immediately.</span>
+              </li>
+            </ul>
+            <div class="tag-row">
+              <span class="tag orange">Profitability Matrix</span>
+              <span class="tag blue">Customer OR</span>
+              <span class="tag">Quadrant Analysis</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: LOH Analysis -->
+        <div class="feature-card" data-card>
+          <button class="card-trigger" aria-expanded="false">
+            <div class="card-trigger-left">
+              <div class="card-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <div>
+                <div class="card-title">LOH Analysis</div>
+                <div class="card-meta">Find your sweet spot — then lean into it</div>
+              </div>
+            </div>
+            <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="card-body">
+            <div class="card-divider"></div>
+            <p>Track the <strong>FreightMath OR line</strong> in the combo chart, looking to see where you perform best. Most carriers have a sweet spot in their length-of-haul range that they should actively lean into when making network decisions.</p>
+            <p>For LOH bands with elevated FM OR, dwell time or poor rate alignment to that length of haul are the most common culprits — both need to be addressed. Filter down by customer and/or lane to isolate exactly what is driving the elevation in those bands.</p>
+            <div class="tip-box">
+              <strong>Pro Tip</strong>
+              Once you find the sweet spot, use it as a filter when evaluating new business. If a bid falls outside your best-performing LOH bands, price accordingly or pass.
+            </div>
+            <div class="tag-row">
+              <span class="tag blue">LOH Analysis</span>
+              <span class="tag">Combo Chart</span>
+              <span class="tag orange">Dwell Time</span>
+              <span class="tag">Rate Alignment</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Field Selection Table -->
+        <div class="feature-card" data-card>
+          <button class="card-trigger" aria-expanded="false">
+            <div class="card-trigger-left">
+              <div class="card-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="0"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
+              </div>
+              <div>
+                <div class="card-title">Field Selection Table</div>
+                <div class="card-meta">Your underlying data — built like a pivot table</div>
+              </div>
+            </div>
+            <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="card-body">
+            <div class="card-divider"></div>
+            <p>Now that you've become familiar with the product, you may want to see where to find your underlying data — this is the place to do that. It functions similarly to a pivot table in Excel: select your fields and time period, and the table builds to your specification.</p>
+            <p>Once you have the view you need, exporting is straightforward:</p>
+            <ol class="step-list">
+              <li>Hover over the table to reveal the options toolbar.</li>
+              <li>Click the <strong>three dots</strong> (⋯) in the upper right of the table.</li>
+              <li>Select <strong>Export Data</strong> to download the result set.</li>
+            </ol>
+            <div class="tip-box">
+              <strong>Power User Note</strong>
+              This is the fastest path to building a custom view for a client conversation or board presentation — configure once, export, and you're done.
+            </div>
+            <div class="tag-row">
+              <span class="tag blue">Field Selection</span>
+              <span class="tag">Export</span>
+              <span class="tag">Underlying Data</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── BRAD STEP 3 ── -->
+    <section class="guide-section" id="step-3">
+      <div class="section-header">
+        <div class="step-badge">03</div>
+        <div class="section-title-block">
+          <p class="section-eyebrow">Step Three</p>
+          <h2 class="section-title">Trend Exploration</h2>
+          <p class="section-subtitle">Track movement over time to separate structural problems from noise.</p>
+        </div>
+      </div>
+
+      <p class="section-intro">Trend Exploration is where patterns emerge. These three pages collectively answer the question every operator needs answered: what changed, where, and why?</p>
+
+      <div class="card-grid">
+
+        <!-- Card 1: Area Analysis -->
+        <div class="feature-card accent" data-card>
+          <button class="card-trigger" aria-expanded="false">
+            <div class="card-trigger-left">
+              <div class="card-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+              </div>
+              <div>
+                <div class="card-title">Area Analysis</div>
+                <div class="card-meta">Everything you need to know about a market</div>
+              </div>
+            </div>
+            <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="card-body">
+            <div class="card-divider"></div>
+            <p>It's time to introduce this powerful page. The Area Analysis tells you everything you need to know about a market — the full picture in one view.</p>
+            <p>The page breaks into three zones:</p>
+            <ul style="list-style:none; margin: 0.4rem 0 0.75rem; display:flex; flex-direction:column; gap:0.625rem;">
+              <li style="display:flex; gap:0.75rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.6875rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--fm-blue); padding-top:3px;">Top Table</span>
+                <span>Summary stats for the market. Outside of FM OR and Core OR, I focus on <strong>Broker % in and out</strong> — it tells you immediately how dependent you are on the spot market to fill and exit the area.</span>
+              </li>
+              <li style="display:flex; gap:0.75rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.6875rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--fm-blue); padding-top:3px;">Center</span>
+                <span>Shows what customers and lanes brought you <em>into</em> and <em>out of</em> that market — filterable by customer type and a variety of time windows.</span>
+              </li>
+              <li style="display:flex; gap:0.75rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.6875rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--fm-blue); padding-top:3px;">Right Panel</span>
+                <span>Expandable — shows what days of the week you have your challenges, what areas you deadheaded into the market from or bounced out to, along with their corresponding FM OR.</span>
+              </li>
+            </ul>
+            <p style="font-size:0.875rem;">This page is critical to understanding the flow. Use it before making any market-level network or pricing decision.</p>
+            <div class="tip-box best">
+              <strong>Pro Tip — Go Down the Rabbit Hole</strong>
+              Right-click any customer or lane and drill through to find more details. I actively encourage you to explore — the more you click, the more the market story reveals itself.
+            </div>
+            <div class="tag-row">
+              <span class="tag orange">Area Analysis</span>
+              <span class="tag blue">Market Flow</span>
+              <span class="tag">Broker %</span>
+              <span class="tag">Deadhead</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Revenue/Volume Change -->
+        <div class="feature-card" data-card>
+          <button class="card-trigger" aria-expanded="false">
+            <div class="card-trigger-left">
+              <div class="card-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              </div>
+              <div>
+                <div class="card-title">Revenue / Volume Change</div>
+                <div class="card-meta">Compare periods — find what grew and what shrunk</div>
+              </div>
+            </div>
+            <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="card-body">
+            <div class="card-divider"></div>
+            <p>This page compares periods of <strong>1, 4, or 12 weeks</strong>. The top table shows change in customer bill-to volume — up or down — and how that movement impacted FM OR for each individual bill-to. The bottom table is the same view by lane.</p>
+            <div class="tip-box">
+              <strong>Pro Tip 1 — Find Dangerous Growth</strong>
+              Sort by <strong>largest growth</strong> and look for red FM OR. These are lanes you grew that carried a higher-than-network-average OR — you added volume in the wrong places.
+            </div>
+            <div class="tip-box warn" style="margin-top:0.625rem;">
+              <strong>Pro Tip 2 — Find Hidden Losses</strong>
+              Sort by <strong>most reduced</strong> and look for green numbers in the FM OR column. These are lanes that performed well but you did less of — for some reason volume dropped on your best freight. Find out why.
+            </div>
+            <div class="tip-box" style="margin-top:0.625rem;">
+              <strong>Pro Tip 3 — Broker Lens</strong>
+              Filter by bill-to type <strong>Broker</strong> to see exactly where you booked more or less broker freight by lane. Quickly surfaces over-reliance on spot in specific corridors.
+            </div>
+            <div class="tag-row">
+              <span class="tag blue">Volume Change</span>
+              <span class="tag orange">FM OR</span>
+              <span class="tag">Period Comparison</span>
+              <span class="tag">Broker Filter</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Lanes of Profit -->
+        <div class="feature-card" data-card>
+          <button class="card-trigger" aria-expanded="false">
+            <div class="card-trigger-left">
+              <div class="card-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M3 3h18M3 3v18M3 21l9-9 4 4 5-8"/></svg>
+              </div>
+              <div>
+                <div class="card-title">Lanes of Profit</div>
+                <div class="card-meta">Power Lanes, Repeat Lanes, Spider Lanes</div>
+              </div>
+            </div>
+            <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="card-body">
+            <div class="card-divider"></div>
+            <p>Similar to Areas of Profit from Step 1, this view shows your best and worst OR by how frequently you handle the freight. Volume tiers have names that matter:</p>
+            <ul style="list-style:none; margin: 0.4rem 0 0.75rem; display:flex; flex-direction:column; gap:0.5rem;">
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-navy); display:inline-block;"></span>
+                <span><strong>Power Lanes</strong> — High volume. These define your network identity.</span>
+              </li>
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-blue); display:inline-block;"></span>
+                <span><strong>Repeat Lanes</strong> — Mid volume. The development zone — push these toward Power.</span>
+              </li>
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-light-blue); display:inline-block;"></span>
+                <span><strong>Spider Lanes</strong> — Low volume. Opportunistic freight — the goal is to move these up or evaluate whether they belong in your network at all.</span>
+              </li>
+            </ul>
+            <p style="font-size:0.875rem;">Ideally you want continual improvement by pushing volume up: Spider Lanes → Repeat Lanes → Power Lanes. That progression is a sign of a healthier, more predictable network.</p>
+            <div class="tip-box warn">
+              <strong>Immediate Action</strong>
+              Clicking the <strong>Power Lane / High FM OR</strong> number will show you the lanes that are simultaneously high volume and hurting your network. These need to be addressed immediately — they have the most impact of any bucket in the matrix.
+            </div>
+            <div class="tag-row">
+              <span class="tag orange">Power Lanes</span>
+              <span class="tag blue">Repeat Lanes</span>
+              <span class="tag">Spider Lanes</span>
+              <span class="tag">Lanes of Profit</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── BRAD STEP 4 ── -->
+    <section class="guide-section" id="step-4">
+      <div class="section-header">
+        <div class="step-badge" style="background:var(--fm-orange);">04</div>
+        <div class="section-title-block">
+          <p class="section-eyebrow">Step Four</p>
+          <h2 class="section-title">Operational Refinement</h2>
+          <p class="section-subtitle">Translate findings into decisions — pricing, dispatch, customer strategy, and network design.</p>
+        </div>
+      </div>
+
+      <p class="section-intro">This is where FreightMath analysis converts to action. The tools in this step bring data integrity, revenue clarity, and forward-looking scenario planning together into one final loop.</p>
+
+      <div class="card-grid">
+
+        <!-- Card 1: Quality Control -->
+        <div class="feature-card" data-card>
+          <button class="card-trigger" aria-expanded="false">
+            <div class="card-trigger-left">
+              <div class="card-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+              </div>
+              <div>
+                <div class="card-title">Quality Control</div>
+                <div class="card-meta">Trust your data — find and fix the exceptions</div>
+              </div>
+            </div>
+            <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="card-body">
+            <div class="card-divider"></div>
+            <p>This section surfaces exceptions in the data. Reviewing the underlying causes of each and correcting them will bring the most clarity and organizational trust to FreightMath over time.</p>
+            <p>It's also a quick way to see where some of your largest misses are — because sometimes the outliers are indeed real and not data anomalies. Don't assume every exception is a system error; some are genuine operational problems worth investigating.</p>
+            <div class="tip-box">
+              <strong>Build the Process</strong>
+              Developing internal processes that prevent data integrity issues goes a long way. A carrier that reviews QC regularly ends up with a cleaner, more reliable model than one that only looks at it when something breaks.
+            </div>
+            <div class="tag-row">
+              <span class="tag blue">Quality Control</span>
+              <span class="tag">Data Integrity</span>
+              <span class="tag orange">Exceptions</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Fuel by Bill To -->
+        <div class="feature-card" data-card>
+          <button class="card-trigger" aria-expanded="false">
+            <div class="card-trigger-left">
+              <div class="card-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M3 22V8l9-6 9 6v14"/><path d="M9 22V12h6v10"/><path d="M5 5.5V22M19 5.5V22"/></svg>
+              </div>
+              <div>
+                <div class="card-title">Fuel by Bill To</div>
+                <div class="card-meta">Deep dive into FSC — by customer, by trend</div>
+              </div>
+            </div>
+            <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="card-body">
+            <div class="card-divider"></div>
+            <p>This page takes a deep dive into fuel surcharge, showing how FSC has trended over selected periods. It also allows you to compare across multiple customers simultaneously — making it easy to quickly identify outliers or poor FSC pegs.</p>
+            <p>The three columns to cross-reference are:</p>
+            <ul style="list-style:none; margin: 0.4rem 0 0.75rem; display:flex; flex-direction:column; gap:0.5rem;">
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-navy); display:inline-block;"></span>
+                <span><strong>FM OR</strong> — Overall operating ratio including fuel recovery</span>
+              </li>
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-blue); display:inline-block;"></span>
+                <span><strong>Core OR</strong> — OR with fuel stripped out, isolating your base cost efficiency</span>
+              </li>
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-orange); display:inline-block;"></span>
+                <span><strong>FSC / Billed Mi</strong> — The per-mile fuel surcharge being recovered from this customer</span>
+              </li>
+            </ul>
+            <div class="tip-box warn">
+              <strong>The Critical Question</strong>
+              For customers with poor FSC tables, step back and calculate the impact when diesel is high — and when it's low. Does your linehaul rate provide enough base compensation to offset a weak FSC peg at both extremes of the fuel cycle?
+            </div>
+            <div class="tag-row">
+              <span class="tag orange">FSC</span>
+              <span class="tag blue">Core OR</span>
+              <span class="tag">Fuel Trend</span>
+              <span class="tag">Bill To Comparison</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: What If Analysis -->
+        <div class="feature-card accent" data-card>
+          <button class="card-trigger" aria-expanded="false">
+            <div class="card-trigger-left">
+              <div class="card-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </div>
+              <div>
+                <div class="card-title">What If Analysis</div>
+                <div class="card-meta">The final boss — model your improvements</div>
+              </div>
+            </div>
+            <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="card-body">
+            <div class="card-divider"></div>
+            <p>This page is kind of the <strong>"Final Boss"</strong> of FreightMath. Now that you've learned most of the tools in the platform, this is where you bring it all together — creating hypothetical situations and instantly seeing what the impact to profit would be.</p>
+            <p>Everything you've identified across the four steps feeds into this page. You can estimate what improvements or changes your organization can realistically make and immediately see the dollar impact, including variables like:</p>
+            <ul style="list-style:none; margin: 0.4rem 0 0.75rem; display:flex; flex-direction:column; gap:0.5rem;">
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-orange); display:inline-block;"></span>
+                <span><strong>Broker Mile %</strong> — What happens to OR if you reduce your spot market dependency?</span>
+              </li>
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-blue); display:inline-block;"></span>
+                <span><strong>Deadhead / Load</strong> — What does a 5-mile reduction in average deadhead do to your bottom line?</span>
+              </li>
+            </ul>
+            <div class="tip-box">
+              <strong>Pro Tip</strong>
+              This is the page you use to build the business case for operational change. If leadership needs a number to justify a new dispatch process or a repricing push — build the scenario here first.
+            </div>
+            <div class="tag-row">
+              <span class="tag orange">What If</span>
+              <span class="tag blue">Scenario Modeling</span>
+              <span class="tag">Broker Miles</span>
+              <span class="tag">Deadhead</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</div>
+
+
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <a href="https://freightmath-site.vercel.app/" target="_blank" style="display:inline-flex;"><img src="https://info.ksmcpa.com/hubfs/FreightMath/Images/KSM_FM_Logo_RGB_Color.png" alt="FreightMath"></a>
+  <div class="footer-right">
+    <div style="color: var(--fm-light-blue); margin-bottom:0.2rem; font-family:'DM Sans',sans-serif; font-size:0.6875rem; text-transform:uppercase; letter-spacing:0.1em; font-weight:700;">A KSM Transport Advisors Platform</div>
+    <div><a href="#">Privacy</a> &nbsp;·&nbsp; <a href="#">Terms</a> &nbsp;·&nbsp; <a href="#">Support</a></div>
+    <div style="margin-top:0.25rem;">© KSM Transport Advisors</div>
+  </div>
+</footer>
+
+<script>
+  // ── Expandable cards ──────────────────────────────────────────
+  document.querySelectorAll('[data-card]').forEach(card => {
+    const trigger = card.querySelector('.card-trigger');
+    trigger.addEventListener('click', () => {
+      const isOpen = card.classList.toggle('open');
+      trigger.setAttribute('aria-expanded', isOpen);
+    });
+  });
+
+
+  // ── Step progress indicator ───────────────────────────
+  (function() {
+    const steps = document.querySelectorAll('.guide-section');
+    const items = document.querySelectorAll('.step-progress-item');
+    if (!steps.length || !items.length) return;
+
+    function updateProgress(activeId) {
+      const activeNum = parseInt(activeId.replace('step-', ''));
+      items.forEach(item => {
+        const num = parseInt(item.dataset.step);
+        item.classList.remove('sp-active', 'sp-complete');
+        if (num === activeNum) item.classList.add('sp-active');
+        else if (num < activeNum) item.classList.add('sp-complete');
+      });
+    }
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) updateProgress(entry.target.id);
+      });
+    }, { rootMargin: '-20% 0px -60% 0px' });
+
+    steps.forEach(s => obs.observe(s));
+  })();
+
+  // ── Active nav on scroll ──────────────────────────────────────
+  const sections = document.querySelectorAll('.guide-section');
+  const navLinks = document.querySelectorAll('.nav-step');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

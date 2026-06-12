@@ -688,6 +688,9 @@
 
 
   <nav class="progress-nav" aria-label="Guide sections">
+    <a href="#step-0" class="nav-step">
+      <span class="nav-step-num">0</span> Cost Model
+    </a>
     <a href="#step-1" class="nav-step active">
       <span class="nav-step-num">1</span> Quick Triage
     </a>
@@ -703,6 +706,186 @@
   </nav>
 
   <main class="guide-body">
+
+    <!-- ── STEP 0: HOW THE COST MODEL WORKS ── -->
+    <section class="guide-section" id="step-0">
+      <div class="section-header">
+        <div class="step-badge" style="background:var(--fm-blue);">00</div>
+        <div class="section-title-block">
+          <p class="section-eyebrow">Foundation</p>
+          <h2 class="section-title">How the Cost Model Works</h2>
+          <p class="section-subtitle">Understanding what drives the numbers before you analyze them — the mechanics behind every OR figure in FreightMath.</p>
+        </div>
+      </div>
+
+      <p class="section-intro">FreightMath is an Activity-Based Costing (ABC) model. Every dollar from your GL is distributed to individual loads using actual activity drivers — miles, hours under power, and load-specific charges. Understanding how that distribution works — and the special cost treatments for certain operations — makes every OR figure you see more interpretable.</p>
+
+      <div class="card-grid">
+
+        <!-- Card 0a: FMOR Formula -->
+        <div class="feature-card accent" data-card>
+          <button class="card-trigger" aria-expanded="false">
+            <div class="card-trigger-left">
+              <div class="card-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+              </div>
+              <div>
+                <div class="card-title">The FMOR Formula</div>
+                <div class="card-meta">Core OR + IB OR + OB OR = FreightMath OR</div>
+              </div>
+            </div>
+            <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="card-body">
+            <div class="card-divider"></div>
+            <p><strong>Core OR</strong> is the load itself — revenue generated against the cost to move it. But a load doesn't exist in a vacuum. Every load originates somewhere and delivers somewhere, and those markets carry their own freight conditions.</p>
+            <p>FreightMath captures this with two area-level metrics blended into the final FMOR:</p>
+            <ul style="list-style:none; margin: 0.4rem 0 0.75rem; display:flex; flex-direction:column; gap:0.5rem;">
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-blue); display:inline-block;"></span>
+                <span><strong>IB OR (assigned from origin)</strong> — the average profitability of inbound freight in the market the load picks up from. Reflects demand-side health: how efficiently freight flows into that origin market.</span>
+              </li>
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-orange); display:inline-block;"></span>
+                <span><strong>OB OR (assigned from destination)</strong> — the average profitability of outbound freight in the market the load delivers into. Reflects supply-side health: what awaits the driver after delivery.</span>
+              </li>
+            </ul>
+            <p style="font-size:0.875rem;">IB OR and OB OR are not properties of an individual load — they are properties of a market area, calculated from historical performance of all loads that moved through it. A load inherits the conditions of the markets it touches.</p>
+            <div class="tip-box">
+              <strong>Why FMOR Diverges from Core OR</strong>
+              A strong Core OR load delivering into a market where outbound freight is scarce and costly will carry a high OB OR — pulling FMOR well above what the load itself earned. Two loads with identical Core OR can have very different network cost depending on which markets they touch.
+            </div>
+            <div style="margin-top:1rem; background:var(--fm-light-gray); padding:0.875rem 1rem; border-left:3px solid var(--fm-navy); font-size:0.8125rem;">
+              <div style="font-family:'DM Sans',sans-serif; font-weight:700; font-size:0.6875rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--fm-navy); margin-bottom:0.6rem;">Scenario Reference</div>
+              <table style="width:100%; border-collapse:collapse; font-size:0.8rem;">
+                <thead>
+                  <tr style="border-bottom:1px solid var(--fm-warm-gray);">
+                    <th style="text-align:left; padding:0.25rem 0.5rem 0.25rem 0; color:var(--fm-gray); font-weight:600;">Scenario</th>
+                    <th style="text-align:center; padding:0.25rem 0.375rem; color:var(--fm-gray); font-weight:600;">Core OR</th>
+                    <th style="text-align:center; padding:0.25rem 0.375rem; color:var(--fm-gray); font-weight:600;">IB OR</th>
+                    <th style="text-align:center; padding:0.25rem 0.375rem; color:var(--fm-gray); font-weight:600;">OB OR</th>
+                    <th style="text-align:left; padding:0.25rem 0 0.25rem 0.5rem; color:var(--fm-gray); font-weight:600;">Network Read</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid var(--fm-warm-gray);">
+                    <td style="padding:0.3rem 0.5rem 0.3rem 0; font-size:0.775rem;">Strong load, strong markets</td>
+                    <td style="text-align:center; padding:0.3rem 0.375rem; color:#2E7D32; font-weight:600;">91</td>
+                    <td style="text-align:center; padding:0.3rem 0.375rem; color:#2E7D32; font-weight:600;">90</td>
+                    <td style="text-align:center; padding:0.3rem 0.375rem; color:#2E7D32; font-weight:600;">89</td>
+                    <td style="padding:0.3rem 0 0.3rem 0.5rem; font-size:0.775rem;">Freight worth protecting</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--fm-warm-gray);">
+                    <td style="padding:0.3rem 0.5rem 0.3rem 0; font-size:0.775rem;">Strong load, weak destination</td>
+                    <td style="text-align:center; padding:0.3rem 0.375rem; color:#2E7D32; font-weight:600;">91</td>
+                    <td style="text-align:center; padding:0.3rem 0.375rem; color:#2E7D32; font-weight:600;">90</td>
+                    <td style="text-align:center; padding:0.3rem 0.375rem; color:var(--fm-orange); font-weight:600;">108</td>
+                    <td style="padding:0.3rem 0 0.3rem 0.5rem; font-size:0.775rem;">FMOR pulled up by OB OR</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--fm-warm-gray);">
+                    <td style="padding:0.3rem 0.5rem 0.3rem 0; font-size:0.775rem;">Marginal load, strong markets</td>
+                    <td style="text-align:center; padding:0.3rem 0.375rem; color:var(--fm-gray); font-weight:600;">99</td>
+                    <td style="text-align:center; padding:0.3rem 0.375rem; color:#2E7D32; font-weight:600;">88</td>
+                    <td style="text-align:center; padding:0.3rem 0.375rem; color:#2E7D32; font-weight:600;">87</td>
+                    <td style="padding:0.3rem 0 0.3rem 0.5rem; font-size:0.775rem;">Network value beyond Core OR</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:0.3rem 0.5rem 0.3rem 0; font-size:0.775rem;">Marginal load, weak markets</td>
+                    <td style="text-align:center; padding:0.3rem 0.375rem; color:var(--fm-gray); font-weight:600;">98</td>
+                    <td style="text-align:center; padding:0.3rem 0.375rem; color:var(--fm-orange); font-weight:600;">107</td>
+                    <td style="text-align:center; padding:0.3rem 0.375rem; color:var(--fm-orange); font-weight:600;">110</td>
+                    <td style="padding:0.3rem 0 0.3rem 0.5rem; font-size:0.775rem;">Destroying network value</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tag-row">
+              <span class="tag orange">FMOR</span>
+              <span class="tag blue">IB OR</span>
+              <span class="tag blue">OB OR</span>
+              <span class="tag">Core OR</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 0b: Special Cost Treatments -->
+        <div class="feature-card" data-card>
+          <button class="card-trigger" aria-expanded="false">
+            <div class="card-trigger-left">
+              <div class="card-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              </div>
+              <div>
+                <div class="card-title">Special Cost Treatments</div>
+                <div class="card-meta">Team premiums and reefer fuel — how they're allocated</div>
+              </div>
+            </div>
+            <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="card-body">
+            <div class="card-divider"></div>
+            <p>Two common operating characteristics require specialized cost treatment in FreightMath. Understanding both helps explain why OR on team-driven or temperature-controlled loads may differ from what you'd expect.</p>
+            <p><strong style="color:var(--fm-navy);">Team Driver Premium</strong></p>
+            <p style="font-size:0.875rem;">Team-operated trucks cost more per mile than single-driver trucks — primarily because of higher driver pay. FreightMath accounts for this by weighting team miles at a premium (typically ~37%) when distributing total mileage cost. The model converts all miles to "effective single miles" before computing a cost-per-mile rate, then applies the premium multiplier to team loads. The result: team loads absorb the cost that reflects their actual operational demand, rather than being charged the same per-mile rate as single-driver freight.</p>
+            <p><strong style="color:var(--fm-navy);">Reefer Fuel Allocation</strong></p>
+            <p style="font-size:0.875rem;">For temperature-controlled operations, reefer fuel is allocated proportionally by temperature category — not flat per hour. Each category (Dry, Protect from Freeze, Chill, Frozen, Deep Frozen) carries a planning burn rate that reflects the actual thermodynamic demand it places on the refrigeration unit. Dry loads receive a $0 allocation; deep frozen loads absorb significantly more than chill. Total dollars allocated always equal total dollars pulled from the GL — only the distribution across loads changes.</p>
+            <div class="tip-box warn">
+              <strong>What This Means for Your OR</strong>
+              If your operation includes team drivers or temperature-controlled freight, loads in those categories will carry OR figures that reflect their true cost — not a blended average. Frozen loads that look expensive aren't model errors; they reflect what that freight actually costs to run.
+            </div>
+            <div class="tag-row">
+              <span class="tag">Team Premium</span>
+              <span class="tag blue">Reefer Fuel</span>
+              <span class="tag">Cost Allocation</span>
+              <span class="tag orange">ABC</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 0c: MapLedger -->
+        <div class="feature-card" data-card>
+          <button class="card-trigger" aria-expanded="false">
+            <div class="card-trigger-left">
+              <div class="card-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+              </div>
+              <div>
+                <div class="card-title">MapLedger — GL to Load</div>
+                <div class="card-meta">How your chart of accounts becomes load-level cost</div>
+              </div>
+            </div>
+            <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="card-body">
+            <div class="card-divider"></div>
+            <p>MapLedger is the data layer that connects your GL to FreightMath. Every cost line in your chart of accounts is mapped to an allocation method — variable costs tied directly to activity (miles, hours, load count), and overhead spread across the network using a workday-based model.</p>
+            <ul style="list-style:none; margin: 0.4rem 0 0.75rem; display:flex; flex-direction:column; gap:0.5rem;">
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-blue); display:inline-block;"></span>
+                <span><strong>Variable Costs</strong> — driver pay, fuel, tolls, reefer fuel — allocated based on the actual activity each load generated.</span>
+              </li>
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-navy); display:inline-block;"></span>
+                <span><strong>Overhead Costs</strong> — insurance, depreciation, admin — spread using the Overhead Workday Model, which distributes fixed cost across the operating days in each period.</span>
+              </li>
+            </ul>
+            <p style="font-size:0.875rem;">This mapping is set up during onboarding and reviewed periodically. The quality of your FreightMath OR figures is directly tied to the accuracy of your MapLedger configuration. If an OR figure looks structurally wrong, MapLedger is the first place to investigate.</p>
+            <div class="tip-box">
+              <strong>The Foundation of Every OR</strong>
+              Every OR figure in FreightMath — Core, IB, OB, FM — flows from the MapLedger cost allocation. A clean GL mapping produces trustworthy load-level costs. A miscategorized cost line shows up as systematic OR distortion.
+            </div>
+            <div class="tag-row">
+              <span class="tag blue">MapLedger</span>
+              <span class="tag">GL Mapping</span>
+              <span class="tag">Variable Costs</span>
+              <span class="tag orange">Overhead</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
 
     <!-- ── BRAD STEP 1 ── -->
     <section class="guide-section" id="step-1">
@@ -1211,6 +1394,51 @@
               <span class="tag blue">Scenario Modeling</span>
               <span class="tag">Broker Miles</span>
               <span class="tag">Deadhead</span>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Card 4: Pricing Tools -->
+        <div class="feature-card" data-card>
+          <button class="card-trigger" aria-expanded="false">
+            <div class="card-trigger-left">
+              <div class="card-icon">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20A10 10 0 0012 2z"/><path d="M12 2a14.5 14.5 0 014 10 14.5 14.5 0 01-4 10 14.5 14.5 0 01-4-10 14.5 14.5 0 014-10z"/><path d="M2 12h20"/></svg>
+              </div>
+              <div>
+                <div class="card-title">Pricing with FreightMath</div>
+                <div class="card-meta">BidRight, SpotCheck, and Dedicated Pricing</div>
+              </div>
+            </div>
+            <svg class="card-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="card-body">
+            <div class="card-divider"></div>
+            <p>FreightMath analysis connects directly to a suite of pricing tools. Each is built on the same cost model and OR methodology, so your analytical work flows naturally into rate decisions.</p>
+            <ul style="list-style:none; margin: 0.4rem 0 0.75rem; display:flex; flex-direction:column; gap:0.625rem;">
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-orange); display:inline-block;"></span>
+                <span><strong><a href="https://bidright.com/ksm-advisors/" target="_blank" style="color:var(--fm-blue);">BidRight</a></strong> — Contract bid pricing using your historical FreightMath data. Pulls your actual cost structure into lane-level rate suggestions, with scenario modeling for volume commitments.</span>
+              </li>
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-blue); display:inline-block;"></span>
+                <span><strong>SpotCheck</strong> — Spot rate validation built on your OR thresholds. Quickly evaluate whether a load is priced at or above your cost floor before committing.</span>
+              </li>
+              <li style="display:flex; gap:0.6rem; font-size:0.875rem; line-height:1.6; align-items:flex-start;">
+                <span style="flex-shrink:0; margin-top:3px; width:10px; height:10px; background:var(--fm-navy); display:inline-block;"></span>
+                <span><strong>Dedicated Pricing</strong> — For DCC opportunities, two modes are available: <em>Quick Bid</em> for fast lane-level estimates and <em>Full Version</em> for comprehensive dedicated cost modeling including driver count, equipment utilization, and overhead allocation.</span>
+              </li>
+            </ul>
+            <div class="tip-box best">
+              <strong>Close the Loop</strong>
+              The What If Analysis tells you what change to make. BidRight and SpotCheck are how you make it — they translate your OR diagnosis into a rate floor you can defend in a negotiation.
+            </div>
+            <div class="tag-row">
+              <span class="tag orange">BidRight</span>
+              <span class="tag blue">SpotCheck</span>
+              <span class="tag">Dedicated Pricing</span>
+              <span class="tag">Rate Floor</span>
             </div>
           </div>
         </div>

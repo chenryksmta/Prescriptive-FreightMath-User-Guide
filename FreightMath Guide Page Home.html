@@ -660,7 +660,7 @@ body {
     <div class="context-strip-text">
       <p class="context-strip-eyebrow">About the Platform</p>
       <p class="context-strip-heading">Built on Activity-Based Costing — delivered through Power BI</p>
-      <p class="context-strip-body">FreightMath distributes every dollar of GL cost to the individual load using actual activity drivers — miles, hours under power, and load-specific charges. FM OR is the composite output: Core OR (the load) + IB OR (positioning) + OB OR (reload environment). All analysis runs on <code style="font-family:'JetBrains Mono',monospace;font-size:.8em;background:rgba(255,255,255,0.08);padding:.1em .35em;color:var(--fm-light-blue)">V_CLIENT_DATASET_ORDERS</code> with <code style="font-family:'JetBrains Mono',monospace;font-size:.8em;background:rgba(255,255,255,0.08);padding:.1em .35em;color:var(--fm-light-blue)">ANALYZED_FLAG = 1</code>.</p>
+      <p class="context-strip-body">FreightMath distributes every dollar of GL cost to the individual load using actual activity drivers — miles, hours under power, and load-specific charges — including specialized treatments for team driver premiums and temperature-controlled reefer fuel. FM OR is the composite output: Core OR (the load) + IB OR (origin market conditions) + OB OR (destination market conditions). All analysis runs on <code style="font-family:'JetBrains Mono',monospace;font-size:.8em;background:rgba(255,255,255,0.08);padding:.1em .35em;color:var(--fm-light-blue)">V_CLIENT_DATASET_ORDERS</code> with <code style="font-family:'JetBrains Mono',monospace;font-size:.8em;background:rgba(255,255,255,0.08);padding:.1em .35em;color:var(--fm-light-blue)">ANALYZED_FLAG = 1</code>.</p>
     </div>
     <div class="context-strip-pills">
       <span class="cs-pill">FM OR</span>
@@ -669,12 +669,68 @@ body {
       <span class="cs-pill">OB OR</span>
       <span class="cs-pill">MapLedger</span>
       <span class="cs-pill">BidRight</span>
+      <span class="cs-pill">SpotCheck</span>
       <span class="cs-pill">FreightMarks</span>
+      <span class="cs-pill">FreightFit</span>
+      <span class="cs-pill">FM Insights</span>
       <span class="cs-pill">Power BI</span>
     </div>
   </div>
 
 </main>
+
+  <!-- PRODUCT ECOSYSTEM -->
+  <section style="background:var(--fm-light-gray); border-top:2px solid var(--fm-warm-gray); padding:3rem 2.5rem 3.5rem;">
+    <div style="max-width:1100px; margin:0 auto;">
+      <p style="font-family:'DM Sans',sans-serif; font-size:0.6875rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--fm-blue); margin-bottom:0.4rem;">The FreightMath Ecosystem</p>
+      <h2 style="font-family:'DM Sans',sans-serif; font-size:1.4rem; font-weight:700; color:var(--fm-navy); margin-bottom:0.4rem;">Beyond the Dashboard</h2>
+      <p style="color:var(--fm-gray); font-size:0.875rem; max-width:640px; line-height:1.7; margin-bottom:2rem;">FreightMath is the analytical core, but a broader suite of products extends that analysis into pricing, benchmarking, and dedicated costing.</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:1rem;">
+
+        <div style="background:var(--fm-white); border:1px solid var(--fm-warm-gray); border-top:3px solid var(--fm-blue); padding:1.25rem 1.25rem 1rem;">
+          <div style="font-family:'DM Sans',sans-serif; font-weight:700; color:var(--fm-navy); font-size:0.9375rem; margin-bottom:0.3rem;">FM Dashboards</div>
+          <p style="font-size:0.8rem; color:var(--fm-gray); line-height:1.6; margin:0;">The primary Power BI interface — load-level profitability, lane analysis, and network diagnostics in one platform.</p>
+        </div>
+
+        <div style="background:var(--fm-white); border:1px solid var(--fm-warm-gray); border-top:3px solid var(--fm-orange); padding:1.25rem 1.25rem 1rem;">
+          <div style="font-family:'DM Sans',sans-serif; font-weight:700; color:var(--fm-navy); font-size:0.9375rem; margin-bottom:0.3rem;"><a href="https://bidright.com/ksm-advisors/" target="_blank" style="color:var(--fm-navy); text-decoration:none;">BidRight ↗</a></div>
+          <p style="font-size:0.8rem; color:var(--fm-gray); line-height:1.6; margin:0;">Contract bid pricing using your FreightMath cost structure. Lane-level rate suggestions grounded in your actual OR data.</p>
+        </div>
+
+        <div style="background:var(--fm-white); border:1px solid var(--fm-warm-gray); border-top:3px solid var(--fm-blue); padding:1.25rem 1.25rem 1rem;">
+          <div style="font-family:'DM Sans',sans-serif; font-weight:700; color:var(--fm-navy); font-size:0.9375rem; margin-bottom:0.3rem;">SpotCheck</div>
+          <p style="font-size:0.8rem; color:var(--fm-gray); line-height:1.6; margin:0;">Real-time spot rate validation against your OR cost floor — fast go/no-go decisioning for individual loads.</p>
+        </div>
+
+        <div style="background:var(--fm-white); border:1px solid var(--fm-warm-gray); border-top:3px solid var(--fm-navy); padding:1.25rem 1.25rem 1rem;">
+          <div style="font-family:'DM Sans',sans-serif; font-weight:700; color:var(--fm-navy); font-size:0.9375rem; margin-bottom:0.3rem;">Dedicated Pricing</div>
+          <p style="font-size:0.8rem; color:var(--fm-gray); line-height:1.6; margin:0;">DCC opportunity modeling with Quick Bid for fast estimates and Full Version for comprehensive dedicated cost analysis.</p>
+        </div>
+
+        <div style="background:var(--fm-white); border:1px solid var(--fm-warm-gray); border-top:3px solid var(--fm-blue); padding:1.25rem 1.25rem 1rem;">
+          <div style="font-family:'DM Sans',sans-serif; font-weight:700; color:var(--fm-navy); font-size:0.9375rem; margin-bottom:0.3rem;">FreightMarks</div>
+          <p style="font-size:0.8rem; color:var(--fm-gray); line-height:1.6; margin:0;">Industry benchmarking for truckload carriers — compare your OR, cost structure, and performance metrics against peer data.</p>
+        </div>
+
+        <div style="background:var(--fm-white); border:1px solid var(--fm-warm-gray); border-top:3px solid var(--fm-blue); padding:1.25rem 1.25rem 1rem;">
+          <div style="font-family:'DM Sans',sans-serif; font-weight:700; color:var(--fm-navy); font-size:0.9375rem; margin-bottom:0.3rem;">FreightFit</div>
+          <p style="font-size:0.8rem; color:var(--fm-gray); line-height:1.6; margin:0;">Network fit analysis — evaluate prospective freight against your existing network profile before committing.</p>
+        </div>
+
+        <div style="background:var(--fm-white); border:1px solid var(--fm-warm-gray); border-top:3px solid var(--fm-blue); padding:1.25rem 1.25rem 1rem;">
+          <div style="font-family:'DM Sans',sans-serif; font-weight:700; color:var(--fm-navy); font-size:0.9375rem; margin-bottom:0.3rem;">FM Insights</div>
+          <p style="font-size:0.8rem; color:var(--fm-gray); line-height:1.6; margin:0;">Advisor-curated analysis and commentary — periodic reports surfacing key findings from your FreightMath data.</p>
+        </div>
+
+        <div style="background:var(--fm-white); border:1px solid var(--fm-warm-gray); border-top:3px solid var(--fm-navy); padding:1.25rem 1.25rem 1rem;">
+          <div style="font-family:'DM Sans',sans-serif; font-weight:700; color:var(--fm-navy); font-size:0.9375rem; margin-bottom:0.3rem;">MapLedger</div>
+          <p style="font-size:0.8rem; color:var(--fm-gray); line-height:1.6; margin:0;">The GL-to-load cost mapping layer that powers FreightMath. Maps every cost line to an allocation driver — variable or overhead.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
 
 <!-- FOOTER -->
 <footer class="site-footer">

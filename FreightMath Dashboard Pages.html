@@ -2440,6 +2440,83 @@
 </main>
 
 <!-- ════════════════════════════════════════════════════════
+     IB OR / OB OR METHODOLOGY SECTION
+════════════════════════════════════════════════════════ -->
+<section style="background:var(--fm-light-gray); border-top:2px solid var(--fm-warm-gray); padding:3.5rem 0 4rem;">
+  <div style="max-width:1200px; margin:0 auto; padding:0 2.5rem;">
+
+    <p class="section-eyebrow" style="margin-bottom:0.4rem;">Methodology Reference</p>
+    <h2 style="font-family:'DM Sans',sans-serif; font-size:1.6rem; font-weight:700; color:var(--fm-navy); margin-bottom:0.5rem;">Inbound OR &amp; Outbound OR — How They're Calculated</h2>
+    <p style="color:var(--fm-gray); font-size:0.9375rem; max-width:720px; line-height:1.7; margin-bottom:2.5rem;">Core OR tells you how a single load performed on its own merits. IB OR and OB OR bring the market context behind every load — the area-level profitability conditions that surround each pickup and delivery. Together they form FMOR.</p>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:1.5rem; margin-bottom:2.5rem;">
+
+      <!-- IB OR card -->
+      <div style="background:var(--fm-white); border:1px solid var(--fm-warm-gray); border-top:3px solid var(--fm-blue); padding:1.5rem;">
+        <div style="font-family:'DM Sans',sans-serif; font-size:0.6875rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--fm-blue); margin-bottom:0.4rem;">Inbound OR</div>
+        <h3 style="font-family:'DM Sans',sans-serif; font-size:1.1rem; font-weight:700; color:var(--fm-navy); margin-bottom:0.75rem;">Demand-side market health</h3>
+        <p style="font-size:0.875rem; color:#1a1a1a; line-height:1.7; margin-bottom:0.75rem;">IB OR is the average profitability of all loads delivering into a specific market area — including loads from nearby areas where the driver then deadheaded in for a reload. It reflects how efficiently freight flows into that market.</p>
+        <p style="font-size:0.875rem; color:#1a1a1a; line-height:1.7; margin-bottom:0.75rem;"><strong>Assigned to each load based on its origin market.</strong> A favorable IB OR at the origin means the market is an efficient source of freight — loads pick up at good rates with manageable positioning cost.</p>
+        <div style="background:var(--fm-light-gray); border-left:3px solid var(--fm-blue); padding:0.75rem 1rem; font-size:0.8125rem; color:var(--fm-navy); line-height:1.6;">
+          <strong style="font-family:'DM Sans',sans-serif; font-size:0.6875rem; text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:0.2rem; color:var(--fm-blue);">How It's Built</strong>
+          Direct deliveries to the area + loads from nearby areas connected via deadhead, weighted by load count into a single blended area average. Empty miles use only intra-area deadhead for direct loads, and the actual cross-market deadhead cost for loads drawn from neighboring markets.
+        </div>
+      </div>
+
+      <!-- OB OR card -->
+      <div style="background:var(--fm-white); border:1px solid var(--fm-warm-gray); border-top:3px solid var(--fm-orange); padding:1.5rem;">
+        <div style="font-family:'DM Sans',sans-serif; font-size:0.6875rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--fm-orange); margin-bottom:0.4rem;">Outbound OR</div>
+        <h3 style="font-family:'DM Sans',sans-serif; font-size:1.1rem; font-weight:700; color:var(--fm-navy); margin-bottom:0.75rem;">Supply-side market health</h3>
+        <p style="font-size:0.875rem; color:#1a1a1a; line-height:1.7; margin-bottom:0.75rem;">OB OR is the average profitability of all loads picking up from a specific market area — including loads in neighboring markets that drivers deadheaded into after leaving this area. It reflects how efficiently freight originates from that market.</p>
+        <p style="font-size:0.875rem; color:#1a1a1a; line-height:1.7; margin-bottom:0.75rem;"><strong>Assigned to each load based on its destination market.</strong> A favorable OB OR at the destination means the driver reloads well after delivery — the market generates efficient outbound freight.</p>
+        <div style="background:var(--fm-light-gray); border-left:3px solid var(--fm-orange); padding:0.75rem 1rem; font-size:0.8125rem; color:var(--fm-navy); line-height:1.6;">
+          <strong style="font-family:'DM Sans',sans-serif; font-size:0.6875rem; text-transform:uppercase; letter-spacing:0.1em; display:block; margin-bottom:0.2rem; color:var(--fm-orange);">How It's Built</strong>
+          Direct pickups from the area + loads from nearby areas connected via outbound deadhead, weighted by load count. For direct loads, only pre-haul intra-area deadhead is used. For drivers who crossed a market boundary to reach a pickup, the full cost of that deadhead leg — and the revenue it generated — belong to this area's outbound picture.
+        </div>
+      </div>
+
+      <!-- FMOR formula summary -->
+      <div style="background:var(--fm-navy); border:1px solid var(--fm-navy); padding:1.5rem; display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:0.6875rem; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--fm-light-blue); margin-bottom:0.4rem;">The Full Picture</div>
+          <h3 style="font-family:'DM Sans',sans-serif; font-size:1.1rem; font-weight:700; color:var(--fm-white); margin-bottom:0.75rem;">FreightMath OR (FMOR)</h3>
+          <p style="font-size:0.875rem; color:var(--fm-light-blue); line-height:1.7; margin-bottom:1rem;">Together, Core OR, IB OR, and OB OR form FMOR — the primary load-level profitability metric. It captures what the load cost, the conditions it came from, and the conditions it delivered into.</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-top:0.5rem;">
+          <div style="background:rgba(44,120,201,0.25); border:1px solid var(--fm-blue); padding:0.5rem 0.75rem; text-align:center;">
+            <div style="font-family:'DM Sans',sans-serif; font-weight:700; color:var(--fm-white); font-size:0.875rem;">COR</div>
+            <div style="font-size:0.65rem; color:var(--fm-light-blue); line-height:1.3; margin-top:0.15rem;">The load itself</div>
+          </div>
+          <span style="color:var(--fm-warm-gray); font-size:1.2rem; font-weight:300;">+</span>
+          <div style="background:rgba(44,120,201,0.25); border:1px solid var(--fm-blue); padding:0.5rem 0.75rem; text-align:center;">
+            <div style="font-family:'DM Sans',sans-serif; font-weight:700; color:var(--fm-white); font-size:0.875rem;">IB OR</div>
+            <div style="font-size:0.65rem; color:var(--fm-light-blue); line-height:1.3; margin-top:0.15rem;">Origin market</div>
+          </div>
+          <span style="color:var(--fm-warm-gray); font-size:1.2rem; font-weight:300;">+</span>
+          <div style="background:rgba(44,120,201,0.25); border:1px solid var(--fm-blue); padding:0.5rem 0.75rem; text-align:center;">
+            <div style="font-family:'DM Sans',sans-serif; font-weight:700; color:var(--fm-white); font-size:0.875rem;">OB OR</div>
+            <div style="font-size:0.65rem; color:var(--fm-light-blue); line-height:1.3; margin-top:0.15rem;">Destination market</div>
+          </div>
+          <span style="color:var(--fm-orange); font-size:1.2rem; font-weight:300;">=</span>
+          <div style="background:var(--fm-orange); border:1px solid var(--fm-orange); padding:0.5rem 0.75rem; text-align:center;">
+            <div style="font-family:'DM Sans',sans-serif; font-weight:700; color:var(--fm-white); font-size:0.875rem;">FMOR</div>
+            <div style="font-size:0.65rem; color:rgba(255,255,255,0.8); line-height:1.3; margin-top:0.15rem;">Full network OR</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Key insight callout -->
+    <div style="background:var(--fm-white); border:1px solid var(--fm-warm-gray); border-left:4px solid var(--fm-blue); padding:1.25rem 1.5rem; max-width:800px;">
+      <div style="font-family:'DM Sans',sans-serif; font-size:0.6875rem; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; color:var(--fm-blue); margin-bottom:0.4rem;">Why FMOR Diverges from Core OR</div>
+      <p style="font-size:0.875rem; color:#1a1a1a; line-height:1.7; margin:0;">Two loads with identical Core OR can have very different FMOR depending on which markets they touch. A load running between two efficient, well-balanced markets will carry a FMOR close to its Core OR. A load delivering into a market where outbound freight is scarce or expensive will see its FMOR pulled significantly higher — the OB OR at the destination is reflecting the true cost of positioning the driver for the next move. IB OR and OB OR make this market context visible in every number.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════
      GLOSSARY SECTION
 ════════════════════════════════════════════════════════ -->
 <section id="glossary" class="glossary-section" style="padding:0;background:var(--fm-light-gray);">

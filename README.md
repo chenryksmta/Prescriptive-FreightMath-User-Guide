@@ -16,4 +16,4 @@ Comprehensive documentation for the FreightMath platform by KSM Transport Adviso
 
 This site is published via GitHub Pages from the `main` branch root.
 
-**Live site:** https://ksmtabheisterkamp.github.io/Prescriptive-FreightMath-User-Guide/
+**Live site:** https://chenryksmta.github.io/Prescriptive-FreightMath-User-Guide/
